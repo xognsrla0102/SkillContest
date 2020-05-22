@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="0:main">
+      <UniqueIdentifier>{56dd42e6-ecbf-4759-9bd4-c7a957caf425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers">
+      <UniqueIdentifier>{b8fdac5e-c078-47ed-9527-5abe7df5fe27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers\singleton">
+      <UniqueIdentifier>{09a92670-65e6-4afe-8ab6-803b3b7ffcf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers\scene">
+      <UniqueIdentifier>{17e3f253-1a2d-4c98-92cc-b9b64ed33d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:util">
+      <UniqueIdentifier>{98221f6f-5610-4912-a37a-265df5fb9865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:util\DXUT">
+      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:util\Shaders">
+      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
+      <Extensions>fx;fxh;hlsl</Extensions>
+    </Filter>
+    <Filter Include="3:util\Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="3:util\_stdafx">
+      <UniqueIdentifier>{af5edd4c-b496-4e34-b720-38ec5aefed28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2:objects">
+      <UniqueIdentifier>{37e8471a-429a-4096-968c-5a1b890230bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2:objects\scenes">
+      <UniqueIdentifier>{0bb9ee29-e297-4ab2-a4ce-fda6a9dcc780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2:objects\scenes\scene">
+      <UniqueIdentifier>{8a66339b-78a1-4340-98f0-7b002e2fb49f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2:objects\scenes\loadScene">
+      <UniqueIdentifier>{f45787cf-374a-4b50-923f-c5173dfd1283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2:objects\scenes\titleScene">
+      <UniqueIdentifier>{d4a44eff-6b37-46d9-be5e-456406efcd28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers\image">
+      <UniqueIdentifier>{773d5fe7-6525-4905-8336-4686ecc04013}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DXUT\Optional\directx.ico">
+      <Filter>3:util\Resource Files</Filter>
+    </None>
+    <ClInclude Include="DXUT\Core\DXUT.h">
+      <Filter>3:util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Core\DXUTenum.h">
+      <Filter>3:util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Core\DXUTmisc.h">
+      <Filter>3:util\DXUT</Filter>
+    </ClInclude>
+    <ClCompile Include="DXUT\Core\DXUT.cpp">
+      <Filter>3:util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Core\DXUTenum.cpp">
+      <Filter>3:util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Core\DXUTmisc.cpp">
+      <Filter>3:util\DXUT</Filter>
+    </ClCompile>
+    <ClInclude Include="DXUT\Optional\DXUTcamera.h">
+      <Filter>3:util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\DXUTgui.h">
+      <Filter>3:util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\DXUTres.h">
+      <Filter>3:util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\DXUTsettingsdlg.h">
+      <Filter>3:util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKmesh.h">
+      <Filter>3:util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKmisc.h">
+      <Filter>3:util\DXUT</Filter>
+    </ClInclude>
+    <ClCompile Include="DXUT\Optional\DXUTcamera.cpp">
+      <Filter>3:util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\DXUTgui.cpp">
+      <Filter>3:util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\DXUTres.cpp">
+      <Filter>3:util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\DXUTsettingsdlg.cpp">
+      <Filter>3:util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKmesh.cpp">
+      <Filter>3:util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKmisc.cpp">
+      <Filter>3:util\DXUT</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cMain.cpp">
+      <Filter>0:main</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillContest_2020.05.cpp">
+      <Filter>0:main</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>3:util\_stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>1:managers\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="cScene.cpp">
+      <Filter>2:objects\scenes\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="cImageManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CLInclude Include="resource.h">
+      <Filter>3:util\Resource Files</Filter>
+    </CLInclude>
+    <ResourceCompile Include="SkillContest_2020.05.rc">
+      <Filter>3:util\Resource Files</Filter>
+    </ResourceCompile>
+    <ClInclude Include="cMain.h">
+      <Filter>0:main</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>3:util\_stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="cSingleton.hpp">
+      <Filter>1:managers\singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneManager.h">
+      <Filter>1:managers\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="cScene.h">
+      <Filter>2:objects\scenes\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="cImageManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
