@@ -16,7 +16,7 @@ void cLoadScene::Init()
 
 void cLoadScene::Update()
 {
-	if (GetAsyncKeyState(VK_SPACE) & 0x0001) {
+	if (KEYDOWN(DIK_SPACE)) {
 		SOUND->Copy("Title");
 	}
 }
