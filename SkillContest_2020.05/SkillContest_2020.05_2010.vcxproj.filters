@@ -7,105 +7,156 @@
     <Filter Include="1:managers">
       <UniqueIdentifier>{b8fdac5e-c078-47ed-9527-5abe7df5fe27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1:managers\singleton">
-      <UniqueIdentifier>{09a92670-65e6-4afe-8ab6-803b3b7ffcf6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1:managers\scene">
       <UniqueIdentifier>{17e3f253-1a2d-4c98-92cc-b9b64ed33d58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3:util">
-      <UniqueIdentifier>{98221f6f-5610-4912-a37a-265df5fb9865}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3:util\DXUT">
-      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3:util\Shaders">
-      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
-      <Extensions>fx;fxh;hlsl</Extensions>
-    </Filter>
-    <Filter Include="3:util\Resource Files">
-      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
-    </Filter>
-    <Filter Include="3:util\_stdafx">
-      <UniqueIdentifier>{af5edd4c-b496-4e34-b720-38ec5aefed28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2:objects">
-      <UniqueIdentifier>{37e8471a-429a-4096-968c-5a1b890230bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2:objects\scenes">
-      <UniqueIdentifier>{0bb9ee29-e297-4ab2-a4ce-fda6a9dcc780}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2:objects\scenes\scene">
-      <UniqueIdentifier>{8a66339b-78a1-4340-98f0-7b002e2fb49f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2:objects\scenes\loadScene">
-      <UniqueIdentifier>{f45787cf-374a-4b50-923f-c5173dfd1283}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2:objects\scenes\titleScene">
-      <UniqueIdentifier>{d4a44eff-6b37-46d9-be5e-456406efcd28}</UniqueIdentifier>
     </Filter>
     <Filter Include="1:managers\image">
       <UniqueIdentifier>{773d5fe7-6525-4905-8336-4686ecc04013}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1:managers\sound">
+      <UniqueIdentifier>{4d169d56-c4ff-4e24-8b62-99ec87bf0ac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers\_singleton">
+      <UniqueIdentifier>{09a92670-65e6-4afe-8ab6-803b3b7ffcf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers\camera">
+      <UniqueIdentifier>{0f44e149-e7a1-4598-a7fe-68cef96fc02b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2:system">
+      <UniqueIdentifier>{26a22dc5-7e3e-4d1c-8084-8fa75f3a684b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects">
+      <UniqueIdentifier>{37e8471a-429a-4096-968c-5a1b890230bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\scenes">
+      <UniqueIdentifier>{0bb9ee29-e297-4ab2-a4ce-fda6a9dcc780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\scenes\scene">
+      <UniqueIdentifier>{8a66339b-78a1-4340-98f0-7b002e2fb49f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\scenes\loadScene">
+      <UniqueIdentifier>{f45787cf-374a-4b50-923f-c5173dfd1283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\scenes\titleScene">
+      <UniqueIdentifier>{d4a44eff-6b37-46d9-be5e-456406efcd28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4:util">
+      <UniqueIdentifier>{98221f6f-5610-4912-a37a-265df5fb9865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4:util\DXUT">
+      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4:util\Shaders">
+      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
+      <Extensions>fx;fxh;hlsl</Extensions>
+    </Filter>
+    <Filter Include="4:util\Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="4:util\_stdafx">
+      <UniqueIdentifier>{af5edd4c-b496-4e34-b720-38ec5aefed28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2:system\timer">
+      <UniqueIdentifier>{019b0fd6-0056-4ee3-a60c-72bdbf2734ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers\input">
+      <UniqueIdentifier>{d76aa1b5-eeae-4fcb-8acc-cfa435f86c62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers\input\input">
+      <UniqueIdentifier>{4f2061c4-66ef-4a95-ae87-bab34380eed9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers\game">
+      <UniqueIdentifier>{0d70e937-ed14-4049-bf76-04a12a61d9ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:component">
+      <UniqueIdentifier>{79c07d26-d793-42e3-a101-3ad41ddd8ca4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:component\animation">
+      <UniqueIdentifier>{b08e4db8-aa85-46d6-aeae-10eefa5d4c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:component\animator">
+      <UniqueIdentifier>{12c03dcc-05a1-4f3a-8d49-b0de4831cd09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:component\renderer">
+      <UniqueIdentifier>{f79a7a61-e438-40bd-a224-15ddb17e9a84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\object">
+      <UniqueIdentifier>{5ab71bd8-c818-4298-af9e-d2dff052c006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:managers\object">
+      <UniqueIdentifier>{c41e22c2-5ff6-46c6-ba6e-3bdb0bf96ef5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:component\collider">
+      <UniqueIdentifier>{14e5dcd8-71e6-4994-9a7d-013c05668ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:component\collider\box">
+      <UniqueIdentifier>{54b642b8-2b3e-4cf7-a562-ad3fe0ffe62f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1:component\collider\circle">
+      <UniqueIdentifier>{853ab84b-6e16-4ed0-a65c-b006820b1f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4:util\math">
+      <UniqueIdentifier>{0dab600c-ca5d-4b25-86b3-3ab159866142}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
-      <Filter>3:util\Resource Files</Filter>
+      <Filter>4:util\Resource Files</Filter>
     </None>
     <ClInclude Include="DXUT\Core\DXUT.h">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClInclude>
     <ClInclude Include="DXUT\Core\DXUTenum.h">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClInclude>
     <ClInclude Include="DXUT\Core\DXUTmisc.h">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClInclude>
     <ClCompile Include="DXUT\Core\DXUT.cpp">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClCompile>
     <ClCompile Include="DXUT\Core\DXUTenum.cpp">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClCompile>
     <ClCompile Include="DXUT\Core\DXUTmisc.cpp">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClCompile>
     <ClInclude Include="DXUT\Optional\DXUTcamera.h">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClInclude>
     <ClInclude Include="DXUT\Optional\DXUTgui.h">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClInclude>
     <ClInclude Include="DXUT\Optional\DXUTres.h">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClInclude>
     <ClInclude Include="DXUT\Optional\DXUTsettingsdlg.h">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClInclude>
     <ClInclude Include="DXUT\Optional\SDKmesh.h">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClInclude>
     <ClInclude Include="DXUT\Optional\SDKmisc.h">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClInclude>
     <ClCompile Include="DXUT\Optional\DXUTcamera.cpp">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClCompile>
     <ClCompile Include="DXUT\Optional\DXUTgui.cpp">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClCompile>
     <ClCompile Include="DXUT\Optional\DXUTres.cpp">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClCompile>
     <ClCompile Include="DXUT\Optional\DXUTsettingsdlg.cpp">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClCompile>
     <ClCompile Include="DXUT\Optional\SDKmesh.cpp">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClCompile>
     <ClCompile Include="DXUT\Optional\SDKmisc.cpp">
-      <Filter>3:util\DXUT</Filter>
+      <Filter>4:util\DXUT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,39 +167,151 @@
       <Filter>0:main</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>3:util\_stdafx</Filter>
+      <Filter>4:util\_stdafx</Filter>
     </ClCompile>
     <ClCompile Include="cSceneManager.cpp">
       <Filter>1:managers\scene</Filter>
     </ClCompile>
     <ClCompile Include="cScene.cpp">
-      <Filter>2:objects\scenes\scene</Filter>
+      <Filter>3:objects\scenes\scene</Filter>
     </ClCompile>
-    <ClCompile Include="cImageManager.cpp" />
+    <ClCompile Include="cImageManager.cpp">
+      <Filter>1:managers\image</Filter>
+    </ClCompile>
+    <ClCompile Include="cLoadScene.cpp">
+      <Filter>3:objects\scenes\loadScene</Filter>
+    </ClCompile>
+    <ClCompile Include="cSoundManager.cpp">
+      <Filter>1:managers\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKsound.cpp">
+      <Filter>4:util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKwavefile.cpp">
+      <Filter>4:util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="cCameraManager.cpp">
+      <Filter>1:managers\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="cTimer.cpp">
+      <Filter>2:system\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="cInput.cpp">
+      <Filter>1:managers\input\input</Filter>
+    </ClCompile>
+    <ClCompile Include="cInputManager.cpp">
+      <Filter>1:managers\input</Filter>
+    </ClCompile>
+    <ClCompile Include="cAnimation.cpp">
+      <Filter>1:component\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="cComponent.cpp">
+      <Filter>1:component</Filter>
+    </ClCompile>
+    <ClCompile Include="cAnimator.cpp">
+      <Filter>1:component\animator</Filter>
+    </ClCompile>
+    <ClCompile Include="cRenderer.cpp">
+      <Filter>1:component\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameManager.cpp">
+      <Filter>1:managers\game</Filter>
+    </ClCompile>
+    <ClCompile Include="cObject.cpp">
+      <Filter>3:objects\object</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjectManager.cpp">
+      <Filter>1:managers\object</Filter>
+    </ClCompile>
+    <ClCompile Include="cCircleCollider.cpp">
+      <Filter>1:component\collider\circle</Filter>
+    </ClCompile>
+    <ClCompile Include="cBoxCollider.cpp">
+      <Filter>1:component\collider\box</Filter>
+    </ClCompile>
+    <ClCompile Include="cMath.cpp">
+      <Filter>4:util\math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
-      <Filter>3:util\Resource Files</Filter>
+      <Filter>4:util\Resource Files</Filter>
     </CLInclude>
     <ResourceCompile Include="SkillContest_2020.05.rc">
-      <Filter>3:util\Resource Files</Filter>
+      <Filter>4:util\Resource Files</Filter>
     </ResourceCompile>
     <ClInclude Include="cMain.h">
       <Filter>0:main</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>3:util\_stdafx</Filter>
+      <Filter>4:util\_stdafx</Filter>
     </ClInclude>
     <ClInclude Include="cSingleton.hpp">
-      <Filter>1:managers\singleton</Filter>
+      <Filter>1:managers\_singleton</Filter>
     </ClInclude>
     <ClInclude Include="cSceneManager.h">
       <Filter>1:managers\scene</Filter>
     </ClInclude>
     <ClInclude Include="cScene.h">
-      <Filter>2:objects\scenes\scene</Filter>
+      <Filter>3:objects\scenes\scene</Filter>
     </ClInclude>
-    <ClInclude Include="cImageManager.h" />
+    <ClInclude Include="cImageManager.h">
+      <Filter>1:managers\image</Filter>
+    </ClInclude>
+    <ClInclude Include="cLoadScene.h">
+      <Filter>3:objects\scenes\loadScene</Filter>
+    </ClInclude>
+    <ClInclude Include="cSoundManager.h">
+      <Filter>1:managers\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKsound.h">
+      <Filter>4:util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKwavefile.h">
+      <Filter>4:util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="cCameraManager.h">
+      <Filter>1:managers\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="cTimer.h">
+      <Filter>2:system\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="cInput.h">
+      <Filter>1:managers\input\input</Filter>
+    </ClInclude>
+    <ClInclude Include="cInputManager.h">
+      <Filter>1:managers\input</Filter>
+    </ClInclude>
+    <ClInclude Include="cAnimation.h">
+      <Filter>1:component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="cComponent.h">
+      <Filter>1:component</Filter>
+    </ClInclude>
+    <ClInclude Include="cAnimator.h">
+      <Filter>1:component\animator</Filter>
+    </ClInclude>
+    <ClInclude Include="cRenderer.h">
+      <Filter>1:component\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameManager.h">
+      <Filter>1:managers\game</Filter>
+    </ClInclude>
+    <ClInclude Include="cObject.h">
+      <Filter>3:objects\object</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjectManager.h">
+      <Filter>1:managers\object</Filter>
+    </ClInclude>
+    <ClInclude Include="cCircleCollider.h">
+      <Filter>1:component\collider\circle</Filter>
+    </ClInclude>
+    <ClInclude Include="cBoxCollider.h">
+      <Filter>1:component\collider\box</Filter>
+    </ClInclude>
+    <ClInclude Include="cMath.h">
+      <Filter>4:util\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

@@ -72,7 +72,11 @@
 #include <shlobj.h>
 #include <math.h>      
 #include <limits.h>      
+#include <functional>
+#include <list>
 #include <stdio.h>
+
+#pragma comment(lib, "winmm.lib")
 
 // CRT's memory leak detection
 #if defined(DEBUG) || defined(_DEBUG)
@@ -98,6 +102,7 @@
 #include <dxerr.h>
 
 auto __vsnwprintf = _vsnwprintf;
+
 
 #if defined(DEBUG) || defined(_DEBUG)
 #ifndef V

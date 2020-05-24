@@ -1,29 +1,34 @@
 #include "DXUT.h"
 #include "cImageManager.h"
 
-void cTexture::Render(VEC2 pos, VEC2 size, FLOAT rot, D3DXCOLOR color)
+void cTexture::Render(VEC2 pos, VEC2 size, FLOAT rot, BOOL isCenterRot, D3DXCOLOR color)
 {
-	IMAGE->Render(this, pos, size, rot, color);
+	IMAGE->Render(this, pos, size, rot, isCenterRot, color);
 }
 
-void cTexture::Render(FLOAT x, FLOAT y, FLOAT rot)
+void cTexture::CenterRender(VEC2 pos, VEC2 size, FLOAT rot, BOOL isCenterRot, D3DXCOLOR color)
 {
-	IMAGE->Render(this, x, y, rot);
-}
-
-void cTexture::CenterRender(VEC2 pos, VEC2 size, FLOAT rot, D3DXCOLOR color)
-{
-	IMAGE->CenterRender(this, pos, size, rot, color);
-}
-
-void cTexture::CenterRender(FLOAT x, FLOAT y, FLOAT rot)
-{
-	IMAGE->CenterRender(this, x, y, rot);
+	IMAGE->CenterRender(this, pos, size, rot, isCenterRot, color);
 }
 
 void cImageManager::Init()
 {
 	D3DXCreateSprite(DEVICE, &m_sprite);
+
+	D3DXCreateFontW(
+		DEVICE,
+		20,
+		0,
+		FW_NORMAL,
+		1,
+		FALSE,
+		DEFAULT_CHARSET,
+		OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE,
+		L"Arial",
+		&m_font
+	);
 }
 
 void cImageManager::Release()
@@ -49,7 +54,7 @@ cImageManager::~cImageManager()
 void cImageManager::AddImage(const string& key, const string& path)
 {
 	if (m_images.find(key) != m_images.end()) {
-		DEBUG_LOG("같은 이름의 이미지가 있습니다.\n");
+		DEBUG_LOG("%s 이미지가 이미 있습니다.\n", key.c_str());
 		return;
 	}
 
@@ -66,15 +71,24 @@ void cImageManager::AddImage(const string& key, const string& path)
 cTexture* cImageManager::FindImage(const string& key)
 {
 	if (m_images.find(key) == m_images.end()) {
-		DEBUG_LOG("찾는 이미지가 없습니다.\n");
+		DEBUG_LOG("%s 이미지가 없습니다.\n", key.c_str());
 		return nullptr;
 	}
 	return m_images.find(key)->second;
 }
 
-void cImageManager::Begin()
+void cImageManager::Begin(BOOL isUI)
 {
-	m_sprite->Begin(D3DXSPRITE_ALPHABLEND);
+	if (isUI)
+		m_sprite->Begin(D3DXSPRITE_ALPHABLEND);
+	else
+		m_sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE);
+}
+
+void cImageManager::ReBegin(BOOL isUI)
+{
+	End();
+	Begin(isUI);
 }
 
 void cImageManager::End()
@@ -128,12 +142,18 @@ void cImageManager::CenterRender(cTexture* texturePtr, VEC2 pos, VEC2 size, FLOA
 	}
 }
 
-void cImageManager::RenderText(string Text, VEC2 Pos, VEC2 Size, D3DXCOLOR Color)
+void cImageManager::DrawFont(string text, VEC2 pos, D3DCOLOR color)
 {
-}
+	RECT rt = { pos.x, pos.y, 0, 0 };
 
-void cImageManager::RenderTextCenter(string Text, VEC2 Pos, VEC2 Size, D3DXCOLOR Color)
-{
+	m_font->DrawTextW(
+		nullptr,
+		(LPWSTR)text.c_str(),
+		-1,
+		&rt,
+		DT_NOCLIP,
+		color
+	);
 }
 
 void cImageManager::LostDevice()
@@ -146,8 +166,21 @@ void cImageManager::ResetDevice()
 	m_sprite->OnResetDevice();
 }
 
-vector<cTexture*> cImageManager::makeVector(const string& key)
+vector<cTexture*> cImageManager::MakeAnimation(const string& key)
 {
-	return vector<cTexture*>();
+	char _key[50];
+	cTexture* image;
+	sprintf(_key, "%s0", key.c_str());
+	image = FindImage(_key);
+	vector<cTexture*> result;
+	result.push_back(image);
+	for (int i = 1;; ++i) {
+		sprintf(_key, "%s%d", key.c_str(), i);
+		if (image = FindImage(_key))
+			result.push_back(image);
+		else
+			break;
+	}
+	return result;
 }
 

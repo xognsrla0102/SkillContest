@@ -12,7 +12,7 @@ private:
 	void Release();
 public:
 	cSceneManager();
-	~cSceneManager();
+	virtual ~cSceneManager();
 
 	void AddScene(const string& key, cScene* scenePtr);
 	cScene* ChangeScene(const string& key);

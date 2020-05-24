@@ -1,5 +1,5 @@
 #include "DXUT.h"
-//#include "cScene.h"
+#include "cScene.h"
 #include "cSceneManager.h"
 
 void cSceneManager::Release()
@@ -27,17 +27,17 @@ void cSceneManager::AddScene(const string& key, cScene* scenePtr)
 		return;
 	}
 	if (m_scenes.find(key) != m_scenes.end()) {
-		DEBUG_LOG("같은 이름의 씬이 있습니다.\n");
+		DEBUG_LOG("%s 씬이 있습니다.\n", key.c_str());
 		return;
 	}
 	m_scenes[key] = scenePtr;
-	DEBUG_LOG("%s 씬 생성완료.\n", key);
+	DEBUG_LOG("%s 씬 생성완료.\n", key.c_str());
 }
 
 cScene* cSceneManager::ChangeScene(const string& key)
 {
 	if (m_scenes.find(key) == m_scenes.end()) {
-		DEBUG_LOG("찾는 씬이 없습니다.");
+		DEBUG_LOG("%s 씬이 없습니다.", key.c_str());
 		return nullptr;
 	}
 	m_next = m_scenes.find(key)->second;

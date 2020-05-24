@@ -143,7 +143,7 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTSetCursorSettings( true, true ); // Show the cursor and clip it when in full screen
     DXUTCreateWindow( L"SkillContest" );
 
-    DXUTCreateDevice(isWindowed, WINSIZEX, WINSIZEY);
+    DXUTCreateDevice(isWindowed, winSizeX, winSizeY);
 
     // Start the render loop
     DXUTMainLoop();
