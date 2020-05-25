@@ -122,8 +122,9 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     // Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
     _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+    _CrtDumpMemoryLeaks();
+    //_CrtSetBreakAlloc(516);
 #endif
-
     // Set the callback functions
     DXUTSetCallbackD3D9DeviceAcceptable( IsD3D9DeviceAcceptable );
     DXUTSetCallbackD3D9DeviceCreated( OnD3D9CreateDevice );
@@ -143,7 +144,7 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTSetCursorSettings( true, true ); // Show the cursor and clip it when in full screen
     DXUTCreateWindow( L"SkillContest" );
 
-    DXUTCreateDevice(isWindowed, winSizeX, winSizeY);
+    DXUTCreateDevice(TRUE, 1280, 720);
 
     // Start the render loop
     DXUTMainLoop();

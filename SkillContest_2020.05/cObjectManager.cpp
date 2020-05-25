@@ -162,8 +162,10 @@ void cObjectManager::Render()
 
 void cObjectManager::Release()
 {
-	for (auto iter : m_objs)
+	for (auto iter : m_objs) {
 		iter->Release();
+		SAFE_DELETE(iter);
+	}
 	m_objs.clear();
 }
 
@@ -178,7 +180,7 @@ void cObjectManager::ClearAll()
 
 cObject* cObjectManager::Create(string name, VEC2 pos, INT depth, OBJ_Tag objTag)
 {
-	cObject* Obj = new cObject();
+	cObject* Obj = new cObject;
 	Obj->m_name = name;
 	Obj->m_pos = pos;
 	Obj->m_depth = depth;

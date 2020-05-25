@@ -1,6 +1,7 @@
 #pragma once
 class cTimer
 {
+private:
 	friend class cAnimation;
 private:
 	FLOAT m_time;

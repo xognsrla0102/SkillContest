@@ -9,16 +9,26 @@ private:
 	cScene* m_next;
 	map<string, cScene*> m_scenes;
 
-	void Release();
+	cTexture* m_white;
+
+	BOOL m_isFadeIn = FALSE, m_isFadeInEnd = FALSE;
+	BOOL m_isFadeOut = FALSE, m_isFadeOutEnd = FALSE;
+	BOOL m_isChangeScene = FALSE;
+	FLOAT m_changeSpeed = 20.f;
 public:
 	cSceneManager();
 	virtual ~cSceneManager();
 
 	void AddScene(const string& key, cScene* scenePtr);
-	cScene* ChangeScene(const string& key);
+	void ChangeScene(const string& key);
 
 	void Update();
 	void Render();
+
+	void FadeIn();
+	void FadeOut();
+
+	void ChangeSceneEffect(FLOAT changeSpeed = 20.f);
 };
 
 #define SCENE cSceneManager::GetInst()

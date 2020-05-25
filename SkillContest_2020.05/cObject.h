@@ -39,9 +39,9 @@ public:
 	template <typename T>
 	T* GetComponent()
 	{
-		for (auto iter : m_components)
-		{
-			if (typeid(*iter) == typeid(T))
+ 	  	for (auto iter : m_components)
+ 		{
+ 			if (typeid(*iter) == typeid(T))
 			{
 				return static_cast<T*>(iter);
 			}

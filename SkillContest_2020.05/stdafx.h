@@ -1,14 +1,12 @@
 #pragma once
 
 #pragma comment(lib, "dsound.lib")
-#pragma comment(lib, "dinput8.lib")
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <map>
 #include <ctime>
-#include <dinput.h>
 using namespace std;
 
 using VEC2 = D3DXVECTOR2;
@@ -42,8 +40,9 @@ void DEBUG_LOG(LPCSTR fmt, ...);
 #include "cTimer.h"
 #include "cObject.h"
 #include "cComponent.h"
+#include "cAnimation.h"
 #include "cAnimator.h"
-#include "cAnimator.h"
+#include "cRenderer.h"
 #include "cBoxCollider.h"
 #include "cCircleCollider.h"
 

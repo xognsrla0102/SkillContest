@@ -12,29 +12,33 @@ cMain::cMain()
 
 cMain::~cMain()
 {
-	INPUT->ReleaseInst();
+	INPUTMANAGER->ReleaseInst();
 	SCENE->ReleaseInst();
 	OBJECT->ReleaseInst();
 	SOUND->ReleaseInst();
 	IMAGE->ReleaseInst();
-	CAMERA->ReleaseInst();
+	GAME->ReleaseInst();
+	CAMERA->ReleaseInst();	
 }
 
 void cMain::Update()
 {
 	CAMERA->Update();
-	INPUT->Update();
+	INPUTMANAGER->Update();
+	OBJECT->Update();
 	SCENE->Update();
 }
 
 void cMain::Render()
 {
 	CAMERA->SetTransform();
-
+	
 	IMAGE->Begin(FALSE);
-
+	
 	SCENE->Render();
 
+	OBJECT->Render();
+	
 	IMAGE->End();
 }
 

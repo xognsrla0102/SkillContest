@@ -3,33 +3,34 @@
 
 struct cTexture
 {
+public:
 	LPDIRECT3DTEXTURE9 texturePtr;
 	D3DXIMAGE_INFO info;
 
-	cTexture(LPDIRECT3DTEXTURE9 texturePtr, D3DXIMAGE_INFO info)
-		:texturePtr(texturePtr), info(info)
-	{
-	}
+	FLOAT m_a = 255.f;
+	FLOAT m_r = 255.f;
+	FLOAT m_g = 255.f;
+	FLOAT m_b = 255.f;
 
-	void Render(VEC2 pos, VEC2 size, FLOAT rot = 0.f, BOOL isCenterRot = FALSE, D3DXCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255));
-	void CenterRender(VEC2 pos, VEC2 size, FLOAT rot = 0.f, BOOL isCenterRot = FALSE, D3DXCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255));
+	D3DXCOLOR m_color = D3DCOLOR_ARGB((INT)m_a, (INT)m_r, (INT)m_g, (INT)m_b);
+public:
+	cTexture(LPDIRECT3DTEXTURE9 texturePtr, D3DXIMAGE_INFO info)
+		:texturePtr(texturePtr), info(info) {}
+	__inline VOID SetNowRGB() { m_color = D3DCOLOR_ARGB((INT)m_a, (INT)m_r, (INT)m_g, (INT)m_b); }
 };
 
 class cImageManager : public cSingleton<cImageManager>
 {
 private:
-	LPD3DXSPRITE m_sprite;
-	map<string, cTexture*> m_images;
+	LPD3DXSPRITE m_sprite = nullptr;
+	map<string, cTexture*> m_textures;
 	LPD3DXFONT m_font;
-private:
-	void Init();
-	void Release();
 public:
 	cImageManager();
 	virtual ~cImageManager();
 
-	void AddImage(const string& key, const string& path);
-	cTexture* FindImage(const string& key);
+	void AddTexture(const string& key, const string& path);
+	cTexture* FindTexture(const string& key);
 
 	void Begin(BOOL isUI);
 	void ReBegin(BOOL isUI);
@@ -43,7 +44,7 @@ public:
 	void LostDevice();
 	void ResetDevice();
 
-	vector<cTexture*> MakeAnimation(const string& key);
+	vector<cTexture*> FindAnimation(const string& key);
 };
 
 #define IMAGE cImageManager::GetInst()

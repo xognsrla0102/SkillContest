@@ -37,9 +37,6 @@
     <Filter Include="3:objects\scenes\loadScene">
       <UniqueIdentifier>{f45787cf-374a-4b50-923f-c5173dfd1283}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3:objects\scenes\titleScene">
-      <UniqueIdentifier>{d4a44eff-6b37-46d9-be5e-456406efcd28}</UniqueIdentifier>
-    </Filter>
     <Filter Include="4:util">
       <UniqueIdentifier>{98221f6f-5610-4912-a37a-265df5fb9865}</UniqueIdentifier>
     </Filter>
@@ -62,9 +59,6 @@
     </Filter>
     <Filter Include="1:managers\input">
       <UniqueIdentifier>{d76aa1b5-eeae-4fcb-8acc-cfa435f86c62}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1:managers\input\input">
-      <UniqueIdentifier>{4f2061c4-66ef-4a95-ae87-bab34380eed9}</UniqueIdentifier>
     </Filter>
     <Filter Include="1:managers\game">
       <UniqueIdentifier>{0d70e937-ed14-4049-bf76-04a12a61d9ea}</UniqueIdentifier>
@@ -98,6 +92,21 @@
     </Filter>
     <Filter Include="4:util\math">
       <UniqueIdentifier>{0dab600c-ca5d-4b25-86b3-3ab159866142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\scenes\titleScene">
+      <UniqueIdentifier>{d4a44eff-6b37-46d9-be5e-456406efcd28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\scenes\ingameScene">
+      <UniqueIdentifier>{db0175f4-27d0-46d8-bb65-b0abb9d4e699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\scenes\ingameScene\stage1">
+      <UniqueIdentifier>{4f7bddf1-448c-4c91-a618-db53084f3aa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\scenes\ingameScene\stage2">
+      <UniqueIdentifier>{7aece6c6-d9fd-4e9d-99c4-516487f8b893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3:objects\player">
+      <UniqueIdentifier>{74b785b6-1509-4a88-b1ab-16454c7a95a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -196,9 +205,6 @@
     <ClCompile Include="cTimer.cpp">
       <Filter>2:system\timer</Filter>
     </ClCompile>
-    <ClCompile Include="cInput.cpp">
-      <Filter>1:managers\input\input</Filter>
-    </ClCompile>
     <ClCompile Include="cInputManager.cpp">
       <Filter>1:managers\input</Filter>
     </ClCompile>
@@ -231,6 +237,15 @@
     </ClCompile>
     <ClCompile Include="cMath.cpp">
       <Filter>4:util\math</Filter>
+    </ClCompile>
+    <ClCompile Include="cTitleScene.cpp">
+      <Filter>3:objects\scenes\titleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="cStageOne.cpp">
+      <Filter>3:objects\scenes\ingameScene\stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="cPlayer.cpp">
+      <Filter>3:objects\player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,9 +291,6 @@
     <ClInclude Include="cTimer.h">
       <Filter>2:system\timer</Filter>
     </ClInclude>
-    <ClInclude Include="cInput.h">
-      <Filter>1:managers\input\input</Filter>
-    </ClInclude>
     <ClInclude Include="cInputManager.h">
       <Filter>1:managers\input</Filter>
     </ClInclude>
@@ -311,6 +323,15 @@
     </ClInclude>
     <ClInclude Include="cMath.h">
       <Filter>4:util\math</Filter>
+    </ClInclude>
+    <ClInclude Include="cTitleScene.h">
+      <Filter>3:objects\scenes\titleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="cStageOne.h">
+      <Filter>3:objects\scenes\ingameScene\stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="cPlayer.h">
+      <Filter>3:objects\player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,7 @@ cAnimator::cAnimator(cObject* obj, string imageKey, FLOAT delay, BOOL once)
 	:cComponent(obj), m_delay(delay), m_defaultDelay(delay), m_once(once)
 {
 	m_pause = FALSE;
-	m_images = IMAGE->MakeAnimation(imageKey);
+	m_images = IMAGE->FindAnimation(imageKey);
 	m_pObj->GetComponent<cRenderer>()->SetImage(m_images[0]);
 	m_currentFrame = 1;
 

@@ -1,27 +1,36 @@
 #pragma once
 #include "cSingleton.hpp"
 
-class cInput;
+constexpr INT KEY_MAX = 256;
+
 class cInputManager : public cSingleton<cInputManager>
 {
+public:
+	BOOL m_nowKey[KEY_MAX];
+	BOOL m_pastKey[KEY_MAX];
+	VEC2 m_mouse;
 private:
-	BYTE oldKey[256] = { 0 };
-	BYTE nowKey[256] = { 0 };
-
-	cInput* keyboard = nullptr;
+	vector<cTexture*> m_mouseTexture;
+	vector<FLOAT>	  m_mouseRotate;
 public:
 	cInputManager();
-	virtual ~cInputManager();
-
+	~cInputManager();
+public:
 	void Update();
-
-	BOOL KeyDown(BYTE key);
-	BOOL KeyUp(BYTE key);
-	BOOL KeyPress(BYTE key);
+	void Render();
+public:
+	BOOL IsKeyDown(INT key)  { return (m_nowKey[key] && m_pastKey[key] == false); }
+	BOOL IsKeyPress(INT key) { return (m_nowKey[key] && m_pastKey[key]); }
+	BOOL IsKeyUp(INT key) { return (m_nowKey[key] == false && m_pastKey[key]); }
+	VEC2 GetMousePos() { return m_mouse; }
+public:
+	FLOAT GetHorizontal();
+	FLOAT GetVertical();
 };
 
-#define INPUT cInputManager::GetInst()
 
-#define KEYDOWN(key) INPUT->KeyDown(key)
-#define KEYUP(key) INPUT->KeyUp(key)
-#define KEYPRESS(key) INPUT->KeyPress(key)
+#define	INPUTMANAGER cInputManager::GetInst()
+
+#define KEYDOWN(key) INPUTMANAGER->IsKeyDown(key)
+#define KEYPRESS(key) INPUTMANAGER->IsKeyPress(key)
+#define KEYUP(key) INPUTMANAGER->IsKeyUp(key)

@@ -7,7 +7,7 @@ private:
 	friend class cObject;
 	friend class cObjectManager;
 private:
-	INT m_rad;
+	INT m_rad = 0;
 	vector<OBJ_Tag> m_collistTag;
 	vector<string> m_collistName;
 	function<void(cObject*)> m_collFunc = [&](cObject* other)->void {};
