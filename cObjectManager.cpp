@@ -12,9 +12,16 @@ cObjectManager::~cObjectManager()
 		SAFE_DELETE(iter);
 }
 
+void cObjectManager::Update()
+{
+	for (int i = 0; i < TAG_END; ++i)
+		OBJFIND(i)->Update();
+}
+
 void cObjectManager::Render()
 {
-	
+	for (int i = 0; i < TAG_END; ++i)
+		OBJFIND(i)->Render();
 }
 
 void cObjectManager::AddOBJ(cObject* obj, int tagNum)
@@ -24,9 +31,10 @@ void cObjectManager::AddOBJ(cObject* obj, int tagNum)
 	//플레이어 태그
 
 	//에네미 태그 -> 근접 적, 원거리 적 집단 오브젝트
-
-	//어떻게 오더 순으로 정렬시킬까 적 태그같은 경우 태그안에 또 나뉜다
-	//태그마다 오더를 나눌까, 오브젝트별로 오더를 나눌까
+	//태그마다 오더를 나눔
+	//에네미 태그에서 렌더를 하면 에네미 매니저 속에 들어가고
+	//그 속의 렌더함수를 호출함
+	//에네미 매니저의 렌더에선 모든 적기들의 렌더링을 하도록 처리
 
 	if (m_objs[tagNum] == nullptr) m_objs[tagNum] = obj;
 	else DEBUG_LOG("이미 같은 이름의 태그가 있어유...\n");

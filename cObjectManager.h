@@ -10,6 +10,7 @@ public:
 	cObjectManager();
 	virtual ~cObjectManager();
 
+	void Update();
 	void Render();
 
 	void AddOBJ(cObject* obj, int tagNum);

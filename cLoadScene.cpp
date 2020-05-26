@@ -1,4 +1,5 @@
 #include "DXUT.h"
+#include "cPlayer.h"
 #include "cTitleScene.h"
 #include "cStageOne.h"
 #include "cLoadScene.h"
@@ -72,9 +73,7 @@ void cLoadScene::Update()
 		m_nowLoad[1] == m_imgs.size()
 		) {
 		//OBJ»ý¼º
-		//OBJECT->AddOBJ(new cPlayer, PLAYER);
-		//((cPlayer*)OBJFIND(PLAYER))->Init();
-		//OBJECT->AddOBJ(new cBalls, BALLS);
+		OBJECT->AddOBJ(new cPlayer, PLAYER);
 		//OBJECT->AddOBJ(new cBulletAdmin, BULLETS);
 		//OBJECT->AddOBJ(new cEnemyAdmin, ENEMYS);
 		//OBJECT->AddOBJ(new cItemAdmin, ITEMS);
