@@ -397,6 +397,7 @@
     <ClCompile Include="cMultiTexture.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cObjectManager.cpp" />
+    <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cScene.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cScroolMap.cpp" />
@@ -421,6 +422,7 @@
     <ClInclude Include="cMultiTexture.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cObjectManager.h" />
+    <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cScene.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cScroolMap.h" />

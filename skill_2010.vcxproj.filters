@@ -108,6 +108,9 @@
     <Filter Include="stdafx">
       <UniqueIdentifier>{45984ec9-746b-42ce-8475-13c4322c03aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Object\player">
+      <UniqueIdentifier>{d2535072-ea84-415e-84cc-7cc9c70fa624}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -247,6 +250,9 @@
     <ClCompile Include="cObject.cpp">
       <Filter>Core\Object\object</Filter>
     </ClCompile>
+    <ClCompile Include="cPlayer.cpp">
+      <Filter>Core\Object\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -332,6 +338,9 @@
     </ClInclude>
     <ClInclude Include="cObject.h">
       <Filter>Core\Object\object</Filter>
+    </ClInclude>
+    <ClInclude Include="cPlayer.h">
+      <Filter>Core\Object\player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
