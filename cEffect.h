@@ -24,7 +24,7 @@ public:
 
 	INT m_delay = 100;
 
-	D3DCOLOR m_color = D3DCOLOR_ARGB((INT)m_a, (INT)m_r, (INT)m_g, (INT)m_b);
+	D3DCOLOR m_color = D3DCOLOR_ARGB(255, 255, 255, 255);
 
 public:
 	cEffect(const string name, int imgCnt, VEC2 pos, VEC2 dir, VEC2 velSize = VEC2(0, 0), VEC2 size = VEC2(1, 1), FLOAT alphaSpeed = 800.f, VEC4 argb = VEC4(255, 255, 255, 255));

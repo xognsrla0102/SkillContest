@@ -4,7 +4,7 @@
 cTitleScene::cTitleScene()
 {
 	m_bg = new cImage;
-	m_bg->m_img = IMAGE->FindTexture("TitleBG");
+	m_bg->m_text = IMAGE->FindTexture("TitleBG");
 }
 
 cTitleScene::~cTitleScene()
@@ -27,7 +27,7 @@ void cTitleScene::Update()
 
 void cTitleScene::Render()
 {
-	IMAGE->Render(m_bg->m_img, VEC2(0, 0));
+	IMAGE->Render(m_bg->m_text, VEC2(0, 0));
 }
 
 void cTitleScene::Release()

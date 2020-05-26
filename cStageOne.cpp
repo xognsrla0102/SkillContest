@@ -14,7 +14,6 @@ cStageOne::~cStageOne()
 
 void cStageOne::Init()
 {
-	CAMERA->m_isShake = TRUE;
 	SOUND->Play("StageBGM", true);
 }
 

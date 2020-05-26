@@ -20,12 +20,23 @@ constexpr int WINSIZEY = 720;
 
 void DEBUG_LOG(LPCSTR fmt, ...);
 
+//오브젝트 태그는 렌더링 순서에 의존적임. 순서 변동하면 렌더 순서가 바뀜
+enum TAGS {
+	ENEMY,
+	BULLET,
+	ITEM,
+	PLAYER,
+	TAG_END,
+};
+
 #include "SDKsound.h"
 #include "cAnimation.h"
+#include "cEffect.h"
 #include "cTexture.h"
-#include "cMultiTexture.h"
 #include "cImage.h"
+#include "cMultiTexture.h"
 #include "cImageManager.h"
+#include "cEffectManager.h"
 #include "cSceneManager.h"
 #include "cInputManager.h"
 #include "cSoundManager.h"

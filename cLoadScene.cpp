@@ -7,7 +7,7 @@ cLoadScene::cLoadScene()
 {
 	IMAGE->AddTexture("LoadBG", "resources/image/load/bg.png");
 	m_bg = new cImage;
-	m_bg->m_img = IMAGE->FindTexture("LoadBG");
+	m_bg->m_text = IMAGE->FindTexture("LoadBG");
 }
 
 cLoadScene::~cLoadScene()
@@ -25,11 +25,31 @@ cLoadScene::~cLoadScene()
 
 void cLoadScene::Init()
 {
+	//BGM 로드
 	Load("TitleBGM", L"resources/bgm/title.wav");
 	Load("StageBGM", L"resources/bgm/stage.wav");
+	Load("MidBossBGM", L"resources/bgm/midboss.wav");
+	Load("LastBossBGM", L"resources/bgm/lastboss.wav");
+	Load("OneEndingBGM", L"resources/bgm/oneending.wav");
+	Load("TwoEndingBGM", L"resources/bgm/twoending.wav");
+	Load("FailBGM", L"resources/bgm/fail.wav");
+	Load("RankBGM", L"resources/bgm/rank.wav");
 
+	//효과음 로드
+	Load("bullet0SND", L"resources/sound/bullet0.wav");
+	Load("bullet1SND", L"resources/sound/bullet1.wav");
+	Load("explosion0SND", L"resources/sound/explosion0.wav");
+	Load("explosion1SND", L"resources/sound/explosion1.wav");
+	Load("explosion2SND", L"resources/sound/explosion2.wav");
+	Load("countSND", L"resources/sound/count.wav");
+	Load("hitSND", L"resources/sound/hit.wav");
+	Load("shieldSND", L"resources/sound/shield.wav");
+
+	//이미지 로드
 	Load("TitleBG", "resources/image/title/title.png");
 	Load("StageOneBG", "resources/image/stageone/bg/bg.png");
+
+	Load("playerIMG", "resources/image/player/player.png");
 }
 
 void cLoadScene::Update()
@@ -67,7 +87,7 @@ void cLoadScene::Update()
 
 void cLoadScene::Render()
 {
-	IMAGE->Render(m_bg->m_img, VEC2(0, 0));
+	IMAGE->Render(m_bg->m_text, VEC2(0, 0));
 }
 
 void cLoadScene::Release()

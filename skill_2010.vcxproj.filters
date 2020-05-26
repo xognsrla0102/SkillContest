@@ -21,9 +21,6 @@
     <Filter Include="Main\mainProc">
       <UniqueIdentifier>{49169ae5-8159-4e8a-994e-2fc452ec2c1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Util\stdafx">
-      <UniqueIdentifier>{45984ec9-746b-42ce-8475-13c4322c03aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{55b67a38-2f1c-47f3-a2ea-a5c1141b8953}</UniqueIdentifier>
     </Filter>
@@ -99,6 +96,18 @@
     <Filter Include="Core\Manager\game">
       <UniqueIdentifier>{71da3270-b0bd-4647-bfc6-f582f479ad77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Manager\effect">
+      <UniqueIdentifier>{86d58b48-8d42-4030-82aa-af5910dd5f3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\object">
+      <UniqueIdentifier>{773125d1-e3f1-4141-a8fc-82550cfbfd1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\object">
+      <UniqueIdentifier>{fc55c11d-bd2a-40f6-b6cc-070556aeb590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stdafx">
+      <UniqueIdentifier>{45984ec9-746b-42ce-8475-13c4322c03aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -167,7 +176,7 @@
       <Filter>Main\mainProc</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Util\stdafx</Filter>
+      <Filter>stdafx</Filter>
     </ClCompile>
     <ClCompile Include="DXUT\Optional\SDKsound.cpp">
       <Filter>Util\DXUT</Filter>
@@ -229,6 +238,15 @@
     <ClCompile Include="cGameManager.cpp">
       <Filter>Core\Manager\game</Filter>
     </ClCompile>
+    <ClCompile Include="cEffectManager.cpp">
+      <Filter>Core\Manager\effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjectManager.cpp">
+      <Filter>Core\Manager\object</Filter>
+    </ClCompile>
+    <ClCompile Include="cObject.cpp">
+      <Filter>Core\Object\object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -241,7 +259,7 @@
       <Filter>Main\mainProc</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Util\stdafx</Filter>
+      <Filter>stdafx</Filter>
     </ClInclude>
     <ClInclude Include="DXUT\Optional\SDKsound.h">
       <Filter>Util\DXUT</Filter>
@@ -305,6 +323,15 @@
     </ClInclude>
     <ClInclude Include="cGameManager.h">
       <Filter>Core\Manager\game</Filter>
+    </ClInclude>
+    <ClInclude Include="cEffectManager.h">
+      <Filter>Core\Manager\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjectManager.h">
+      <Filter>Core\Manager\object</Filter>
+    </ClInclude>
+    <ClInclude Include="cObject.h">
+      <Filter>Core\Object\object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

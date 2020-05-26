@@ -387,6 +387,7 @@
     <ClCompile Include="cAnimation.cpp" />
     <ClCompile Include="cCameraManager.cpp" />
     <ClCompile Include="cEffect.cpp" />
+    <ClCompile Include="cEffectManager.cpp" />
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cGameManager.cpp" />
     <ClCompile Include="cImage.cpp" />
@@ -394,6 +395,8 @@
     <ClCompile Include="cInputManager.cpp" />
     <ClCompile Include="cLoadScene.cpp" />
     <ClCompile Include="cMultiTexture.cpp" />
+    <ClCompile Include="cObject.cpp" />
+    <ClCompile Include="cObjectManager.cpp" />
     <ClCompile Include="cScene.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cScroolMap.cpp" />
@@ -408,6 +411,7 @@
     <ClInclude Include="cAnimation.h" />
     <ClInclude Include="cCameraManager.h" />
     <ClInclude Include="cEffect.h" />
+    <ClInclude Include="cEffectManager.h" />
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cGameManager.h" />
     <ClInclude Include="cImage.h" />
@@ -415,6 +419,8 @@
     <ClInclude Include="cInputManager.h" />
     <ClInclude Include="cLoadScene.h" />
     <ClInclude Include="cMultiTexture.h" />
+    <ClInclude Include="cObject.h" />
+    <ClInclude Include="cObjectManager.h" />
     <ClInclude Include="cScene.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cScroolMap.h" />

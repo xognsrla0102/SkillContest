@@ -6,7 +6,7 @@
 class cImage
 {
 public:
-	cTexture* m_img = nullptr;
+	cTexture* m_text = nullptr;
 
 	float m_a = 255.f;
 	float m_r = 255.f;

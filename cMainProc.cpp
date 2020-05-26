@@ -12,6 +12,7 @@ cMainProc::cMainProc()
 
 cMainProc::~cMainProc()
 {
+	EFFECT->ReleaseInst();
 	INPUT->ReleaseInst();
 	SCENE->ReleaseInst();
 	SOUND->ReleaseInst();
@@ -25,6 +26,7 @@ void cMainProc::Update()
 {
 	CAMERA->Update();
 	INPUT->Update();
+	EFFECT->Update();
 	SCENE->Update();
 	FONT->Update();
 }
@@ -32,9 +34,11 @@ void cMainProc::Update()
 void cMainProc::Render()
 {
 	CAMERA->SetTransform();
+
 	IMAGE->Begin(false);
 
 	SCENE->Render();
+	EFFECT->Render();
 	FONT->Render();
 
 	IMAGE->End();

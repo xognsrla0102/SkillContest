@@ -7,7 +7,7 @@ cSceneManager::cSceneManager()
 	IMAGE->AddTexture("ChangeSceneEffect", "resources/image/scenechange/white.png");
 	
 	m_white = new cImage;
-	m_white->m_img = IMAGE->FindTexture("ChangeSceneEffect");
+	m_white->m_text = IMAGE->FindTexture("ChangeSceneEffect");
 	m_white->m_a = 0.f;
 	m_white->SetNowRGB();
 }
@@ -76,7 +76,7 @@ void cSceneManager::Render()
 	if (!m_now) return;
 	m_now->Render();
 
-	IMAGE->Render(m_white->m_img, VEC2(0, 0), VEC2(1, 1), 0.f, FALSE, m_white->m_color);
+	IMAGE->Render(m_white->m_text, VEC2(0, 0), VEC2(1, 1), 0.f, FALSE, m_white->m_color);
 }
 
 //점점 나타남
