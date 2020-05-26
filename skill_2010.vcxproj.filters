@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Util">
+      <UniqueIdentifier>{97b71a9d-ee3a-4bd2-a352-2e339221d638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\Shaders">
+      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
+      <Extensions>fx;fxh;hlsl</Extensions>
+    </Filter>
+    <Filter Include="Util\Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Util\DXUT">
+      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{fba194ec-8970-44d9-8e49-b9158fb40b92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\mainProc">
+      <UniqueIdentifier>{49169ae5-8159-4e8a-994e-2fc452ec2c1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\stdafx">
+      <UniqueIdentifier>{45984ec9-746b-42ce-8475-13c4322c03aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{55b67a38-2f1c-47f3-a2ea-a5c1141b8953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager">
+      <UniqueIdentifier>{beee9704-c0be-4ada-97d8-34a62633c53d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\singleton">
+      <UniqueIdentifier>{5df27599-4636-4a64-a8e2-075ab169a99b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\scene">
+      <UniqueIdentifier>{9b98ac23-5a00-44ae-9a65-a7379ae9122c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\input">
+      <UniqueIdentifier>{943b9521-27c4-4829-b4f0-c21bba42fd57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\image">
+      <UniqueIdentifier>{0d27e384-98e8-4bdf-a6bd-4243ce7eb204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\sound">
+      <UniqueIdentifier>{ce4752a8-c1a7-4902-9000-64efdb8b8463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object">
+      <UniqueIdentifier>{44049806-f9e7-46bd-9bfe-f2cd25251241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\image\texture">
+      <UniqueIdentifier>{bfdb6a0b-569f-434f-a87c-0a56d91d004b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\image\texture\multi">
+      <UniqueIdentifier>{63b9e0f7-e34a-4ae0-828b-42c11bac9069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\image\texture\text">
+      <UniqueIdentifier>{ff76932e-11d8-437f-9cde-b772c72ee1a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\font">
+      <UniqueIdentifier>{ab45a326-c368-437e-9835-308cfa78b978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\timer">
+      <UniqueIdentifier>{a66cc1fa-6892-48c0-9bed-158d23f9d3b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\animation">
+      <UniqueIdentifier>{86c0edfb-1973-475d-bef8-866688b5bca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\camera">
+      <UniqueIdentifier>{a0112fa4-7a82-4c83-8f2d-2da7a24be89d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\effect">
+      <UniqueIdentifier>{2671be46-b048-4bad-b045-e8c55a8009fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene">
+      <UniqueIdentifier>{f42103b9-41db-4477-bb7d-6fd07a33d7da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene\scene">
+      <UniqueIdentifier>{773e8fe8-08e4-4848-83c5-a980b8bd5e13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene\load">
+      <UniqueIdentifier>{e3dfc51a-eedf-4d65-afd1-76aaee5ffe90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene\title">
+      <UniqueIdentifier>{95bc5e67-401b-4779-abc0-2f421de11339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene\ingame">
+      <UniqueIdentifier>{460f6e8c-6c29-4055-a0f7-6eeec9cd79cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene\ingame\stageOne">
+      <UniqueIdentifier>{fab34043-794b-499d-8d19-0387434d05e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\image\image">
+      <UniqueIdentifier>{288bef23-e195-4d7d-93c3-623f142676e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\scrool">
+      <UniqueIdentifier>{f97130c1-95dd-48ff-8ec2-58d2cbff4154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\game">
+      <UniqueIdentifier>{71da3270-b0bd-4647-bfc6-f582f479ad77}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DXUT\Optional\directx.ico">
+      <Filter>Util\Resource Files</Filter>
+    </None>
+    <ClInclude Include="DXUT\Core\DXUT.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Core\DXUTenum.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Core\DXUTmisc.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClCompile Include="DXUT\Core\DXUT.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Core\DXUTenum.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Core\DXUTmisc.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClInclude Include="DXUT\Optional\DXUTcamera.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\DXUTgui.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\DXUTres.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\DXUTsettingsdlg.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKmesh.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKmisc.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClCompile Include="DXUT\Optional\DXUTcamera.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\DXUTgui.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\DXUTres.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\DXUTsettingsdlg.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKmesh.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKmisc.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="skill.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="cMainProc.cpp">
+      <Filter>Main\mainProc</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Util\stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKsound.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>Core\Manager\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="cScene.cpp">
+      <Filter>Core\scene\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="cImageManager.cpp">
+      <Filter>Core\Manager\image</Filter>
+    </ClCompile>
+    <ClCompile Include="cTexture.cpp">
+      <Filter>Core\Manager\image\texture\text</Filter>
+    </ClCompile>
+    <ClCompile Include="cMultiTexture.cpp">
+      <Filter>Core\Manager\image\texture\multi</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKwavefile.cpp">
+      <Filter>Util\DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="cSoundManager.cpp">
+      <Filter>Core\Manager\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="cInputManager.cpp">
+      <Filter>Core\Manager\input</Filter>
+    </ClCompile>
+    <ClCompile Include="cFontManager.cpp">
+      <Filter>Core\Manager\font</Filter>
+    </ClCompile>
+    <ClCompile Include="cTimer.cpp">
+      <Filter>Core\Object\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="cAnimation.cpp">
+      <Filter>Core\Object\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="cCameraManager.cpp">
+      <Filter>Core\Manager\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="cEffect.cpp">
+      <Filter>Core\Object\effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cLoadScene.cpp">
+      <Filter>Core\scene\load</Filter>
+    </ClCompile>
+    <ClCompile Include="cTitleScene.cpp">
+      <Filter>Core\scene\title</Filter>
+    </ClCompile>
+    <ClCompile Include="cStageOne.cpp">
+      <Filter>Core\scene\ingame\stageOne</Filter>
+    </ClCompile>
+    <ClCompile Include="cImage.cpp">
+      <Filter>Core\Manager\image\image</Filter>
+    </ClCompile>
+    <ClCompile Include="cScroolMap.cpp">
+      <Filter>Core\Object\scrool</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameManager.cpp">
+      <Filter>Core\Manager\game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CLInclude Include="resource.h">
+      <Filter>Util\Resource Files</Filter>
+    </CLInclude>
+    <ResourceCompile Include="skill.rc">
+      <Filter>Util\Resource Files</Filter>
+    </ResourceCompile>
+    <ClInclude Include="cMainProc.h">
+      <Filter>Main\mainProc</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Util\stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKsound.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="cSingleton.hpp">
+      <Filter>Core\Manager\singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneManager.h">
+      <Filter>Core\Manager\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="cScene.h">
+      <Filter>Core\scene\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="cImageManager.h">
+      <Filter>Core\Manager\image</Filter>
+    </ClInclude>
+    <ClInclude Include="cTexture.h">
+      <Filter>Core\Manager\image\texture\text</Filter>
+    </ClInclude>
+    <ClInclude Include="cMultiTexture.h">
+      <Filter>Core\Manager\image\texture\multi</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKwavefile.h">
+      <Filter>Util\DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="cSoundManager.h">
+      <Filter>Core\Manager\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="cInputManager.h">
+      <Filter>Core\Manager\input</Filter>
+    </ClInclude>
+    <ClInclude Include="cFontManager.h">
+      <Filter>Core\Manager\font</Filter>
+    </ClInclude>
+    <ClInclude Include="cTimer.h">
+      <Filter>Core\Object\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="cAnimation.h">
+      <Filter>Core\Object\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="cCameraManager.h">
+      <Filter>Core\Manager\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="cEffect.h">
+      <Filter>Core\Object\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="cLoadScene.h">
+      <Filter>Core\scene\load</Filter>
+    </ClInclude>
+    <ClInclude Include="cTitleScene.h">
+      <Filter>Core\scene\title</Filter>
+    </ClInclude>
+    <ClInclude Include="cStageOne.h">
+      <Filter>Core\scene\ingame\stageOne</Filter>
+    </ClInclude>
+    <ClInclude Include="cImage.h">
+      <Filter>Core\Manager\image\image</Filter>
+    </ClInclude>
+    <ClInclude Include="cScroolMap.h">
+      <Filter>Core\Object\scrool</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameManager.h">
+      <Filter>Core\Manager\game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
