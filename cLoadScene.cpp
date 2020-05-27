@@ -1,7 +1,10 @@
 #include "DXUT.h"
 #include "cPlayer.h"
+#include "cBulletManager.h"
+
 #include "cTitleScene.h"
 #include "cStageOne.h"
+
 #include "cLoadScene.h"
 
 cLoadScene::cLoadScene()
@@ -37,20 +40,20 @@ void cLoadScene::Init()
 	Load("RankBGM", L"resources/bgm/rank.wav");
 
 	//효과음 로드
-	Load("bullet0SND", L"resources/sound/bullet0.wav");
-	Load("bullet1SND", L"resources/sound/bullet1.wav");
-	Load("explosion0SND", L"resources/sound/explosion0.wav");
-	Load("explosion1SND", L"resources/sound/explosion1.wav");
-	Load("explosion2SND", L"resources/sound/explosion2.wav");
-	Load("countSND", L"resources/sound/count.wav");
-	Load("hitSND", L"resources/sound/hit.wav");
-	Load("shieldSND", L"resources/sound/shield.wav");
+	Load("Bullet0SND", L"resources/sound/bullet0.wav");
+	Load("Bullet1SND", L"resources/sound/bullet1.wav");
+	Load("Explosion0SND", L"resources/sound/explosion0.wav");
+	Load("Explosion1SND", L"resources/sound/explosion1.wav");
+	Load("Explosion2SND", L"resources/sound/explosion2.wav");
+	Load("CountSND", L"resources/sound/count.wav");
+	Load("HitSND", L"resources/sound/hit.wav");
+	Load("ShieldSND", L"resources/sound/shield.wav");
 
 	//이미지 로드
 	Load("TitleBG", "resources/image/title/title.png");
 	Load("StageOneBG", "resources/image/stageone/bg/bg.png");
 
-	Load("playerIMG", "resources/image/player/player.png");
+	Load("PlayerIMG", "resources/image/player/player.png");
 }
 
 void cLoadScene::Update()
@@ -74,12 +77,13 @@ void cLoadScene::Update()
 		) {
 		//OBJ생성
 		OBJECT->AddOBJ(new cPlayer, PLAYER);
-		//OBJECT->AddOBJ(new cBulletAdmin, BULLETS);
+		OBJECT->AddOBJ(new cBulletManager, BULLET);
 		//OBJECT->AddOBJ(new cEnemyAdmin, ENEMYS);
 		//OBJECT->AddOBJ(new cItemAdmin, ITEMS);
 
 		SCENE->AddScene("TitleScene", new cTitleScene);
 		SCENE->AddScene("StageOneScene", new cStageOne);
+		SCENE->ChangeSceneEffect();
 		SCENE->ChangeScene("TitleScene");
 	}
 }

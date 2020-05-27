@@ -4,10 +4,10 @@ class cPlayer : public cObject
 {
 private:
 	FLOAT m_fireDelay;
+	FLOAT m_originSpd;
 	FLOAT m_moveSpd;
-
 public:
-	cPlayer(cTexture* text);
+	cPlayer();
 	virtual ~cPlayer();
 
 	virtual void Update() override;
@@ -15,5 +15,7 @@ public:
 
 	void Init();
 	void Release();
+
+	void Move();
 };
 

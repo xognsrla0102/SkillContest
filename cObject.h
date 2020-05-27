@@ -16,6 +16,8 @@ protected:
 	FLOAT m_rot = 0.f;
 
 	BOOL m_isLive = TRUE;
+
+	BOOL m_isActive = FALSE;
 public:
 	cObject() {}
 	virtual ~cObject() {}
@@ -28,6 +30,7 @@ public:
 	VEC2 GetSize() { return m_size; }
 	FLOAT GetRot() { return m_rot; }
 	BOOL GetLive() { return m_isLive; }
+	BOOL GetActive() { return m_isActive; }
 
 	VEC2& GetRefPos() { return m_pos; }
 	VEC2& GetRefSize() { return m_size; }
@@ -38,5 +41,6 @@ public:
 	void SetSize(VEC2 size) { m_size = size; }
 	void SetRot(FLOAT rot) { m_rot = rot; }
 	void SetLive(BOOL isLive) { m_isLive = isLive; }
+	void SetActive(BOOL isActive) { m_isActive = isActive; }
 };
 

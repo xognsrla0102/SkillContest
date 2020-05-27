@@ -18,8 +18,6 @@ using MATRIX = D3DXMATRIXA16;
 constexpr int WINSIZEX = 1280;
 constexpr int WINSIZEY = 720;
 
-void DEBUG_LOG(LPCSTR fmt, ...);
-
 //오브젝트 태그는 렌더링 순서에 의존적임. 순서 변동하면 렌더 순서가 바뀜
 enum TAGS {
 	ENEMY,
@@ -35,6 +33,7 @@ enum TAGS {
 #include "cTexture.h"
 #include "cImage.h"
 #include "cMultiTexture.h"
+#include "cObject.h"
 #include "cImageManager.h"
 #include "cEffectManager.h"
 #include "cSceneManager.h"
@@ -43,6 +42,14 @@ enum TAGS {
 #include "cFontManager.h"
 #include "cCameraManager.h"
 #include "cGameManager.h"
+#include "cObjectManager.h"
+
+template<typename T>
+void Lerp(T& pOut, const T& pV1, const T& pV2, double s) {
+	pOut = pOut + (pV2 - pV1) * s * GAME->TIME_SCALE;
+}
+
+void DEBUG_LOG(LPCSTR fmt, ...);
 
 #define D_TIME DXUTGetElapsedTime() * GAME->TIME_SCALE
 #define DEVICE DXUTGetD3D9Device()

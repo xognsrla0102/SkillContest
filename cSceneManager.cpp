@@ -42,6 +42,8 @@ void cSceneManager::ChangeScene(const string& key)
 		DEBUG_LOG("%s 씬이 없습니다.", key.c_str());
 		return;
 	}
+
+	if (m_now) m_now->Release();
 	m_next = m_scenes.find(key)->second;
 }
 
@@ -58,7 +60,6 @@ void cSceneManager::Update()
 	}
 
 	if (m_next) {
-		if (m_now) m_now->Release();
 		m_now = m_next;
 		m_next = nullptr;
 		m_now->Init();

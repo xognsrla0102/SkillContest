@@ -20,7 +20,7 @@ void cTitleScene::Init()
 void cTitleScene::Update()
 {
 	if (KEYDOWN(VK_RETURN)) {
-		SCENE->ChangeSceneEffect(50.f);
+		SCENE->ChangeSceneEffect(40.f);
 		SCENE->ChangeScene("StageOneScene");
 	}
 }

@@ -26,7 +26,7 @@ void cScroolMap::Init()
 
 void cScroolMap::Update()
 {
-	if (pos2.y > (FLOAT)m_img2->m_text->m_info.Height) {
+	if (pos2.y >= (FLOAT)m_img2->m_text->m_info.Height) {
 		pos1 = VEC2(0, -(FLOAT)m_img2->m_text->m_info.Height);
 		pos2 = VEC2(0, 0);
 	}

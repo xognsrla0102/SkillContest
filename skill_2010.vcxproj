@@ -385,6 +385,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cAnimation.cpp" />
+    <ClCompile Include="cBullet.cpp" />
+    <ClCompile Include="cBulletManager.cpp" />
     <ClCompile Include="cCameraManager.cpp" />
     <ClCompile Include="cEffect.cpp" />
     <ClCompile Include="cEffectManager.cpp" />
@@ -410,6 +412,8 @@
     <ClCompile Include="DXUT\Optional\SDKwavefile.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClInclude Include="cAnimation.h" />
+    <ClInclude Include="cBullet.h" />
+    <ClInclude Include="cBulletManager.h" />
     <ClInclude Include="cCameraManager.h" />
     <ClInclude Include="cEffect.h" />
     <ClInclude Include="cEffectManager.h" />

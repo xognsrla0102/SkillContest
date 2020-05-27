@@ -20,14 +20,17 @@ cMainProc::~cMainProc()
 	CAMERA->ReleaseInst();
 	FONT->ReleaseInst();
 	GAME->ReleaseInst();
+	OBJECT->ReleaseInst();
 }
 
 void cMainProc::Update()
 {
-	CAMERA->Update();
 	INPUT->Update();
-	EFFECT->Update();
+	GAME->Update();
+	CAMERA->Update();
 	SCENE->Update();
+	OBJECT->Update();
+	EFFECT->Update();
 	FONT->Update();
 }
 
@@ -38,6 +41,7 @@ void cMainProc::Render()
 	IMAGE->Begin(false);
 
 	SCENE->Render();
+	OBJECT->Render();
 	EFFECT->Render();
 	FONT->Render();
 

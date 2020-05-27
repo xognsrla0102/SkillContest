@@ -93,7 +93,7 @@ cTexture* cImageManager::FindTexture(string name, int cnt)
 	return find->second->FindImage(cnt);
 }
 
-void cImageManager::Render(cTexture* text, VEC2 pos, VEC2 size, float rot, bool isCenterRot, D3DCOLOR color)
+void cImageManager::Render(cTexture* text, VEC2 pos, VEC2 size, float rot, bool isCenter, D3DCOLOR color)
 {
 	if (text) {
 		D3DXMATRIXA16 mat, s, r, t;
@@ -103,7 +103,7 @@ void cImageManager::Render(cTexture* text, VEC2 pos, VEC2 size, float rot, bool 
 
 		mat = s * r * t;
 		m_sprite->SetTransform(&mat);
-		if (isCenterRot)
+		if (isCenter)
 			m_sprite->Draw(text->m_text, nullptr, &VEC3(text->m_info.Width / 2, text->m_info.Height / 2, 0.f), nullptr, color);
 		else
 			m_sprite->Draw(text->m_text, nullptr, nullptr, nullptr, color);
