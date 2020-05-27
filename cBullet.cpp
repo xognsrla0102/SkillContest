@@ -15,8 +15,17 @@ cBullet::~cBullet()
 
 void cBullet::Update()
 {
+	if (m_isHoming) Homing();
 }
 
 void cBullet::Render()
+{
+}
+
+void cBullet::Straight()
+{
+}
+
+void cBullet::Homing()
 {
 }
