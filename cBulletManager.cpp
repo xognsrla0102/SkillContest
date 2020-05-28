@@ -56,12 +56,12 @@ void cBulletManager::N_Way_Tan(const string& bulletName, const string& imageName
 			dir.x = cos(D3DXToRadian(newRot));
 			dir.y = sin(D3DXToRadian(newRot));
 		}
-		D3DXVec2Normalize(&dir, &dir);
+		auto bullet = new cBullet(imageName, pos, dir, D3DXToDegree(atan2(dir.y, dir.x)) + 90, bulletSpd, VEC2(1, 1), isHoming, isAccel);
 
 		if (bulletName == "PlayerBullet")
-			m_pBullet.push_back(new cBullet(imageName, pos, dir, D3DXToDegree(atan2(dir.y, dir.x)) + 90, bulletSpd, VEC2(1, 1), isHoming, isAccel));
+			m_pBullet.push_back(bullet);
 		else if (bulletName == "EnemyBullet")
-			m_eBullet.push_back(new cBullet(imageName, pos, dir, D3DXToDegree(atan2(dir.y, dir.x)) + 90, bulletSpd, VEC2(1, 1), isHoming, isAccel));
+			m_eBullet.push_back(bullet);
 		newRot -= theta;
 	}
 }

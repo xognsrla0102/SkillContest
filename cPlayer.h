@@ -17,7 +17,6 @@ private:
 	cTimer* m_boost;
 	FLOAT m_originSpd;
 	FLOAT m_moveSpd;
-	FLOAT m_bulletSpd;
 	bool m_canFire = false;
 	bool m_isBoost = false;
 public:

@@ -20,7 +20,6 @@ cPlayer::cPlayer()
 
 	m_fire = new cTimer(-1);
 	m_motion = new cTimer(0.02);
-	m_boost = new cTimer(3);
 
 	m_img = new cImage;
 	m_img->m_text = IMAGE->FindTexture("PlayerIMG");
@@ -34,14 +33,11 @@ cPlayer::~cPlayer()
 	SAFE_DELETE(m_img);
 	SAFE_DELETE(m_fire);
 	SAFE_DELETE(m_motion);
-	SAFE_DELETE(m_boost);
 }
 
 void cPlayer::Update()
 {
 	if (!m_isActive) return;
-
-	DEBUG_LOG("%.2f\n", m_fire->m_delay);
 
 	if (KEYDOWN('R')) {
 		DEBUG_LOG("·¹º§¾÷!\n");
@@ -97,10 +93,6 @@ void cPlayer::Move()
 	if (KEYPRESS(VK_LSHIFT)) m_moveSpd = m_originSpd * 0.5;
 	else m_moveSpd = m_originSpd;
 
-	//if (m_motion->Update()) {
-	//	
-	//}
-
 	if (KEYPRESS(VK_UP)) {
 		m_pos.y -= m_moveSpd * D_TIME;
 	}
@@ -118,63 +110,53 @@ void cPlayer::Move()
 void cPlayer::Fire()
 {
 	if (KEYPRESS(VK_SPACE)) {
-		SOUND->Copy("Bullet1SND");
-
 		if (m_isWayTan) {
+			SOUND->Copy("Bullet1SND");
 			switch (GAME->m_level) {
 			case 1:
-				m_bulletSpd = 1000.f;
 				m_fire->m_delay = 0.5f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 3, 10, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 3, 10, m_pos, VEC2(0, -1), 1000.f);
 				break;
 			case 2:
-				m_bulletSpd = 1200.f;
 				m_fire->m_delay = 0.4f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 3, 10, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 3, 10, m_pos, VEC2(0, -1), 1200.f);
 				break;
 			case 3:
-				m_bulletSpd = 1200.f;
 				m_fire->m_delay = 0.4f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 5, 10, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 5, 10, m_pos, VEC2(0, -1), 1200.f);
 				break;
 			case 4:
-				m_bulletSpd = 1400.f;
 				m_fire->m_delay = 0.2f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 5, 10, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 5, 10, m_pos, VEC2(0, -1), 1400.f);
 				break;
 			case 5:
-				m_bulletSpd = 1400.f;
 				m_fire->m_delay = 0.1f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 8, 10, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 8, 10, m_pos, VEC2(0, -1), 1400.f);
 				break;
 			}
 		}
 		else {
+			SOUND->Copy("Bullet0SND");
 			switch (GAME->m_level) {
 			case 1:
-				m_bulletSpd = 1000.f;
 				m_fire->m_delay = 0.15f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 1, 10, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 1, 10, m_pos, VEC2(0, -1), 1000.f);
 				break;
 			case 2:
-				m_bulletSpd = 1000.f;
 				m_fire->m_delay = 0.1f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 3, 10, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 3, 10, m_pos, VEC2(0, -1), 1000.f);
 				break;
 			case 3:
-				m_bulletSpd = 1300.f;
 				m_fire->m_delay = 0.1f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 3, 20, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 3, 20, m_pos, VEC2(0, -1), 1300.f);
 				break;
 			case 4:
-				m_bulletSpd = 1300.f;
 				m_fire->m_delay = 0.08f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 5, 20, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 5, 20, m_pos, VEC2(0, -1), 1300.f);
 				break;
 			case 5:
-				m_bulletSpd = 1300.f;
 				m_fire->m_delay = 0.08f;
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 8, 20, m_pos, VEC2(0, -1), m_bulletSpd);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 8, 20, m_pos, VEC2(0, -1), 1300.f);
 				break;
 			}
 		}
