@@ -111,3 +111,11 @@ void cSceneManager::ChangeSceneEffect(FLOAT changeSpeed)
 	m_changeSpeed = changeSpeed;
 	m_isChangeScene = TRUE;
 }
+
+string cSceneManager::GetNowSceneKey()
+{
+	for (auto iter : m_scenes)
+		if (m_now == iter.second)
+			return iter.first;
+	return "현재 씬을 찾을 수 없습니다.\n";
+}

@@ -43,6 +43,7 @@ enum TAGS {
 #include "cCameraManager.h"
 #include "cGameManager.h"
 #include "cObjectManager.h"
+#include "cUIManager.h"
 
 template<typename T>
 void Lerp(T& pOut, const T& pV1, const T& pV2, double s) {

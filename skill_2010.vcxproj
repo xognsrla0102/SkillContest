@@ -408,6 +408,7 @@
     <ClCompile Include="cTexture.cpp" />
     <ClCompile Include="cTimer.cpp" />
     <ClCompile Include="cTitleScene.cpp" />
+    <ClCompile Include="cUIManager.cpp" />
     <ClCompile Include="DXUT\Optional\SDKsound.cpp" />
     <ClCompile Include="DXUT\Optional\SDKwavefile.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -436,6 +437,7 @@
     <ClInclude Include="cTexture.h" />
     <ClInclude Include="cTimer.h" />
     <ClInclude Include="cTitleScene.h" />
+    <ClInclude Include="cUIManager.h" />
     <ClInclude Include="DXUT\Optional\SDKsound.h" />
     <ClInclude Include="DXUT\Optional\SDKwavefile.h" />
     <ClInclude Include="stdafx.h" />

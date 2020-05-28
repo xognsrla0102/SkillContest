@@ -21,6 +21,7 @@ cMainProc::~cMainProc()
 	FONT->ReleaseInst();
 	GAME->ReleaseInst();
 	OBJECT->ReleaseInst();
+	UI->ReleaseInst();
 }
 
 void cMainProc::Update()
@@ -44,6 +45,9 @@ void cMainProc::Render()
 	OBJECT->Render();
 	EFFECT->Render();
 	FONT->Render();
+
+	IMAGE->ReBegin(true);
+	UI->Render();
 
 	IMAGE->End();
 }

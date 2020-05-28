@@ -29,6 +29,8 @@ public:
 	void FadeOut();
 
 	void ChangeSceneEffect(FLOAT changeSpeed = 20.f);
+
+	string GetNowSceneKey();
 };
 
 #define SCENE cSceneManager::GetInst()
