@@ -120,6 +120,12 @@
     <Filter Include="Core\Object\bullet\manager">
       <UniqueIdentifier>{26d495d4-c65d-44a8-8585-a0c65a255e52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Object\bullet\bullet">
+      <UniqueIdentifier>{f01303a5-eec4-4209-bc1f-ace03d20bc86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\bullet\enemyBullet">
+      <UniqueIdentifier>{551c6e79-e1a0-4166-a87a-945c470f2c8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -262,11 +268,11 @@
     <ClCompile Include="cPlayer.cpp">
       <Filter>Core\Object\player</Filter>
     </ClCompile>
-    <ClCompile Include="cBullet.cpp">
-      <Filter>Core\Object\bullet</Filter>
-    </ClCompile>
     <ClCompile Include="cBulletManager.cpp">
       <Filter>Core\Object\bullet\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cBullet.cpp">
+      <Filter>Core\Object\bullet\bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -357,11 +363,11 @@
     <ClInclude Include="cPlayer.h">
       <Filter>Core\Object\player</Filter>
     </ClInclude>
-    <ClInclude Include="cBullet.h">
-      <Filter>Core\Object\bullet</Filter>
-    </ClInclude>
     <ClInclude Include="cBulletManager.h">
       <Filter>Core\Object\bullet\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cBullet.h">
+      <Filter>Core\Object\bullet\bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

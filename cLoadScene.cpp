@@ -54,6 +54,9 @@ void cLoadScene::Init()
 	Load("StageOneBG", "resources/image/stageone/bg/bg.png");
 
 	Load("PlayerIMG", "resources/image/player/player.png");
+	Load("PlayerBullet0IMG", "resources/image/bullet/playerbullet0.png");
+	Load("PlayerBullet1IMG", "resources/image/bullet/playerbullet1.png");
+	Load("PlayerBullet2IMG", "resources/image/bullet/playerbullet2.png");
 }
 
 void cLoadScene::Update()
