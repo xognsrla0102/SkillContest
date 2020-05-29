@@ -16,6 +16,8 @@ void cStageOne::Init()
 {
 	SOUND->Play("StageBGM", true);
 	OBJFIND(PLAYER)->SetActive(true);
+
+	CAMERA->m_pos = VEC2(OBJFIND(PLAYER)->GetPos().x + 300, OBJFIND(PLAYER)->GetPos().y);
 }
 
 void cStageOne::Update()
@@ -30,7 +32,6 @@ void cStageOne::Update()
 void cStageOne::Render()
 {
 	m_map->Render();
-	IMAGE->Render(OBJFIND(PLAYER)->GetImg(), VEC2(0, 0), VEC2(1, 1), 0.f, true);
 }
 
 void cStageOne::Release()
@@ -55,22 +56,11 @@ void cStageOne::Pause()
 
 void cStageOne::CameraMove()
 {
-	//CAMERA->m_pos = VEC2(WINSIZEX / 2, WINSIZEY / 2);
+	Lerp<VEC2>(CAMERA->m_pos, CAMERA->m_pos, VEC2(OBJFIND(PLAYER)->GetPos().x + 300, OBJFIND(PLAYER)->GetPos().y), 0.05);
 
-	IMAGE->FindTexture("StageOneBG")->m_info.Width / 2;
-	CAMERA->m_pos.x;
+	if (CAMERA->m_pos.x < 590) CAMERA->m_pos.x = 590;
+	else if (CAMERA->m_pos.x > 3840) CAMERA->m_pos.x = 3840;
 
-
-	if ((-(IMAGE->FindTexture("StageOneBG")->m_info.Width) / 2) - (WINSIZEX / 2) < OBJFIND(PLAYER)->GetPos().x ||
-		((IMAGE->FindTexture("StageOneBG")->m_info.Width) / 2) + (WINSIZEX / 2) > OBJFIND(PLAYER)->GetPos().x ||
-		(-(IMAGE->FindTexture("StageOneBG")->m_info.Height) / 2) - (WINSIZEY / 2) < OBJFIND(PLAYER)->GetPos().y ||
-		((IMAGE->FindTexture("StageOneBG")->m_info.Height) / 2) + (WINSIZEY / 2) > OBJFIND(PLAYER)->GetPos().y)
-		{
-		Lerp<VEC2>(CAMERA->m_pos, CAMERA->m_pos, VEC2(OBJFIND(PLAYER)->GetPos().x + 350, OBJFIND(PLAYER)->GetPos().y), 0.05);
-		}
-	//CAMERA->m_pos.x = GAMESIZEX / 2;
-
-	//if (OBJFIND(PLAYER)->GetPos().x < WINSIZEX / 2) {
-		//CAMERA->m_pos.x = WINSIZEX / 2;
-	//}
+	if (CAMERA->m_pos.y < 310) CAMERA->m_pos.y = 310;
+	else if (CAMERA->m_pos.y > 1845) CAMERA->m_pos.y = 1845;
 }

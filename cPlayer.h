@@ -14,13 +14,11 @@ private:
 	vector<cMotionInfo*> m_motionInfo;
 	cTimer* m_fire;
 	cTimer* m_motion;
-	cTimer* m_boost;
 	FLOAT m_originSpd;
 	FLOAT m_moveSpd;
 	bool m_canFire = false;
-	bool m_isBoost = false;
 public:
-	bool m_isWayTan = true;
+	int m_nowWeapon = 0;
 public:
 	cPlayer();
 	virtual ~cPlayer();
@@ -30,6 +28,8 @@ public:
 
 	void Init();
 	void Release();
+
+	void ChangeWeapon();
 
 	void Move();
 	void Fire();

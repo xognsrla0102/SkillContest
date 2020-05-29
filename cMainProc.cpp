@@ -47,9 +47,7 @@ void cMainProc::Render()
 	FONT->Render();
 
 	IMAGE->ReBegin(true);
-	//로딩씬이 끝나고 렌더해야되는데 바로 렌더해서 이미지를 찾을 수 없음.
 	UI->Render();
-
 	IMAGE->End();
 }
 

@@ -60,6 +60,8 @@ void cLoadScene::Init()
 
 	//UI
 	Load("IngameBGUI", "resources/image/ui/ingame/bg.png");
+	Load("IngameWeaponUI", "resources/image/ui/ingame/nowweapon.png");
+	Load("IngameStarUI", "resources/image/ui/ingame/star.png");
 }
 
 void cLoadScene::Update()

@@ -17,7 +17,7 @@ using MATRIX = D3DXMATRIXA16;
 
 constexpr int WINSIZEX = 1280;
 constexpr int WINSIZEY = 720;
-constexpr int GAMESIZEX = 300;
+constexpr int GAMESIZEX = 600;
 constexpr int GAMESIZEY = 570;
 
 //오브젝트 태그는 렌더링 순서에 의존적임. 순서 변동하면 렌더 순서가 바뀜

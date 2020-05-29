@@ -44,12 +44,9 @@ void cPlayer::Update()
 		if(GAME->m_level < 5)
 			GAME->m_level++;
 	}
-	if (KEYDOWN('C')) {
-		DEBUG_LOG("타입 변경!\n");
-		m_isWayTan = !m_isWayTan;
-	}
 
 	Move();
+	ChangeWeapon();
 
 	if (m_motion->Update())
 		MotionBlur();
@@ -88,6 +85,15 @@ void cPlayer::Release()
 {
 }
 
+void cPlayer::ChangeWeapon()
+{
+	if (KEYDOWN('1')) m_nowWeapon = 0;
+	else if (KEYDOWN('2')) m_nowWeapon = 1;
+	else if (KEYDOWN('3')) m_nowWeapon = 2;
+	else if (KEYDOWN('4')) m_nowWeapon = 3;
+	else if (KEYDOWN('5')) m_nowWeapon = 4;
+}
+
 void cPlayer::Move()
 {
 	if (KEYPRESS(VK_LSHIFT)) m_moveSpd = m_originSpd * 0.5;
@@ -95,22 +101,27 @@ void cPlayer::Move()
 
 	if (KEYPRESS(VK_UP)) {
 		m_pos.y -= m_moveSpd * D_TIME;
+		if (m_pos.y < 0) m_pos.y = 0;
 	}
 	if (KEYPRESS(VK_DOWN)) {
 		m_pos.y += m_moveSpd * D_TIME;
+		if (m_pos.y > 2160) m_pos.y = 2160;
 	}
 	if (KEYPRESS(VK_LEFT)) {
 		m_pos.x -= m_moveSpd * D_TIME;
+		if (m_pos.x < 0) m_pos.x = 0;
 	}
 	if (KEYPRESS(VK_RIGHT)) {
 		m_pos.x += m_moveSpd * D_TIME;
+		if (m_pos.x > 3840) m_pos.x = 3840;
 	}
 }
 
 void cPlayer::Fire()
 {
 	if (KEYPRESS(VK_SPACE)) {
-		if (m_isWayTan) {
+		switch (m_nowWeapon) {
+		case 0:
 			SOUND->Copy("Bullet1SND");
 			switch (GAME->m_level) {
 			case 1:
@@ -134,8 +145,8 @@ void cPlayer::Fire()
 				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 8, 10, m_pos, VEC2(0, -1), 1400.f);
 				break;
 			}
-		}
-		else {
+			break;
+		case 1:
 			SOUND->Copy("Bullet0SND");
 			switch (GAME->m_level) {
 			case 1:
@@ -159,6 +170,7 @@ void cPlayer::Fire()
 				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet2IMG", 8, 20, m_pos, VEC2(0, -1), 1300.f);
 				break;
 			}
+			break;
 		}
 		m_canFire = false;
 	}

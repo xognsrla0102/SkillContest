@@ -1,10 +1,11 @@
 #pragma once
 #include "cSingleton.hpp"
 
+class cUI;
 class cUIManager : public cSingleton<cUIManager>
 {
 private:
-	cImage* m_ingameBG;
+	map<string, cUI*> m_UIs;
 public:
 	cUIManager();
 	virtual ~cUIManager();

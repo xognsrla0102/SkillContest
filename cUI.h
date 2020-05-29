@@ -1,12 +1,13 @@
 #pragma once
-class cScene abstract
+class cUI abstract
 {
 public:
-	cScene() {}
-	virtual ~cScene() {};
+	cUI() {}
+	virtual ~cUI() {}
 
 	virtual void Init() PURE;
 	virtual void Release() PURE;
-	virtual void Update() PURE;
+
 	virtual void Render() PURE;
 };
+

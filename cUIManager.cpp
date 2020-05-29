@@ -1,26 +1,38 @@
 #include "DXUT.h"
+#include "cUI.h"
+#include "cIngameUI.h"
 #include "cUIManager.h"
 
 cUIManager::cUIManager()
 {
-	m_ingameBG = new cImage;
+	m_UIs["IngameSceneUI"] = new cIngameUI;
 }
 
 cUIManager::~cUIManager()
 {
-	SAFE_DELETE(m_ingameBG);
+	for (auto iter : m_UIs)
+		SAFE_DELETE(iter.second);
+	m_UIs.clear();
 }
 
 void cUIManager::Init()
 {
-	m_ingameBG->m_text = IMAGE->FindTexture("IngameBGUI");
+	//로딩 후 각종 UI속 이미지 초기화
+	for (auto iter : m_UIs)
+		iter.second->Init();
 }
 
 void cUIManager::Render()
 {
-	string nowSceneKey = SCENE->GetNowSceneKey();
+	const string sceneName = SCENE->GetNowSceneKey();
 
-	if (nowSceneKey == "StageOneScene") {
-		IMAGE->Render(m_ingameBG->m_text, VEC2(0, 0));
-	}
+	map<string, cUI*>::iterator find;
+
+	if (sceneName == "LoadScene")
+		return;
+	else if (sceneName == "TitleScene")
+		return;
+	else if (sceneName == "StageOneScene" || sceneName == "StageTwoScene")
+		find = m_UIs.find("IngameSceneUI");
+	find->second->Render();
 }
