@@ -57,6 +57,9 @@ void cLoadScene::Init()
 	Load("PlayerBullet0IMG", "resources/image/bullet/playerbullet0.png");
 	Load("PlayerBullet1IMG", "resources/image/bullet/playerbullet1.png");
 	Load("PlayerBullet2IMG", "resources/image/bullet/playerbullet2.png");
+
+	//UI
+	Load("IngameBGUI", "resources/image/ui/ingame/bg.png");
 }
 
 void cLoadScene::Update()
@@ -78,6 +81,7 @@ void cLoadScene::Update()
 	if (m_nowLoad[0] == m_sounds.size() &&
 		m_nowLoad[1] == m_imgs.size()
 		) {
+		UI->Init();
 		//OBJ»ý¼º
 		OBJECT->AddOBJ(new cPlayer, PLAYER);
 		OBJECT->AddOBJ(new cBulletManager, BULLET);

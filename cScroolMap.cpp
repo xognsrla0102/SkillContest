@@ -30,7 +30,7 @@ void cScroolMap::Update()
 		pos1 = VEC2(0, -(FLOAT)m_img2->m_text->m_info.Height);
 		pos2 = VEC2(0, 0);
 	}
-	pos1.y += m_downSpd * D_TIME;
+	//pos1.y += m_downSpd * D_TIME;
 	pos2.y += m_downSpd * D_TIME;
 }
 
