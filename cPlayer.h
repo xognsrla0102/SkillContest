@@ -16,10 +16,14 @@ private:
 	cTimer* m_motion;
 	FLOAT m_originSpd;
 	FLOAT m_moveSpd;
+	FLOAT m_boostTime;
+	FLOAT m_boostDelay;
 	bool m_canFire = false;
 public:
+	P_STATUS m_status = P_IDLE;
 	bool m_isQ = false;
 	bool m_isW = false;
+	bool m_isBoost = false;
 
 	int m_hp = 100;
 	int m_nowWeapon = 0;
@@ -35,6 +39,7 @@ public:
 
 	void ChangeWeapon();
 
+	void Boost();
 	void Move();
 	void Fire();
 

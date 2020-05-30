@@ -45,26 +45,38 @@ void cCameraManager::SetTransform()
 void cCameraManager::ResetSetting()
 {
 	if (m_velocity < 0) m_velocity = -m_velocity;
-	m_accel = 1;
-	m_pos = VEC2(0, 0);
+}
+
+void cCameraManager::SetShake(float time, int radius, int velocity)
+{
+	//흔들리는 와중에 흔들림이 발생할 때
+	if (m_isShake) {
+		//시간이 더 많은 것 위주
+		if (m_delay < time) m_delay = time;
+		//흔들림 폭과 증가폭은 더 늘어나게
+		m_radius += radius;
+		m_velocity += velocity;
+	}
+	//안 흔들리다가 흔들릴 때
+	else {
+		m_start = 0;
+		m_delay = time;
+		m_radius = radius;
+		m_velocity = velocity;
+		m_isShake = true;
+	}
 }
 
 void cCameraManager::Shake()
 {
-	start += D_TIME;
-	if (start > m_delay) {
-		m_pos.x = rand() % m_accel - rand() % m_accel;
-		m_pos.y = rand() % m_accel - rand() % m_accel;
-		m_accel += m_velocity;
-		start = 0.f;
+	m_start += D_TIME;
+	if (m_start < m_delay) {
+		m_pos.x += rand() % m_radius - rand() % m_radius;
+		m_pos.y += rand() % m_radius - rand() % m_radius;
+		m_radius += m_velocity;
 	}
-
-	if (m_accel > 40) {
-		m_accel = 40;
-		m_velocity = -m_velocity;
-	}
-	else if (m_accel < 1) {
+	else {
 		ResetSetting();
-		m_isShake = FALSE;
+		m_isShake = false;
 	}
 }

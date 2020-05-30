@@ -6,6 +6,7 @@ cAnimation::cAnimation(float delay, int endFrame, bool isOnce)
 	: m_endFrame(endFrame)
 {
 	m_timer = new cTimer(delay);
+	m_isOnce = isOnce;
 }
 
 cAnimation::~cAnimation()

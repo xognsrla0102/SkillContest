@@ -390,6 +390,7 @@
     <ClCompile Include="cCameraManager.cpp" />
     <ClCompile Include="cEffect.cpp" />
     <ClCompile Include="cEffectManager.cpp" />
+    <ClCompile Include="cEnemyManager.cpp" />
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cGameManager.cpp" />
     <ClCompile Include="cImage.cpp" />
@@ -420,6 +421,7 @@
     <ClInclude Include="cCameraManager.h" />
     <ClInclude Include="cEffect.h" />
     <ClInclude Include="cEffectManager.h" />
+    <ClInclude Include="cEnemyManager.h" />
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cGameManager.h" />
     <ClInclude Include="cImage.h" />

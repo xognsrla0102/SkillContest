@@ -15,8 +15,6 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-	void Pause();
-
 	void CameraMove();
 };
 

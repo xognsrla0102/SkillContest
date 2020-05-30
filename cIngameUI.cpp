@@ -41,6 +41,16 @@ void cIngameUI::Render()
 	GAME->m_nowExp++;
 	GAME->m_totalExp++;
 
+	P_STATUS status = ((cPlayer*)OBJFIND(PLAYER))->m_status;
+	cAnimation* ani = OBJFIND(PLAYER)->GetAni();
+
+	if (status == P_IDLE)
+		m_player->m_text = IMAGE->FindTexture("PlayerIdle");
+	else if (status == P_LEFT)
+		m_player->m_text = IMAGE->FindTexture("PlayerLeft", ani->m_nowFrame);
+	else if (status == P_RIGHT)
+		m_player->m_text = IMAGE->FindTexture("PlayerRight", ani->m_nowFrame);
+
 	IMAGE->Render(m_backWhite->m_text, VEC2(680, 100));
 	IMAGE->Render(m_player->m_text, VEC2(710, 420), VEC2(1.8, 1.8));
 

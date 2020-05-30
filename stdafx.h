@@ -29,6 +29,12 @@ enum TAGS {
 	TAG_END,
 };
 
+enum P_STATUS {
+	P_IDLE,
+	P_LEFT,
+	P_RIGHT,
+};
+
 #include "SDKsound.h"
 #include "cAnimation.h"
 #include "cEffect.h"

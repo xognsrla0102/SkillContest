@@ -89,7 +89,6 @@ cTexture* cImageManager::FindTexture(string name, int cnt)
 	if (find == m_imgs.end()) {
 		for (auto iter : m_imgs)
 			DEBUG_LOG("%s\n", iter.first.c_str());
-		 
 		DEBUG_LOG("찾는 이미지가 없어유..\n");
 		return nullptr;
 	}

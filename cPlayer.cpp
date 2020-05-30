@@ -23,6 +23,8 @@ cPlayer::cPlayer()
 
 	m_img = new cImage;
 	m_img->m_text = IMAGE->FindTexture("PlayerIdle");
+
+	m_ani = new cAnimation(0.13, 5, true);
 }
 
 cPlayer::~cPlayer()
@@ -33,14 +35,27 @@ cPlayer::~cPlayer()
 	SAFE_DELETE(m_img);
 	SAFE_DELETE(m_fire);
 	SAFE_DELETE(m_motion);
+	SAFE_DELETE(m_ani);
 }
 
 void cPlayer::Update()
 {
 	if (!m_isActive) return;
 
+	m_ani->Update();
+
 	Move();
 	ChangeWeapon();
+
+	if (m_isBoost)
+		Boost();
+
+	if (m_status == P_IDLE)
+		m_img->m_text = IMAGE->FindTexture("PlayerIdle");
+	else if (m_status == P_LEFT)
+		m_img->m_text = IMAGE->FindTexture("PlayerLeft", m_ani->m_nowFrame);
+	else if (m_status == P_RIGHT)
+		m_img->m_text = IMAGE->FindTexture("PlayerRight", m_ani->m_nowFrame);
 
 	if (m_motion->Update())
 		MotionBlur();
@@ -62,7 +77,6 @@ void cPlayer::Render()
 
 	for (auto iter : m_motionInfo)
 		IMAGE->Render(m_img->m_text, iter->m_motionPos, m_size, m_rot, true, iter->m_color);
-
 	IMAGE->Render(m_img->m_text, m_pos, m_size, m_rot, true, m_img->m_color);
 }
 
@@ -72,6 +86,10 @@ void cPlayer::Init()
 	GAME->m_level = 1;
 	m_originSpd = m_moveSpd = 500.f;
 	m_pos = VEC2(WINSIZEX / 2, WINSIZEY - 100);
+	m_size = VEC2(0.8, 0.8);
+	m_isBoost = false;
+	m_boostTime = 0.f;
+	m_boostDelay = 0.3;
 }
 
 void cPlayer::Release()
@@ -87,10 +105,30 @@ void cPlayer::ChangeWeapon()
 	else if (KEYDOWN('5')) m_nowWeapon = 4;
 }
 
+void cPlayer::Boost()
+{
+	m_boostTime += D_TIME;
+	if (m_boostTime < m_boostDelay)
+		Lerp(m_moveSpd, m_moveSpd, m_originSpd, 0.3);
+	else {
+		m_moveSpd = m_originSpd;
+		m_boostTime = 0.f;
+		m_isBoost = false;
+	}
+}
+
 void cPlayer::Move()
 {
+	if (KEYDOWN('R') && 
+		(KEYPRESS(VK_UP) || KEYPRESS(VK_DOWN) || KEYPRESS(VK_LEFT) || KEYPRESS(VK_RIGHT))
+		) {
+		CAMERA->SetShake(0.13, 20, 4);
+		m_isBoost = true;
+		m_moveSpd = m_originSpd * 5;
+	}
+
 	if (KEYPRESS(VK_LSHIFT)) m_moveSpd = m_originSpd * 0.5;
-	else m_moveSpd = m_originSpd;
+	else if(m_isBoost == false) m_moveSpd = m_originSpd;
 
 	if (KEYPRESS(VK_UP)) {
 		m_pos.y -= m_moveSpd * D_TIME;
@@ -100,13 +138,36 @@ void cPlayer::Move()
 		m_pos.y += m_moveSpd * D_TIME;
 		if (m_pos.y > 2160) m_pos.y = 2160;
 	}
-	if (KEYPRESS(VK_LEFT)) {
-		m_pos.x -= m_moveSpd * D_TIME;
-		if (m_pos.x < 0) m_pos.x = 0;
+
+	if (KEYPRESS(VK_LEFT) && KEYPRESS(VK_RIGHT)) {
+		if (m_status != P_IDLE) {
+			m_status = P_IDLE;
+			m_ani->m_nowFrame = 0;
+		}
 	}
-	if (KEYPRESS(VK_RIGHT)) {
-		m_pos.x += m_moveSpd * D_TIME;
-		if (m_pos.x > 3840) m_pos.x = 3840;
+	else if (KEYPRESS(VK_LEFT) || KEYPRESS(VK_RIGHT)) {
+		if (KEYPRESS(VK_LEFT)) {
+			if (m_status != P_LEFT) {
+				m_status = P_LEFT;
+				m_ani->m_nowFrame = 0;
+			}
+			m_pos.x -= m_moveSpd * D_TIME;
+			if (m_pos.x < 0) m_pos.x = 0;
+		}
+		else {
+			if (m_status != P_RIGHT) {
+				m_status = P_RIGHT;
+				m_ani->m_nowFrame = 0;
+			}
+			m_pos.x += m_moveSpd * D_TIME;
+			if (m_pos.x > 3840) m_pos.x = 3840;
+		}
+	}
+	else {
+		if (m_status != P_IDLE) {
+			m_status = P_IDLE;
+			m_ani->m_nowFrame = 0;
+		}
 	}
 }
 

@@ -6,14 +6,17 @@ class cCameraManager : public cSingleton<cCameraManager>
 private:
 	D3DXMATRIX m_matView;
 	D3DXMATRIX m_matProj;
-	FLOAT start = 0;
+	FLOAT m_start = 0;
+	BOOL m_isShake = FALSE;
 public:
 	VEC2 m_pos = VEC2(0, 0);
 	FLOAT m_size = 1.f;
-	FLOAT m_delay = 0.03;
-	BOOL m_isShake = FALSE;
-	INT m_accel = 1;
-	INT m_velocity = 1;
+	//Áøµ¿ ½Ã°£
+	FLOAT m_delay;
+	//Èçµé¸² Æø
+	INT m_radius;
+	//Èçµé¸² Áõ°¡ Æø
+	INT m_velocity;
 public:
 	cCameraManager();
 	virtual ~cCameraManager();
@@ -23,6 +26,7 @@ public:
 	void SetTransform();
 
 	void ResetSetting();
+	void SetShake(float time, int radius, int velocity);
 	void Shake();
 };
 

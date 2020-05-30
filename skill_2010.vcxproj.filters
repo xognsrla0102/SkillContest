@@ -147,6 +147,9 @@
     <Filter Include="Core\scene\ingame\stageTwo">
       <UniqueIdentifier>{ea3cd91c-0205-441c-ba4d-83003d037c59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Object\enemy\enemy">
+      <UniqueIdentifier>{a720cf01-3ecd-43a3-8932-08d7e009b648}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -304,6 +307,9 @@
     <ClCompile Include="cUIManager.cpp">
       <Filter>Core\Manager\ui\manager</Filter>
     </ClCompile>
+    <ClCompile Include="cEnemyManager.cpp">
+      <Filter>Core\Object\enemy\manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -407,6 +413,9 @@
     </ClInclude>
     <ClInclude Include="cUIManager.h">
       <Filter>Core\Manager\ui\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cEnemyManager.h">
+      <Filter>Core\Object\enemy\manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

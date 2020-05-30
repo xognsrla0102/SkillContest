@@ -42,6 +42,17 @@ void cGameManager::Update()
 		m_totalExp += 100;
 	}
 
+	if (KEYDOWN('P')) {
+		m_isPause = !m_isPause;
+		if (m_isPause) {
+			OLD_TIME_SCALE = TIME_SCALE;
+			TIME_SCALE = 0.f;
+		}
+		else {
+			TIME_SCALE = OLD_TIME_SCALE;
+		}
+	}
+
 	switch (m_level) {
 	case 1:
 		if (m_expMax != 2500) m_expMax = 2500;
@@ -50,10 +61,10 @@ void cGameManager::Update()
 		if (m_expMax != 4000) m_expMax = 4000;
 		break;
 	case 3:
-		if (m_expMax != 7000) m_expMax = 7000;
+		if (m_expMax != 5500) m_expMax = 5500;
 		break;
 	case 4:
-		if (m_expMax != 10000) m_expMax = 10000;
+		if (m_expMax != 7000) m_expMax = 7000;
 		break;
 	}
 
@@ -61,8 +72,7 @@ void cGameManager::Update()
 		m_nowExp = 0;
 		m_level++;
 		VEC2 pos = OBJFIND(PLAYER)->GetPos();
-
-		FONT->AddFont("Level UP!!!", VEC2(pos.x - 10, pos.y - 10), 1.f, true);
+		FONT->AddFont("Level UP!!!", VEC2(pos.x - 40, pos.y - 50), 1.f, true);
 	}
 }
 

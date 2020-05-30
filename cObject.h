@@ -31,6 +31,7 @@ public:
 	FLOAT GetRot() { return m_rot; }
 	BOOL GetLive() { return m_isLive; }
 	BOOL GetActive() { return m_isActive; }
+	cAnimation* GetAni() { return m_ani; }
 
 	VEC2& GetRefPos() { return m_pos; }
 	VEC2& GetRefSize() { return m_size; }
