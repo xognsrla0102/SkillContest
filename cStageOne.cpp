@@ -14,6 +14,8 @@ cStageOne::~cStageOne()
 
 void cStageOne::Init()
 {
+	GAME->Init();
+
 	SOUND->Play("StageBGM", true);
 	OBJFIND(PLAYER)->SetActive(true);
 
@@ -22,6 +24,8 @@ void cStageOne::Init()
 
 void cStageOne::Update()
 {
+	GAME->Update();
+
 	CameraMove();
 
 	m_map->Update();

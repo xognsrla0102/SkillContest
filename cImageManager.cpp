@@ -6,7 +6,7 @@ cImageManager::cImageManager()
 {
 	D3DXCreateSprite(DEVICE, &m_sprite);
 
-	D3DXCreateFont(
+	D3DXCreateFontA(
 		DEVICE,
 		20,
 		0,
@@ -17,7 +17,7 @@ cImageManager::cImageManager()
 		OUT_DEFAULT_PRECIS,
 		DEFAULT_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE,
-		L"Arial",
+		"Arial",
 		&m_font
 	);
 }
@@ -99,7 +99,7 @@ cTexture* cImageManager::FindTexture(string name, int cnt)
 void cImageManager::Render(cTexture* text, VEC2 pos, VEC2 size, float rot, bool isCenter, D3DCOLOR color)
 {
 	if (text) {
-		D3DXMATRIXA16 mat, s, r, t;
+		MATRIX mat, s, r, t;
 		D3DXMatrixScaling(&s, size.x, size.y, 1.f);
 		D3DXMatrixRotationZ(&r, D3DXToRadian(rot));
 		D3DXMatrixTranslation(&t, pos.x, pos.y, 0.f);
@@ -117,8 +117,8 @@ void cImageManager::Render(cTexture* text, VEC2 pos, VEC2 size, float rot, bool 
 void cImageManager::CenterRender(cTexture* text, VEC2 pos, VEC2 center, float size, float rot, D3DCOLOR color)
 {
 	if (text) {
-		D3DXMATRIXA16 mat, s, r, t;
-		D3DXMatrixScaling(&s, size, size, size);
+		MATRIX mat, s, r, t;
+		D3DXMatrixScaling(&s, size, size, 1.f);
 		D3DXMatrixRotationZ(&r, D3DXToRadian(rot));
 		D3DXMatrixTranslation(&t, pos.x, pos.y, 0.f);
 
@@ -130,12 +130,67 @@ void cImageManager::CenterRender(cTexture* text, VEC2 pos, VEC2 center, float si
 	else DEBUG_LOG("텍스쳐가 비었소\n");
 }
 
+void cImageManager::CropRender(cTexture* text, VEC2 pos, VEC2 size, RECT rt, bool isCenter)
+{
+	MATRIX mat, s, t;
+	D3DXMatrixScaling(&s, size.x, size.y, 1.f);
+	D3DXMatrixTranslation(&t, pos.x, pos.y, 0.f);
+	mat = s * t;
+
+	m_sprite->SetTransform(&mat);
+
+	if (isCenter) {
+		m_sprite->Draw(
+			text->m_text, &rt,
+			&VEC3(text->m_info.Width / 2, text->m_info.Height / 2, 0.f),
+			nullptr, D3DCOLOR_ARGB(255, 255, 255, 255)
+		);
+	}
+	else {
+		m_sprite->Draw(
+			text->m_text, &rt, nullptr, nullptr,
+			D3DCOLOR_ARGB(255, 255, 255, 255)
+		);
+	}
+}
+
+void cImageManager::DrawNum(string text, VEC2 pos, int numD, VEC2 size)
+{
+	cTexture* nowImg;
+	for (size_t i = 0; i < text.size(); ++i) {
+		char key[256];
+		sprintf(key, "num_%c", text[i]);
+		nowImg = FindTexture(key);
+		Render(nowImg, VEC2(pos.x + (i * numD), pos.y), size);
+	}
+}
+
+void cImageManager::DrawFloat(string text, VEC2 pos, int length, int dotD, int numD, VEC2 size)
+{
+	cTexture* nowImg;
+	for (size_t i = 0; i < length; ++i) {
+		if (text[i] == '.') {
+			nowImg = FindTexture("num_dot");
+			Render(nowImg, VEC2(pos.x + (i * dotD), pos.y + 10), size);
+		}
+		else {
+			char key[256];
+			sprintf(key, "num_%c", text[i]);
+			nowImg = FindTexture(key);
+			Render(nowImg, VEC2(pos.x + (i * numD), pos.y), size);
+		}
+	}
+}
+
 void cImageManager::DrawFont(string text, VEC2 pos, D3DCOLOR color)
 {
 	RECT rt = { pos.x, pos.y, 0, 0 };
+	MATRIX mat;
+	D3DXMatrixIdentity(&mat);
+	m_sprite->SetTransform(&mat);
 
 	m_font->DrawTextA(
-		nullptr,
+		m_sprite,
 		text.c_str(),
 		-1,
 		&rt,

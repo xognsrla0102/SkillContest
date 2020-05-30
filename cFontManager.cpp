@@ -41,7 +41,7 @@ void cFontManager::Update()
 {
 	size_t size = m_fonts.size();
 
-	for (size_t i = 0; i < size; i++) {
+	for (size_t i = 0; i < size; ++i) {
 		m_fonts[i]->Update();
 		if (m_fonts[i]->m_isDone == TRUE) {
 			SAFE_DELETE(m_fonts[i]);

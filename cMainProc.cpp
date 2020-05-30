@@ -27,7 +27,6 @@ cMainProc::~cMainProc()
 void cMainProc::Update()
 {
 	INPUT->Update();
-	GAME->Update();
 	CAMERA->Update();
 	SCENE->Update();
 	OBJECT->Update();

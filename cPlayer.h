@@ -18,6 +18,10 @@ private:
 	FLOAT m_moveSpd;
 	bool m_canFire = false;
 public:
+	bool m_isQ = false;
+	bool m_isW = false;
+
+	int m_hp = 100;
 	int m_nowWeapon = 0;
 public:
 	cPlayer();

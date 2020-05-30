@@ -22,7 +22,7 @@ cPlayer::cPlayer()
 	m_motion = new cTimer(0.02);
 
 	m_img = new cImage;
-	m_img->m_text = IMAGE->FindTexture("PlayerIMG");
+	m_img->m_text = IMAGE->FindTexture("PlayerIdle");
 }
 
 cPlayer::~cPlayer()
@@ -38,12 +38,6 @@ cPlayer::~cPlayer()
 void cPlayer::Update()
 {
 	if (!m_isActive) return;
-
-	if (KEYDOWN('R')) {
-		DEBUG_LOG("·¹º§¾÷!\n");
-		if(GAME->m_level < 5)
-			GAME->m_level++;
-	}
 
 	Move();
 	ChangeWeapon();
@@ -78,7 +72,6 @@ void cPlayer::Init()
 	GAME->m_level = 1;
 	m_originSpd = m_moveSpd = 500.f;
 	m_pos = VEC2(WINSIZEX / 2, WINSIZEY - 100);
-	m_size = VEC2(0.3, 0.3);
 }
 
 void cPlayer::Release()
@@ -122,7 +115,7 @@ void cPlayer::Fire()
 	if (KEYPRESS(VK_SPACE)) {
 		switch (m_nowWeapon) {
 		case 0:
-			SOUND->Copy("Bullet1SND");
+			SOUND->Copy("Bullet0SND");
 			switch (GAME->m_level) {
 			case 1:
 				m_fire->m_delay = 0.5f;
@@ -147,7 +140,7 @@ void cPlayer::Fire()
 			}
 			break;
 		case 1:
-			SOUND->Copy("Bullet0SND");
+			SOUND->Copy("Bullet1SND");
 			switch (GAME->m_level) {
 			case 1:
 				m_fire->m_delay = 0.15f;

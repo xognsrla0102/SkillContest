@@ -144,6 +144,9 @@
     <Filter Include="Core\Manager\ui\manager">
       <UniqueIdentifier>{62a7b4a9-356b-4087-a771-c136f18afb62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\scene\ingame\stageTwo">
+      <UniqueIdentifier>{ea3cd91c-0205-441c-ba4d-83003d037c59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">

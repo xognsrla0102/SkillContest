@@ -53,15 +53,38 @@ void cLoadScene::Init()
 	Load("TitleBG", "resources/image/title/title.png");
 	Load("StageOneBG", "resources/image/stageone/bg/bg.png");
 
-	Load("PlayerIMG", "resources/image/player/player.png");
+	Load("PlayerIdle", "resources/image/player/idle.png");
+	Load("PlayerLeft", "resources/image/player/left%d.png", 5);
+	Load("PlayerRight", "resources/image/player/Right%d.png", 5);
+
 	Load("PlayerBullet0IMG", "resources/image/bullet/playerbullet0.png");
 	Load("PlayerBullet1IMG", "resources/image/bullet/playerbullet1.png");
 	Load("PlayerBullet2IMG", "resources/image/bullet/playerbullet2.png");
 
 	//UI
+	Load("num_dot", "resources/image/ui/num/dot.png");
+	Load("num_0", "resources/image/ui/num/0.png");
+	Load("num_1", "resources/image/ui/num/1.png");
+	Load("num_2", "resources/image/ui/num/2.png");
+	Load("num_3", "resources/image/ui/num/3.png");
+	Load("num_4", "resources/image/ui/num/4.png");
+	Load("num_5", "resources/image/ui/num/5.png");
+	Load("num_6", "resources/image/ui/num/6.png");
+	Load("num_7", "resources/image/ui/num/7.png");
+	Load("num_8", "resources/image/ui/num/8.png");
+	Load("num_9", "resources/image/ui/num/9.png");
+
 	Load("IngameBGUI", "resources/image/ui/ingame/bg.png");
 	Load("IngameWeaponUI", "resources/image/ui/ingame/nowweapon.png");
 	Load("IngameStarUI", "resources/image/ui/ingame/star.png");
+	Load("IngamePlayerUI", "resources/image/ui/ingame/player.png");
+	Load("IngameExpUI", "resources/image/ui/ingame/exp_bar.png");
+	Load("IngameHpUI", "resources/image/ui/ingame/hp_bar.png");
+	Load("IngameLevelUI", "resources/image/ui/ingame/level.png");
+	Load("IngameSkillUI", "resources/image/ui/ingame/skill_bar.png");
+	Load("IngameNoSkillUI", "resources/image/ui/ingame/noskill.png");
+	Load("IngameBackWhiteUI", "resources/image/ui/ingame/backwhite.png");
+	Load("IngamePLAYERUI", "resources/image/ui/ingame/player.png");
 }
 
 void cLoadScene::Update()

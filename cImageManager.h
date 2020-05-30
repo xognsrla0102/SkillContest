@@ -26,11 +26,16 @@ public:
 
 	void Render(cTexture* text, VEC2 pos, VEC2 size = VEC2(1.f, 1.f), float rot = 0, bool isCenter = false, D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255));
 	void CenterRender(cTexture* text, VEC2 pos, VEC2 center, float size = 1, float rot = 0, D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255));
+	void CropRender(cTexture* text, VEC2 pos, VEC2 size, RECT rt, bool isCenter = false);
+
+	void DrawNum(string text, VEC2 pos, int numD, VEC2 size = VEC2(1, 1));
+	void DrawFloat(string text, VEC2 pos, int length, int dotD, int numD, VEC2 size = VEC2(1, 1));
 
 	void DrawFont(string text, VEC2 pos, D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255));
 };
 
 #define IMAGE cImageManager::GetInst()
-#define DRAW_NUM(i, j) IMAGE->DrawNum(i, j)
-#define DRAW_NUM_SIZE(i, j, k) IMAGE->DrawNum(i, j, k)
-#define DRAW_FRAME(i, j) IMAGE->DrawFrame(i, j)
+#define DRAW_NUM(i, j, k) IMAGE->DrawNum(i, j, k)
+#define DRAW_NUM_SIZE(i, j, k, l) IMAGE->DrawNum(i, j, k, l)
+#define DRAW_FLOAT(i, j, k, l, m) IMAGE->DrawFloat(i, j, k, l, m)
+#define DRAW_FLOAT_SIZE(i, j, k, l, m, n) IMAGE->DrawFloat(i, j, k, l, m, n)
