@@ -20,6 +20,10 @@ constexpr int WINSIZEY = 720;
 constexpr int GAMESIZEX = 600;
 constexpr int GAMESIZEY = 570;
 
+#define GX(x) (WINSIZEX / 2 - GAMESIZEX / 2 + x)
+#define GY(y) (WINSIZEY / 2 - GAMESIZEY / 2 + y)
+#define GXY(x, y) (VEC2(WINSIZEX / 2 - GAMESIZEX / 2 + x, WINSIZEY / 2 - GAMESIZEY / 2 + y))
+
 //오브젝트 태그는 렌더링 순서에 의존적임. 순서 변동하면 렌더 순서가 바뀜
 enum TAGS {
 	ENEMY,
@@ -36,6 +40,8 @@ enum P_STATUS {
 };
 
 #include "SDKsound.h"
+#include "math.h"
+#include "collision.h"
 #include "cAnimation.h"
 #include "cEffect.h"
 #include "cTexture.h"

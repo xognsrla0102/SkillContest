@@ -13,10 +13,25 @@ cBulletManager::~cBulletManager()
 
 void cBulletManager::Update()
 {
-	for (auto iter : m_pBullet)
-		iter->Update();
-	for (auto iter : m_eBullet)
-		iter->Update();
+	size_t size = m_pBullet.size();
+	for (size_t i = 0; i < size; ++i) {
+		m_pBullet[i]->Update();
+		if (m_pBullet[i]->GetLive() == FALSE) {
+			SAFE_DELETE(m_pBullet[i]);
+			m_pBullet.erase(m_pBullet.begin() + i);
+			i--, size--;
+		}
+	}
+
+	size = m_eBullet.size();
+	for (size_t i = 0; i < size; ++i) {
+		m_eBullet[i]->Update();
+		if (m_eBullet[i]->GetLive() == FALSE) {
+			SAFE_DELETE(m_eBullet[i]);
+			m_eBullet.erase(m_eBullet.begin() + i);
+			i--, size--;
+		}
+	}
 }
 
 void cBulletManager::Render()
@@ -27,6 +42,7 @@ void cBulletManager::Render()
 		iter->Render();
 }
 
+
 void cBulletManager::Reset()
 {
 	for (auto iter : m_pBullet)
@@ -35,7 +51,7 @@ void cBulletManager::Reset()
 		SAFE_DELETE(iter);
 }
 
-void cBulletManager::N_Way_Tan(const string& bulletName, const string& imageName, int n, int theta, VEC2 pos, VEC2 dir, float bulletSpd, bool isRandShot, bool isHoming, bool isAccel)
+void cBulletManager::N_Way_Tan(const string& bulletName, const string& imageName, int n, int theta, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, bool isRandShot, bool isHoming, bool isFaccel, bool isSaccel)
 {
 	float rot = D3DXToDegree(atan2(dir.y, dir.x));
 	float newRot;
@@ -56,7 +72,8 @@ void cBulletManager::N_Way_Tan(const string& bulletName, const string& imageName
 			dir.x = cos(D3DXToRadian(newRot));
 			dir.y = sin(D3DXToRadian(newRot));
 		}
-		auto bullet = new cBullet(imageName, pos, dir, D3DXToDegree(atan2(dir.y, dir.x)) + 90, bulletSpd, VEC2(1, 1), isHoming, isAccel);
+		auto bullet = new cBullet(imageName, pos, dir, D3DXToDegree(atan2(dir.y, dir.x)) + 90, bulletSpd, size, isHoming, isFaccel, isSaccel);
+		bullet->SetName(bulletName);
 
 		if (bulletName == "PlayerBullet")
 			m_pBullet.push_back(bullet);
@@ -66,7 +83,7 @@ void cBulletManager::N_Way_Tan(const string& bulletName, const string& imageName
 	}
 }
 
-void cBulletManager::N_Straight_Tan(const string& bulletName, const string& imageName, int n, int length, VEC2 pos, VEC2 dir, float bulletSpd, bool isAccel)
+void cBulletManager::N_Straight_Tan(const string& bulletName, const string& imageName, int n, int length, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, bool isFaccel, bool isSaccel)
 {
 	float rot = D3DXToDegree(atan2(dir.y, dir.x));
 
@@ -74,7 +91,8 @@ void cBulletManager::N_Straight_Tan(const string& bulletName, const string& imag
 	else pos.x -= n / 2 * length - length / 2;
 
 	for (size_t i = 0; i < n; ++i) {
-		auto bullet = new cBullet(imageName, VEC2(pos.x + i * length, pos.y), dir, rot + 90, bulletSpd, VEC2(1, 1), false, isAccel);
+		auto bullet = new cBullet(imageName, VEC2(pos.x + i * length, pos.y), dir, rot + 90, bulletSpd, size, false, isFaccel, isSaccel);
+		bullet->SetName(bulletName);
 
 		if (bulletName == "PlayerBullet")
 			m_pBullet.push_back(bullet);

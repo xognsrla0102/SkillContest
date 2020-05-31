@@ -12,6 +12,7 @@ private:
 	cImage* m_expBar;
 	cImage* m_backWhite;
 	cImage* m_player;
+	cImage* m_damaged;
 public:
 	cIngameUI();
 	virtual ~cIngameUI();

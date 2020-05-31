@@ -17,7 +17,7 @@ cImageManager::cImageManager()
 		OUT_DEFAULT_PRECIS,
 		DEFAULT_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE,
-		"Arial",
+		"HY엽서M",
 		&m_font
 	);
 }
@@ -83,12 +83,20 @@ void cImageManager::AddTexture(string name, string path, int cnt)
 	m_imgs[name] = text;
 }
 
+cMultiTexture* cImageManager::FindMultiTexture(string name)
+{
+	auto find = m_imgs.find(name);
+	if (find == m_imgs.end()) {
+		DEBUG_LOG("찾는 이미지가 없어유..\n");
+		return nullptr;
+	}
+	return find->second;
+}
+
 cTexture* cImageManager::FindTexture(string name, int cnt)
 {
 	auto find = m_imgs.find(name);
 	if (find == m_imgs.end()) {
-		for (auto iter : m_imgs)
-			DEBUG_LOG("%s\n", iter.first.c_str());
 		DEBUG_LOG("찾는 이미지가 없어유..\n");
 		return nullptr;
 	}

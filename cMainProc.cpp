@@ -29,9 +29,14 @@ void cMainProc::Update()
 	INPUT->Update();
 	CAMERA->Update();
 	SCENE->Update();
-	OBJECT->Update();
-	EFFECT->Update();
-	FONT->Update();
+
+	if (GAME->m_isPause) return;
+
+	if (SCENE->GetNowSceneKey() == "StageOneScene" || SCENE->GetNowSceneKey() == "StageTwoScene") {
+		OBJECT->Update();
+		EFFECT->Update();
+		FONT->Update();
+	}
 }
 
 void cMainProc::Render()

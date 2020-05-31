@@ -384,12 +384,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="collision.cpp" />
+    <ClCompile Include="math.cpp" />
     <ClCompile Include="cAnimation.cpp" />
     <ClCompile Include="cBullet.cpp" />
     <ClCompile Include="cBulletManager.cpp" />
     <ClCompile Include="cCameraManager.cpp" />
     <ClCompile Include="cEffect.cpp" />
     <ClCompile Include="cEffectManager.cpp" />
+    <ClCompile Include="cEnemy.cpp" />
     <ClCompile Include="cEnemyManager.cpp" />
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cGameManager.cpp" />
@@ -398,6 +401,7 @@
     <ClCompile Include="cIngameUI.cpp" />
     <ClCompile Include="cInputManager.cpp" />
     <ClCompile Include="cLoadScene.cpp" />
+    <ClCompile Include="cMeteor.cpp" />
     <ClCompile Include="cMultiTexture.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cObjectManager.cpp" />
@@ -415,12 +419,15 @@
     <ClCompile Include="DXUT\Optional\SDKsound.cpp" />
     <ClCompile Include="DXUT\Optional\SDKwavefile.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClInclude Include="collision.h" />
+    <ClInclude Include="math.h" />
     <ClInclude Include="cAnimation.h" />
     <ClInclude Include="cBullet.h" />
     <ClInclude Include="cBulletManager.h" />
     <ClInclude Include="cCameraManager.h" />
     <ClInclude Include="cEffect.h" />
     <ClInclude Include="cEffectManager.h" />
+    <ClInclude Include="cEnemy.h" />
     <ClInclude Include="cEnemyManager.h" />
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cGameManager.h" />
@@ -429,6 +436,7 @@
     <ClInclude Include="cIngameUI.h" />
     <ClInclude Include="cInputManager.h" />
     <ClInclude Include="cLoadScene.h" />
+    <ClInclude Include="cMeteor.h" />
     <ClInclude Include="cMultiTexture.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cObjectManager.h" />

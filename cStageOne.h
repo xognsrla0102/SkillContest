@@ -6,6 +6,15 @@ class cStageOne : public cScene
 {
 private:
 	cScroolMap* m_map;
+	cTimer* m_timePlus;
+	cTimer* m_createMeteor;
+	FLOAT m_patternTime;
+
+	int m_gameTime;
+	int m_mapPattern;
+	int m_totalPattern = 5;
+	bool m_isMidBoss;
+	bool m_isBoss;
 public:
 	cStageOne();
 	virtual ~cStageOne();
@@ -15,6 +24,11 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-	void CameraMove();
+	void DelayPattern();
+	void MapPattern();
+	void MapPattern1();
+	void MapPattern2();
+	void MapPattern3();
+	void MapPattern4();
 };
 

@@ -12,6 +12,7 @@ cIngameUI::cIngameUI()
 	m_expBar = new cImage;
 	m_backWhite = new cImage;
 	m_player = new cImage;
+	m_damaged = new cImage;
 }
 
 cIngameUI::~cIngameUI()
@@ -23,6 +24,7 @@ cIngameUI::~cIngameUI()
 	SAFE_DELETE(m_expBar);
 	SAFE_DELETE(m_backWhite);
 	SAFE_DELETE(m_player);
+	SAFE_DELETE(m_damaged);
 }
 
 void cIngameUI::Init()
@@ -33,14 +35,11 @@ void cIngameUI::Init()
 	m_level->m_text = IMAGE->FindTexture("IngameLevelUI");
 	m_expBar->m_text = IMAGE->FindTexture("IngameExpUI");
 	m_backWhite->m_text = IMAGE->FindTexture("IngameBackWhiteUI");
-	m_player->m_text = IMAGE->FindTexture("IngamePlayerUI");
+	m_damaged->m_text = IMAGE->FindTexture("IngameDamagedUI");
 }
 
 void cIngameUI::Render()
 {
-	GAME->m_nowExp++;
-	GAME->m_totalExp++;
-
 	P_STATUS status = ((cPlayer*)OBJFIND(PLAYER))->m_status;
 	cAnimation* ani = OBJFIND(PLAYER)->GetAni();
 

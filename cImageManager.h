@@ -22,6 +22,7 @@ public:
 	void ResetDevice();
 
 	void AddTexture(string name, string path, int cnt = 1);
+	cMultiTexture* FindMultiTexture(string name);
 	cTexture* FindTexture(string name, int cnt = 0);
 
 	void Render(cTexture* text, VEC2 pos, VEC2 size = VEC2(1.f, 1.f), float rot = 0, bool isCenter = false, D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255));

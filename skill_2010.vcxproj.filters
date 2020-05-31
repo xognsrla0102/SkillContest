@@ -27,9 +27,6 @@
     <Filter Include="Core\Manager">
       <UniqueIdentifier>{beee9704-c0be-4ada-97d8-34a62633c53d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Manager\singleton">
-      <UniqueIdentifier>{5df27599-4636-4a64-a8e2-075ab169a99b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Manager\scene">
       <UniqueIdentifier>{9b98ac23-5a00-44ae-9a65-a7379ae9122c}</UniqueIdentifier>
     </Filter>
@@ -72,9 +69,6 @@
     <Filter Include="Core\scene">
       <UniqueIdentifier>{f42103b9-41db-4477-bb7d-6fd07a33d7da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\scene\scene">
-      <UniqueIdentifier>{773e8fe8-08e4-4848-83c5-a980b8bd5e13}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\scene\load">
       <UniqueIdentifier>{e3dfc51a-eedf-4d65-afd1-76aaee5ffe90}</UniqueIdentifier>
     </Filter>
@@ -102,9 +96,6 @@
     <Filter Include="Core\Manager\object">
       <UniqueIdentifier>{773125d1-e3f1-4141-a8fc-82550cfbfd1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Object\object">
-      <UniqueIdentifier>{fc55c11d-bd2a-40f6-b6cc-070556aeb590}</UniqueIdentifier>
-    </Filter>
     <Filter Include="stdafx">
       <UniqueIdentifier>{45984ec9-746b-42ce-8475-13c4322c03aa}</UniqueIdentifier>
     </Filter>
@@ -122,9 +113,6 @@
     </Filter>
     <Filter Include="Core\Object\bullet\bullet">
       <UniqueIdentifier>{f01303a5-eec4-4209-bc1f-ace03d20bc86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Object\bullet\enemyBullet">
-      <UniqueIdentifier>{551c6e79-e1a0-4166-a87a-945c470f2c8e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Object\enemy\manager">
       <UniqueIdentifier>{90f8043f-cad9-4389-a232-dfd1464f9a01}</UniqueIdentifier>
@@ -147,8 +135,26 @@
     <Filter Include="Core\scene\ingame\stageTwo">
       <UniqueIdentifier>{ea3cd91c-0205-441c-ba4d-83003d037c59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Object\enemy\enemy">
+    <Filter Include="Core\Object\enemy\meteor">
+      <UniqueIdentifier>{66e490e8-4689-46ab-b01a-e26a7cbfd375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\_object">
+      <UniqueIdentifier>{fc55c11d-bd2a-40f6-b6cc-070556aeb590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene\_scene">
+      <UniqueIdentifier>{773e8fe8-08e4-4848-83c5-a980b8bd5e13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\_singleton">
+      <UniqueIdentifier>{5df27599-4636-4a64-a8e2-075ab169a99b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\_enemy">
       <UniqueIdentifier>{a720cf01-3ecd-43a3-8932-08d7e009b648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stdafx\math">
+      <UniqueIdentifier>{00bdaae7-40c3-4741-9628-645a12fe7576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stdafx\collision">
+      <UniqueIdentifier>{9386d175-41af-4f6a-bec2-4855e40835c0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -227,7 +233,7 @@
       <Filter>Core\Manager\scene</Filter>
     </ClCompile>
     <ClCompile Include="cScene.cpp">
-      <Filter>Core\scene\scene</Filter>
+      <Filter>Core\scene\_scene</Filter>
     </ClCompile>
     <ClCompile Include="cImageManager.cpp">
       <Filter>Core\Manager\image</Filter>
@@ -287,7 +293,7 @@
       <Filter>Core\Manager\object</Filter>
     </ClCompile>
     <ClCompile Include="cObject.cpp">
-      <Filter>Core\Object\object</Filter>
+      <Filter>Core\Object\_object</Filter>
     </ClCompile>
     <ClCompile Include="cPlayer.cpp">
       <Filter>Core\Object\player</Filter>
@@ -310,6 +316,18 @@
     <ClCompile Include="cEnemyManager.cpp">
       <Filter>Core\Object\enemy\manager</Filter>
     </ClCompile>
+    <ClCompile Include="cEnemy.cpp">
+      <Filter>Core\Object\enemy\_enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="cMeteor.cpp">
+      <Filter>Core\Object\enemy\meteor</Filter>
+    </ClCompile>
+    <ClCompile Include="math.cpp">
+      <Filter>stdafx\math</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>stdafx\collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -328,13 +346,13 @@
       <Filter>Util\DXUT</Filter>
     </ClInclude>
     <ClInclude Include="cSingleton.hpp">
-      <Filter>Core\Manager\singleton</Filter>
+      <Filter>Core\Manager\_singleton</Filter>
     </ClInclude>
     <ClInclude Include="cSceneManager.h">
       <Filter>Core\Manager\scene</Filter>
     </ClInclude>
     <ClInclude Include="cScene.h">
-      <Filter>Core\scene\scene</Filter>
+      <Filter>Core\scene\_scene</Filter>
     </ClInclude>
     <ClInclude Include="cImageManager.h">
       <Filter>Core\Manager\image</Filter>
@@ -394,7 +412,7 @@
       <Filter>Core\Manager\object</Filter>
     </ClInclude>
     <ClInclude Include="cObject.h">
-      <Filter>Core\Object\object</Filter>
+      <Filter>Core\Object\_object</Filter>
     </ClInclude>
     <ClInclude Include="cPlayer.h">
       <Filter>Core\Object\player</Filter>
@@ -416,6 +434,18 @@
     </ClInclude>
     <ClInclude Include="cEnemyManager.h">
       <Filter>Core\Object\enemy\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cEnemy.h">
+      <Filter>Core\Object\enemy\_enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="cMeteor.h">
+      <Filter>Core\Object\enemy\meteor</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>stdafx\math</Filter>
+    </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>stdafx\collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

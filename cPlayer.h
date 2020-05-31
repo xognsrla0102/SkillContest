@@ -12,27 +12,41 @@ class cPlayer : public cObject
 {
 private:
 	vector<cMotionInfo*> m_motionInfo;
-	cTimer* m_fire;
 	cTimer* m_motion;
+	cTimer* m_boostCool;
+
 	FLOAT m_originSpd;
 	FLOAT m_moveSpd;
+
 	FLOAT m_boostTime;
 	FLOAT m_boostDelay;
-	bool m_canFire = false;
-public:
-	P_STATUS m_status = P_IDLE;
-	bool m_isQ = false;
-	bool m_isW = false;
-	bool m_isBoost = false;
 
-	int m_hp = 100;
-	int m_nowWeapon = 0;
+	bool m_isBoostCool;
+	bool m_canFire;
+public:
+	cTimer* m_fire;
+
+	//총알 딜레이[무기];
+	float m_fireDelay[5] = { 0 };
+	//무기 공격력[무기];
+	float m_atk[5] = { 0 };
+
+	P_STATUS m_status;
+	bool m_isQ;
+	bool m_isW;
+	bool m_isBoost;
+
+	int m_hp;
+	int m_hpMax;
+
+	int m_nowWeapon;
 public:
 	cPlayer();
 	virtual ~cPlayer();
 
 	virtual void Update() override;
 	virtual void Render() override;
+	virtual void OnCollision(cObject* other);
 
 	void Init();
 	void Release();

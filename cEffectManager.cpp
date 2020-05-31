@@ -36,7 +36,7 @@ void cEffectManager::Update()
 void cEffectManager::Render()
 {
 	for (auto iter : m_efts)
-		iter->Render();
+ 		iter->Render();
 }
 
 void cEffectManager::Reset()
