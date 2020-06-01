@@ -25,7 +25,7 @@ void cStageOne::Init()
 	SOUND->Play("StageBGM", true);
 	OBJFIND(PLAYER)->SetActive(true);
 
-	CAMERA->p_pos = VEC2(WINSIZEX / 2, WINSIZEY / 2);
+	CAMERA->m_pos = VEC2(WINSIZEX / 2 + 300, WINSIZEY / 2);
 
 	m_gameTime = 0;
 	m_isMidBoss = false;
