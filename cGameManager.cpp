@@ -51,12 +51,13 @@ void cGameManager::Update()
 	}
 
 	if (m_level < 5 && KEYDOWN('A')) {
-		m_nowExp += 100;
-		m_totalExp += 100;
+		m_nowExp += 1000;
+		m_totalExp += 1000;
 	}
 
 	if (m_level < 5 && m_nowExp >= m_expMax) {
 		m_level++;
+		m_nowExp -= m_expMax;
 
 		auto player = (cPlayer*)OBJFIND(PLAYER);
 
@@ -79,8 +80,6 @@ void cGameManager::Update()
 			player->m_atk[i] += player->m_atk[i] * 0.2f;
 		}
 		player->m_fire->m_delay = player->m_fireDelay[player->m_nowWeapon];
-
-		m_nowExp = 0;
 		player->m_hp = player->m_hpMax;
 
 		VEC2 pos = OBJFIND(PLAYER)->GetPos();

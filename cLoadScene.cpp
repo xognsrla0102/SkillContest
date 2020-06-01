@@ -38,28 +38,87 @@ void cLoadScene::Init()
 	Load("OneEndingBGM", L"resources/bgm/oneending.wav");
 	Load("TwoEndingBGM", L"resources/bgm/twoending.wav");
 	Load("FailBGM", L"resources/bgm/fail.wav");
-	Load("RankBGM", L"resources/bgm/rank.wav");
+	Load("ResultBGM", L"resources/bgm/result.wav");
 
 	//효과음 로드
-	Load("Bullet0SND", L"resources/sound/bullet0.wav");
-	Load("Bullet1SND", L"resources/sound/bullet1.wav");
 
-	Load("Shot0SND", L"resources/sound/shot0.wav");
-	Load("Shot1SND", L"resources/sound/shot1.wav");
-	Load("Shot2SND", L"resources/sound/shot2.wav");
-	Load("Shot3SND", L"resources/sound/shot3.wav");
+	//피격음
 
-	Load("ShotGun0SND", L"resources/sound/shotgun0.wav");
+	//레이저 피격음
+	Load("RazerHit0SND", L"resources/sound/hit/razer_hit0.wav");
+	Load("RazerHit1SND", L"resources/sound/hit/razer_hit1.wav");
+	Load("RazerHit2SND", L"resources/sound/hit/razer_hit2.wav");
+	Load("RazerHit3SND", L"resources/sound/hit/razer_hit3.wav");
+	Load("RazerHit4SND", L"resources/sound/hit/razer_hit4.wav");
+	Load("RazerHit5SND", L"resources/sound/hit/razer_hit5.wav");
 
-	Load("Explosion0SND", L"resources/sound/explosion0.wav");
-	Load("Explosion1SND", L"resources/sound/explosion1.wav");
-	Load("Explosion2SND", L"resources/sound/explosion2.wav");
-	Load("Explosion3SND", L"resources/sound/explosion3.wav");
-	Load("Explosion4SND", L"resources/sound/explosion4.wav");
-	Load("Explosion5SND", L"resources/sound/explosion5.wav");
+	//총알 피격음
+	Load("RocketHit0SND", L"resources/sound/hit/rocket_hit0.wav");
+	Load("RocketHit1SND", L"resources/sound/hit/rocket_hit1.wav");
+	Load("RocketHit2SND", L"resources/sound/hit/rocket_hit2.wav");
+	Load("RocketHit3SND", L"resources/sound/hit/rocket_hit3.wav");
+	Load("RocketHit4SND", L"resources/sound/hit/rocket_hit4.wav");
 
-	Load("CountSND", L"resources/sound/count.wav");
-	Load("HitSND", L"resources/sound/hit.wav");
+	//배 피격음
+	Load("ShipHit0SND", L"resources/sound/hit/ship_hit0.wav");
+	Load("ShipHit1SND", L"resources/sound/hit/ship_hit1.wav");
+	Load("ShipHit2SND", L"resources/sound/hit/ship_hit2.wav");
+	Load("ShipHit3SND", L"resources/sound/hit/ship_hit3.wav");
+	Load("ShipHit4SND", L"resources/sound/hit/ship_hit4.wav");
+	Load("ShipHit5SND", L"resources/sound/hit/ship_hit5.wav");
+	Load("ShipHit6SND", L"resources/sound/hit/ship_hit6.wav");
+
+	//돌 피격음
+	Load("RockHit0SND", L"resources/sound/hit/rock_hit0.wav");
+	Load("RockHit1SND", L"resources/sound/hit/rock_hit1.wav");
+	Load("RockHit2SND", L"resources/sound/hit/rock_hit2.wav");
+	Load("RockHit3SND", L"resources/sound/hit/rock_hit3.wav");
+
+	//적 피격음
+	Load("EnemyHit0SND", L"resources/sound/hit/enemy_hit0.wav");
+	Load("EnemyHit1SND", L"resources/sound/hit/enemy_hit1.wav");
+	Load("EnemyHit2SND", L"resources/sound/hit/enemy_hit2.wav");
+	Load("EnemyHit3SND", L"resources/sound/hit/enemy_hit3.wav");
+
+	//플레이어 피격음
+	Load("PlayerHitSND", L"resources/sound/hit/player_hit.wav");
+
+	//발사음
+	Load("EnemyFireSND", L"resources/sound/fire/enemy_fire.wav");
+
+	Load("RazerChargeSND", L"resources/sound/fire/razer_charge.wav");
+	Load("RazerFireSND", L"resources/sound/fire/razer_fire.wav");
+
+	Load("RocketChargeSND", L"resources/sound/fire/rocket_charge.wav");
+	Load("RocketLaunchSND", L"resources/sound/fire/rocket_launch.wav");
+	Load("RocketDropSND", L"resources/sound/fire/rocket_drop.wav");
+
+	//무기 0
+	Load("Weapon0_0SND", L"resources/sound/fire/weapon0_0.wav");
+	Load("Weapon0_1SND", L"resources/sound/fire/weapon0_1.wav");
+	Load("Weapon0_2SND", L"resources/sound/fire/weapon0_2.wav");
+	Load("Weapon0_3SND", L"resources/sound/fire/weapon0_3.wav");
+	Load("Weapon0_4SND", L"resources/sound/fire/weapon0_4.wav");
+	Load("Weapon0_5SND", L"resources/sound/fire/weapon0_5.wav");
+	Load("Weapon0_6SND", L"resources/sound/fire/weapon0_6.wav");
+	Load("Weapon0_7SND", L"resources/sound/fire/weapon0_7.wav");
+	Load("Weapon0_8SND", L"resources/sound/fire/weapon0_8.wav");
+
+	//무기 1
+	Load("Weapon1_0SND", L"resources/sound/fire/weapon1_0.wav");
+	Load("Weapon1_1SND", L"resources/sound/fire/weapon1_1.wav");
+	Load("Weapon1_2SND", L"resources/sound/fire/weapon1_2.wav");
+	Load("Weapon1_3SND", L"resources/sound/fire/weapon1_3.wav");
+
+	//기타 사운드
+	Load("Dash0SND", L"resources/sound/dash0.wav");
+	Load("Dash1SND", L"resources/sound/dash1.wav");
+
+	Load("BossSND", L"resources/sound/boss.wav");
+	Load("DetectedSND", L"resources/sound/detected.wav");
+	Load("NoSkillSND", L"resources/sound/noskill.wav");
+	Load("StealSND", L"resources/sound/steal.wav");
+	Load("WarningSND", L"resources/sound/warning.wav");
 
 	//이미지 로드
 	Load("TitleBG", "resources/image/title/title.png");
@@ -82,6 +141,13 @@ void cLoadScene::Init()
 	Load("EnemyMeteor5IMG", "resources/image/enemy/meteor/meteor5.png");
 
 	Load("Explosion0IMG", "resources/image/effect/explosion/0/%d.png", 24);
+	Load("Explosion1IMG", "resources/image/effect/explosion/1/%d.png", 24);
+	Load("Explosion2IMG", "resources/image/effect/explosion/2/%d.png", 23);
+	Load("Explosion3IMG", "resources/image/effect/explosion/3/%d.png", 24);
+	Load("Explosion4IMG", "resources/image/effect/explosion/4/%d.png", 24);
+	Load("Explosion5IMG", "resources/image/effect/explosion/5/%d.png", 32);
+	Load("Explosion6IMG", "resources/image/effect/explosion/6/%d.png", 32);
+	Load("Explosion7IMG", "resources/image/effect/explosion/7/%d.png", 32);
 	Load("Explosion8IMG", "resources/image/effect/explosion/8/%d.png", 32);
 	Load("Explosion9IMG", "resources/image/effect/explosion/9/%d.png", 32);
 	Load("Explosion10IMG", "resources/image/effect/explosion/10/%d.png", 24);
@@ -110,6 +176,7 @@ void cLoadScene::Init()
 
 void cLoadScene::Update()
 {
+
 	//소리
 	if (m_nowLoad[0] < m_sounds.size()) {
 		int& idx = m_nowLoad[0];

@@ -15,6 +15,8 @@ private:
 	cTimer* m_motion;
 	cTimer* m_boostCool;
 
+	cImage* m_boostBar;
+
 	FLOAT m_originSpd;
 	FLOAT m_moveSpd;
 
@@ -50,6 +52,8 @@ public:
 
 	void Init();
 	void Release();
+
+	void Dead();
 
 	void ChangeWeapon();
 

@@ -64,8 +64,6 @@ void cBullet::OnCollision(cObject* other)
 {
 	if (AABB(GetObjCollider(), other->GetObjCollider())) {
 		if (other->GetName() == "Meteor") {
-			SOUND->Copy("HitSND");
-			SOUND->Copy("HitSND");
 			m_isLive = false;
 		}
 	}
@@ -73,17 +71,18 @@ void cBullet::OnCollision(cObject* other)
 
 void cBullet::Dead()
 {
+	CAMERA->SetShake(0.05, 5, 5);
+
 	char str[256];
-	sprintf(str, "Explosion%dSND", rand() % 6);
-	SOUND->Copy(str);
+	sprintf(str, "RocketHit%dSND", rand() % 5);
 	SOUND->Copy(str);
 
-	sprintf(str, "Explosion%dIMG", 8 + rand() % 3);
+	sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
 	auto img = IMAGE->FindMultiTexture(str);
 	EFFECT->AddEffect(new cEffect(
-		str, img->GetImgSize(), 0.01,
+		str, img->GetImgSize(), 0.03,
 		VEC2(GetPos().x + rand() % 30 - rand() % 30, GetPos().y + rand() % 30 - rand() % 30),
-		VEC2(0, 0)
+		VEC2(0, 0), VEC2(0, 0), VEC2(1.5, 1.5)
 	));
 	m_isLive = false;
 }

@@ -2,8 +2,9 @@
 #include "cObject.h"
 class cEnemy : public cObject 
 {
-protected:
+public:
 	int m_hp;
+	int m_atk;
 public:
 	cEnemy() {}
 	virtual ~cEnemy() {}

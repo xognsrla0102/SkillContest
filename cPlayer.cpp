@@ -1,5 +1,6 @@
 #include "DXUT.h"
 #include "cTimer.h"
+#include "cEnemy.h"
 #include "cBullet.h"
 #include "cBulletManager.h"
 #include "cPlayer.h"
@@ -12,6 +13,8 @@ cPlayer::cPlayer()
 	m_boostCool = new cTimer(1);
 	m_motion = new cTimer(0.02);
 	m_img = new cImage;
+	m_boostBar = new cImage;
+	m_boostBar->m_text = IMAGE->FindTexture("IngameSkillUI");
 	m_ani = new cAnimation(0.13, 5, true);
 
 	m_objName = "Player";
@@ -27,6 +30,7 @@ cPlayer::~cPlayer()
 	SAFE_DELETE(m_motion);
 	SAFE_DELETE(m_ani);
 	SAFE_DELETE(m_boostCool);
+	SAFE_DELETE(m_boostBar);
 }
 
 void cPlayer::Update()
@@ -43,6 +47,7 @@ void cPlayer::Update()
 			m_isBoostCool = false;
 	}
 
+	if (m_motion->Update()) MotionBlur();
 	if (m_isBoost) Boost();
 
 	if (m_status == P_IDLE)
@@ -52,9 +57,6 @@ void cPlayer::Update()
 	else if (m_status == P_RIGHT)
 		m_img->m_text = IMAGE->FindTexture("PlayerRight", m_ani->m_nowFrame);
 
-	if (m_motion->Update())
-		MotionBlur();
-
 	if (m_canFire == false) {
 		if (m_fire->Update()) {
 			if (!m_canFire) m_canFire = true;
@@ -63,11 +65,23 @@ void cPlayer::Update()
 	else {
 		Fire();
 	}
+
+	if (GetActive() == false) Dead();
 }
 
 void cPlayer::Render()
 { 
 	if (!m_isActive) return;
+
+	if (m_isBoostCool) {
+		RECT rt = {
+			0,
+			0,
+			m_boostCool->m_start / m_boostCool->m_delay * m_boostBar->m_text->m_info.Width,
+			m_boostBar->m_text->m_info.Height,
+		};
+		IMAGE->CropRender(m_boostBar->m_text, VEC2(m_pos.x, m_pos.y + 40), VEC2(0.4, 0.4), rt, true);
+	}
 
 	if (m_isBoost) {
 		for (auto iter : m_motionInfo)
@@ -78,6 +92,13 @@ void cPlayer::Render()
 
 void cPlayer::OnCollision(cObject* other)
 {
+	if (AABB(GetObjCollider(), other->GetObjCollider())) {
+		if (other->GetName() == "Meteor") {
+			m_hp -= ((cEnemy*)other)->m_atk;
+		}
+	}
+
+	if (m_hp <= 0) SetActive(false);
 }
 
 
@@ -131,6 +152,14 @@ void cPlayer::Release()
 	m_motionInfo.clear();
 }
 
+void cPlayer::Dead()
+{
+	CAMERA->SetShake(0.1, 10, 10);
+
+	//죽는 모션 후
+	//게임 오버씬으로 이동
+}
+
 void cPlayer::ChangeWeapon()
 {
 	if		(KEYDOWN('1')) m_nowWeapon = 0;
@@ -139,7 +168,12 @@ void cPlayer::ChangeWeapon()
 	else if (KEYDOWN('4')) m_nowWeapon = 3;
 	else if (KEYDOWN('5')) m_nowWeapon = 4;
 
-	m_fire->m_delay = m_fireDelay[m_nowWeapon];
+	for (int i = '1'; i <= '5'; ++i) {
+		if (KEYDOWN(i)) {
+			m_fire->m_start = 0.f;
+			m_fire->m_delay = m_fireDelay[m_nowWeapon];
+		}
+	}
 }
 
 void cPlayer::Boost()
@@ -159,12 +193,15 @@ void cPlayer::Move()
 	if (m_isBoostCool == false && KEYDOWN('R') &&
 		(KEYPRESS(VK_UP) || KEYPRESS(VK_DOWN) || KEYPRESS(VK_LEFT) || KEYPRESS(VK_RIGHT))
 		) {
-		CAMERA->SetShake(0.1, 15, 2);
+		CAMERA->SetShake(0.15, 20, 10);
+		char str[256];
+		sprintf(str, "Dash%dSND", rand () % 2);
+		SOUND->Copy(str);
 		m_isBoost = m_isBoostCool = true;
 		m_boostCool->m_start = 0.f;
-		m_boostCool->m_delay = 1.f;
+		m_boostCool->m_delay = 3.f;
 
-		m_moveSpd = m_originSpd * 3;
+		m_moveSpd = m_originSpd * 6.5;
 	}
 
 	if (KEYPRESS(VK_LSHIFT)) m_moveSpd = m_originSpd * 0.5;
@@ -219,13 +256,13 @@ void cPlayer::Fire()
 {
 	if (KEYPRESS(VK_SPACE)) {
 		char str[256];
-		sprintf(str, "Shot%dSND", rand() % 4);
 
+		if (m_nowWeapon == 0) sprintf(str, "Weapon0_%dSND", rand() % 9);
+		else sprintf(str, "Weapon1_%dSND", rand() % 4);
+
+		SOUND->Copy(str);
 		switch (m_nowWeapon) {
 		case 0:
-			SOUND->Copy("ShotGun0SND");
-			SOUND->Copy("ShotGun0SND");
-
 			switch (GAME->m_level) {
 			case 1:
 				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 3, 10, m_pos, VEC2(0, -1), VEC2(2,2), 150.f, false, false, false, true);
@@ -245,8 +282,6 @@ void cPlayer::Fire()
 			}
 			break;
 		case 1:
-			SOUND->Copy(str);
-			SOUND->Copy(str);
 			switch (GAME->m_level) {
 			case 1:
 				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 1, 10, m_pos, VEC2(0, -1), VEC2(2, 2), 500.f, true);
