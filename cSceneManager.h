@@ -23,18 +23,16 @@ public:
 	virtual ~cSceneManager();
 
 	void AddScene(const string& key, cScene* scenePtr);
-	void ChangeScene(const string& key);
+	void ChangeScene(const string& key, string changeName, FLOAT changeSpeed);
 
 	void Update();
 	void Render();
 
-	void FadeIn();
-	void FadeOut();
+	bool FadeIn();
+	bool FadeOut();
 
 	void FadeSceneChange();
 	void PlaneSceneChange();
-
-	void ChangeSceneEffect(string changeName, FLOAT changeSpeed = 20.f);
 
 	string GetNowSceneKey();
 };

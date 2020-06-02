@@ -36,102 +36,107 @@ void cSceneManager::AddScene(const string& key, cScene* scenePtr)
 	DEBUG_LOG("%s 씬 생성완료.\n", key.c_str());
 }
 
-void cSceneManager::ChangeScene(const string& key)
+void cSceneManager::ChangeScene(const string& key, string changeName, FLOAT changeSpeed)
 {
 	if (m_scenes.find(key) == m_scenes.end()) {
 		DEBUG_LOG("%s 씬이 없습니다.", key.c_str());
 		return;
 	}
-
-	if (m_now) m_now->Release();
 	m_next = m_scenes.find(key)->second;
+
+	m_changeSpeed = changeSpeed;
+
+	if (changeName == "Fade") {
+		m_isFadeChange = true;
+		m_isFadeOut = true;
+	}
+	else if (changeName == "Plane")
+		m_isPlaneChange = true;
 }
 
 void cSceneManager::Update()
 {
-	if(m_isFadeChange) FadeSceneChange();
-	else if(m_isPlaneChange) PlaneSceneChange();
+	if ((!(m_isFadeChange || m_isPlaneChange) && m_next) ||
+		(m_next && m_isFadeIn && m_white->m_a > 240.f)
+		) {
+		SAFE_RELEASE(m_now);
+		m_now = m_next;
+		m_next = nullptr;
+		m_now->Init();
+	}
+
+	if (m_isFadeChange) FadeSceneChange();
+	else if (m_isPlaneChange) PlaneSceneChange();
 
 	if (m_now) m_now->Update();
 }
 
 void cSceneManager::Render()
 {
-	if (!m_now) return;
-	m_now->Render();
+	if (m_now) m_now->Render();
 
-	IMAGE->Render(m_white->m_text, VEC2(0, 0), VEC2(1, 1), 0.f, FALSE, m_white->m_color);
+	if (m_isFadeChange)
+		IMAGE->Render(m_white->m_text, VEC2(0, 0), VEC2(1, 1), 0.f, FALSE, m_white->m_color);
 }
 
 //점점 나타남
-void cSceneManager::FadeIn()
+bool cSceneManager::FadeIn()
 {
 	if (m_white->m_a < m_changeSpeed) {
-		m_isFadeIn = FALSE;
 		m_white->m_a = 0;
+		m_white->SetNowRGB();
+		return true;
 	}
 	else {
 		m_white->m_a -= m_changeSpeed;
+		m_white->SetNowRGB();
+		return false;
 	}
-	m_white->SetNowRGB();
 }
 
 //점점 어두워짐
-void cSceneManager::FadeOut()
+bool cSceneManager::FadeOut()
 {
 	if (m_white->m_a > 255 - m_changeSpeed) {
-		m_isFadeOut = FALSE;
 		m_white->m_a = 255;
+		m_white->SetNowRGB();
+		return true;
 	}
 	else {
 		m_white->m_a += m_changeSpeed;
+		m_white->SetNowRGB();
+		return false;
 	}
-	m_white->SetNowRGB();
 }
 
 void cSceneManager::FadeSceneChange()
 {
-	if (m_isFadeChange && m_isFadeOut == FALSE) {
-		m_isFadeOut = TRUE;
-	}
-
+	//페이드 아웃 먼저 하고 페이드 인을 해야 한다.
 	if (m_isFadeOut) {
-		FadeOut();
+		if (FadeOut()) {
+			m_isFadeOut = false;
+			m_isFadeIn = true;
+		}
 		return;
-	}
-
-	if (m_next) {
-		m_now = m_next;
-		m_next = nullptr;
-		m_now->Init();
-		m_isFadeIn = TRUE;
 	}
 
 	if (m_isFadeIn) {
-		FadeIn();
-		return;
+		if (FadeIn()) {
+			m_isFadeIn = false;
+			m_isFadeChange = false;
+		}
 	}
-	m_isFadeChange = FALSE;
 }
 
 void cSceneManager::PlaneSceneChange()
 {
 }
 
-void cSceneManager::ChangeSceneEffect(string changeName, FLOAT changeSpeed)
-{
-	m_changeSpeed = changeSpeed;
-
-	if (changeName == "Fade")
-		m_isFadeChange = TRUE;
-	else if (changeName == "Plane")
-		m_isPlaneChange = TRUE;
-}
-
 string cSceneManager::GetNowSceneKey()
 {
-	for (auto iter : m_scenes)
+	for (auto iter : m_scenes) {
 		if (m_now == iter.second)
 			return iter.first;
+	}
 	return "현재 씬을 찾을 수 없습니다.\n";
 }

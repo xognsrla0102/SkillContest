@@ -7,7 +7,7 @@ cMainProc::cMainProc()
 	srand(time(NULL));
 
 	SCENE->AddScene("LoadScene", new cLoadScene);
-	SCENE->ChangeScene("LoadScene");
+	SCENE->ChangeScene("LoadScene", "None", 0.f);
 }
 
 cMainProc::~cMainProc()

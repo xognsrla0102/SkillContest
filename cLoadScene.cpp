@@ -203,7 +203,6 @@ void cLoadScene::Update()
 	if (m_nowLoad[0] == m_sounds.size() &&
 		m_nowLoad[1] == m_imgs.size()
 		) {
-		UI->Init();
 		//OBJ»ý¼º
 		OBJECT->AddOBJ(new cPlayer, PLAYER);
 		OBJECT->AddOBJ(new cBulletManager, BULLET);
@@ -214,8 +213,9 @@ void cLoadScene::Update()
 		SCENE->AddScene("StageOneScene", new cStageOne);
 		SCENE->AddScene("GameOverScene", new cGameOverScene);
 
-		SCENE->ChangeSceneEffect("Fade");
-		SCENE->ChangeScene("TitleScene");
+		UI->Init();
+
+		SCENE->ChangeScene("TitleScene", "None", 0.f);
 	}
 }
 

@@ -31,7 +31,10 @@ cPlayer::~cPlayer()
 
 void cPlayer::Update()
 {
-	if (m_isLive == false) Dead();
+	if (m_isLive == false) {
+		Dead();
+		return;
+	}
 	if (!m_isActive || !m_isLive) return;
 
 	m_ani->Update();
@@ -133,7 +136,7 @@ void cPlayer::Init()
 	m_isBoost = false;
 	m_isLive = true;
 
-	m_hp = 100;
+	m_hp = 10;
 	m_hpMax = 100;
 
 	//¸ð¼Ç ÀÌÆåÆ® °¹¼ö
@@ -159,15 +162,14 @@ void cPlayer::Dead()
 	static int cnt = 0;
 	static float deadTime = 0.f;
 
-	deadTime += D_TIME;
-	if (deadTime < 1) {
+	if (deadTime < 1 && ) {
 		GAME->TIME_SCALE = 0.5f;
+		deadTime += D_TIME;
 		SOUND->Stop("StageBGM");
 		return;
 	}
 
 	if (cnt < 100) {
-		if(cnt == 1) SCENE->ChangeSceneEffect("Fade", 2.f);
 		if (cnt % 5 == 0) {
 			CAMERA->SetShake(0.1, 2, 5);
 			SOUND->Copy("PlayerHitSND");
@@ -186,12 +188,9 @@ void cPlayer::Dead()
 	cnt = 0;
 	deadTime = 0.f;
 	GAME->TIME_SCALE = 1.f;
-	((cBulletManager*)OBJFIND(BULLET))->Reset();
-	((cEnemyManager*)OBJFIND(ENEMY))->Release();
-	EFFECT->Reset();
 	Release();
 
-	SCENE->ChangeScene("GameOverScene");
+	SCENE->ChangeScene("GameOverScene", "Fade", 2.f);
 }
 
 void cPlayer::ChangeWeapon()
@@ -341,6 +340,8 @@ void cPlayer::Fire()
 
 void cPlayer::MotionBlur()
 {
+	if (m_motionInfo.size() == 0) return;
+
 	for (int i = 0; i < m_motionInfo.size() - 1; ++i)
 		m_motionInfo[i]->m_motionPos = m_motionInfo[i + 1]->m_motionPos;
 	m_motionInfo[m_motionInfo.size() - 1]->m_motionPos = m_pos;

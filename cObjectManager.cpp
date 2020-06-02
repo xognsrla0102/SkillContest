@@ -22,15 +22,6 @@ void cObjectManager::Update()
 
 void cObjectManager::Render()
 {
-	//오브젝트 매니저 구조
-
-	//플레이어 태그
-
-	//에네미 태그 -> 근접 적, 원거리 적 집단 오브젝트
-	//태그마다 오더를 나눔
-	//에네미 태그에서 렌더를 하면 에네미 매니저 속에 들어가고
-	//그 속의 렌더함수를 호출함
-	//에네미 매니저의 렌더에선 모든 적기들의 렌더링을 하도록 처리
 	for (int i = 0; i < TAG_END; ++i) {
 		if (OBJFIND(i) != nullptr)
 			OBJFIND(i)->Render();

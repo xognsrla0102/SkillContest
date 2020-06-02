@@ -34,7 +34,7 @@ void cTitleUI::Init()
 
 void cTitleUI::Update()
 {
-	Lerp(m_namePos, VEC2(WINSIZEX / 2 - 100, 200), 0.05);
+	Lerp(m_namePos, VEC2(WINSIZEX / 2 - 100, 200), 0.08);
 
 	if (KEYDOWN(VK_UP)) {
 		m_buttons[m_nowButton]->m_isOn = false;
@@ -52,8 +52,7 @@ void cTitleUI::Update()
 	if (KEYDOWN(VK_RETURN)) {
 		switch (m_nowButton) {
 		case 0:
-			SCENE->ChangeSceneEffect("Fade", 40.f);
-			SCENE->ChangeScene("StageOneScene");
+			SCENE->ChangeScene("StageOneScene", "Fade", 30.f);
 			break;
 		case 1:
 			break;

@@ -22,8 +22,7 @@ void cGameOverScene::Update()
 {
 	for(int i = 0; i < 256; ++i)
 		if (KEYDOWN(i)) {
-			SCENE->ChangeSceneEffect("Fade", 2.f);
-			SCENE->ChangeScene("TitleScene");
+			SCENE->ChangeScene("TitleScene", "Fade", 20.f);
 		}
 }
 
