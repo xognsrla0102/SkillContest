@@ -156,6 +156,21 @@
     <Filter Include="stdafx\collision">
       <UniqueIdentifier>{9386d175-41af-4f6a-bec2-4855e40835c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\scene\gameOver">
+      <UniqueIdentifier>{5203bb04-e78d-4602-a8e0-213238a2a999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Manager\ui\titleUI">
+      <UniqueIdentifier>{60fbf3de-dc2d-4e26-8324-19b4e053567c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\button">
+      <UniqueIdentifier>{78302711-86f4-4b79-b051-156c092d02d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene\help">
+      <UniqueIdentifier>{7d63bd96-1d63-4e7a-97fa-48eb40818791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene\rank">
+      <UniqueIdentifier>{1fc97bb8-1ffc-409b-a4f4-f403b6baf2e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -328,6 +343,15 @@
     <ClCompile Include="collision.cpp">
       <Filter>stdafx\collision</Filter>
     </ClCompile>
+    <ClCompile Include="cGameOverScene.cpp">
+      <Filter>Core\scene\gameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="cTitleUI.cpp">
+      <Filter>Core\Manager\ui\titleUI</Filter>
+    </ClCompile>
+    <ClCompile Include="cButton.cpp">
+      <Filter>Core\Object\button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -446,6 +470,15 @@
     </ClInclude>
     <ClInclude Include="collision.h">
       <Filter>stdafx\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameOverScene.h">
+      <Filter>Core\scene\gameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="cTitleUI.h">
+      <Filter>Core\Manager\ui\titleUI</Filter>
+    </ClInclude>
+    <ClInclude Include="cButton.h">
+      <Filter>Core\Object\button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

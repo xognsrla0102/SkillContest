@@ -13,5 +13,6 @@ public:
 	virtual void Render() PURE;
 
 	virtual void Dead() PURE;
+	virtual void OnCollision(cObject* other) PURE;
 };
 

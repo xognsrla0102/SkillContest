@@ -40,6 +40,9 @@ void cBullet::Update()
 	for(auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor())
 		OnCollision((cObject*)iter);
 
+	if (m_objName == "PlayerBullet") OutMapChk(0);
+	else OutMapChk(200);
+
 	if (m_isHoming) Homing();
 
 	if (m_isFaccel) {
@@ -52,7 +55,14 @@ void cBullet::Update()
 	}
 	m_pos += m_dir * m_bulletSpd * D_TIME * m_accel;
 
-	if (m_isLive == false && !OutMapChk(200)) Dead();
+	if (m_isLive == false) {
+		if (m_objName == "PlayerBullet") {
+			if (!OutMapChk(0)) Dead();
+		}
+		else {
+			if (!OutMapChk(200)) Dead();
+		}
+	}
 }
 
 void cBullet::Render()

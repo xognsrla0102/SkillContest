@@ -15,14 +15,11 @@ cTitleScene::~cTitleScene()
 void cTitleScene::Init()
 {
 	SOUND->Play("TitleBGM", true);
+	CAMERA->m_pos = VEC2(WINSIZEX / 2, WINSIZEY / 2);
 }
 
 void cTitleScene::Update()
 {
-	if (KEYDOWN(VK_RETURN)) {
-		SCENE->ChangeSceneEffect(40.f);
-		SCENE->ChangeScene("StageOneScene");
-	}
 }
 
 void cTitleScene::Render()

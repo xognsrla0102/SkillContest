@@ -28,8 +28,8 @@ constexpr int GAMESIZEY = 570;
 enum TAGS {
 	ENEMY,
 	BULLET,
-	ITEM,
 	PLAYER,
+	ITEM,
 	TAG_END,
 };
 
@@ -46,8 +46,11 @@ enum P_STATUS {
 #include "cEffect.h"
 #include "cTexture.h"
 #include "cImage.h"
+#include "cTimer.h"
 #include "cMultiTexture.h"
 #include "cObject.h"
+#include "cPlayer.h"
+#include "cButton.h"
 #include "cImageManager.h"
 #include "cEffectManager.h"
 #include "cSceneManager.h"
@@ -58,10 +61,14 @@ enum P_STATUS {
 #include "cGameManager.h"
 #include "cObjectManager.h"
 #include "cUIManager.h"
+#include "cEnemy.h"
+#include "cEnemyManager.h"
+#include "cBullet.h"
+#include "cBulletManager.h"
 
 template<typename T>
-void Lerp(T& pOut, const T& pV1, const T& pV2, double s) {
-	pOut = pOut + (pV2 - pV1) * s * GAME->TIME_SCALE;
+void Lerp(T& pV1, const T& pV2, double s) {
+	pV1 = pV1 + (pV2 - pV1) * s * GAME->TIME_SCALE;
 }
 
 void DEBUG_LOG(LPCSTR fmt, ...);

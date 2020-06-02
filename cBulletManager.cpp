@@ -47,8 +47,10 @@ void cBulletManager::Reset()
 {
 	for (auto iter : m_pBullet)
 		SAFE_DELETE(iter);
+	m_pBullet.clear();
 	for (auto iter : m_eBullet)
 		SAFE_DELETE(iter);
+	m_eBullet.clear();
 }
 
 void cBulletManager::N_Way_Tan(const string& bulletName, const string& imageName, int n, int theta, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, bool isRandShot, bool isHoming, bool isFaccel, bool isSaccel)

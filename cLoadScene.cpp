@@ -4,6 +4,7 @@
 #include "cEnemyManager.h"
 
 #include "cTitleScene.h"
+#include "cGameOverScene.h"
 #include "cStageOne.h"
 
 #include "cLoadScene.h"
@@ -121,12 +122,14 @@ void cLoadScene::Init()
 	Load("WarningSND", L"resources/sound/warning.wav");
 
 	//이미지 로드
-	Load("TitleBG", "resources/image/title/title.png");
+	Load("TitleBG", "resources/image/title/bg.png");
 	Load("StageOneBG", "resources/image/stageone/bg/bg.png");
+	Load("GameOverBG", "resources/image/gameover/bg.png");
 
 	Load("PlayerIdle", "resources/image/player/idle.png");
 	Load("PlayerLeft", "resources/image/player/left%d.png", 5);
 	Load("PlayerRight", "resources/image/player/Right%d.png", 5);
+	Load("PlayerCore", "resources/image/player/core.png");
 
 	Load("PlayerBullet0IMG", "resources/image/bullet/playerBullet0.png");
 	Load("PlayerBullet1IMG", "resources/image/bullet/playerbullet1.png");
@@ -162,6 +165,7 @@ void cLoadScene::Init()
 		Load(str1, str2);
 	}
 
+	//INGAME UI
 	Load("IngameBGUI", "resources/image/ui/ingame/bg.png");
 	Load("IngameWeaponUI", "resources/image/ui/ingame/nowweapon.png");
 	Load("IngameStarUI", "resources/image/ui/ingame/star.png");
@@ -172,11 +176,16 @@ void cLoadScene::Init()
 	Load("IngameNoSkillUI", "resources/image/ui/ingame/noskill.png");
 	Load("IngameBackWhiteUI", "resources/image/ui/ingame/backwhite.png");
 	Load("IngameDamagedUI", "resources/image/ui/ingame/damaged.png");
+
+	//TITLE UI
+	Load("TitleNameUI", "resources/image/ui/title/titleName.png");
+	Load("TitleStartUI", "resources/image/ui/title/start.png");
+	Load("TitleRankUI", "resources/image/ui/title/rank.png");
+	Load("TitleHelpUI", "resources/image/ui/title/help.png");
 }
 
 void cLoadScene::Update()
 {
-
 	//소리
 	if (m_nowLoad[0] < m_sounds.size()) {
 		int& idx = m_nowLoad[0];
@@ -203,7 +212,9 @@ void cLoadScene::Update()
 
 		SCENE->AddScene("TitleScene", new cTitleScene);
 		SCENE->AddScene("StageOneScene", new cStageOne);
-		SCENE->ChangeSceneEffect();
+		SCENE->AddScene("GameOverScene", new cGameOverScene);
+
+		SCENE->ChangeSceneEffect("Fade");
 		SCENE->ChangeScene("TitleScene");
 	}
 }

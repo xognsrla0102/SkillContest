@@ -384,7 +384,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cButton.cpp" />
+    <ClCompile Include="cGameOverScene.cpp" />
     <ClCompile Include="collision.cpp" />
+    <ClCompile Include="cTitleUI.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="cAnimation.cpp" />
     <ClCompile Include="cBullet.cpp" />
@@ -419,7 +422,10 @@
     <ClCompile Include="DXUT\Optional\SDKsound.cpp" />
     <ClCompile Include="DXUT\Optional\SDKwavefile.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClInclude Include="cButton.h" />
+    <ClInclude Include="cGameOverScene.h" />
     <ClInclude Include="collision.h" />
+    <ClInclude Include="cTitleUI.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="cAnimation.h" />
     <ClInclude Include="cBullet.h" />

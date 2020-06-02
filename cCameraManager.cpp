@@ -41,7 +41,9 @@ void cCameraManager::SetTransform()
 void cCameraManager::ResetSetting()
 {
 	if (m_velocity < 0) m_velocity = -m_velocity;
-	m_pos = VEC2(WINSIZEX / 2 + 300, WINSIZEY / 2);
+	string key = SCENE->GetNowSceneKey();
+	if (key == "StageOneScene") m_pos = VEC2(WINSIZEX / 2 + 300, WINSIZEY / 2);
+	else m_pos = VEC2(WINSIZEX / 2, WINSIZEY / 2);
 }
 
 void cCameraManager::SetShake(float time, int radius, int velocity)

@@ -26,7 +26,7 @@ private:
 	bool m_isBoostCool;
 	bool m_canFire;
 public:
-	cTimer* m_fire;
+	cTimer* m_fire = nullptr;
 
 	//ÃÑ¾Ë µô·¹ÀÌ[¹«±â];
 	float m_fireDelay[5] = { 0 };
@@ -48,7 +48,7 @@ public:
 
 	virtual void Update() override;
 	virtual void Render() override;
-	virtual void OnCollision(cObject* other);
+	void OnCollision(cObject* other);
 
 	void Init();
 	void Release();

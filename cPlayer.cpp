@@ -1,19 +1,15 @@
 #include "DXUT.h"
-#include "cTimer.h"
-#include "cEnemy.h"
-#include "cBullet.h"
-#include "cBulletManager.h"
 #include "cPlayer.h"
 
 cPlayer::cPlayer()
 {
 	Init();
-
 	m_fire = new cTimer(m_fireDelay[m_nowWeapon]);
 	m_boostCool = new cTimer(1);
 	m_motion = new cTimer(0.02);
 	m_img = new cImage;
 	m_boostBar = new cImage;
+
 	m_boostBar->m_text = IMAGE->FindTexture("IngameSkillUI");
 	m_ani = new cAnimation(0.13, 5, true);
 
@@ -35,7 +31,8 @@ cPlayer::~cPlayer()
 
 void cPlayer::Update()
 {
-	if (!m_isActive) return;
+	if (m_isLive == false) Dead();
+	if (!m_isActive || !m_isLive) return;
 
 	m_ani->Update();
 
@@ -66,7 +63,8 @@ void cPlayer::Update()
 		Fire();
 	}
 
-	if (GetActive() == false) Dead();
+	for(auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor())
+		OnCollision(iter);
 }
 
 void cPlayer::Render()
@@ -92,13 +90,15 @@ void cPlayer::Render()
 
 void cPlayer::OnCollision(cObject* other)
 {
-	if (AABB(GetObjCollider(), other->GetObjCollider())) {
+	if (AABB(GetCustomCollider(5), other->GetObjCollider())) {
 		if (other->GetName() == "Meteor") {
+			SOUND->Copy("PlayerHitSND");
 			m_hp -= ((cEnemy*)other)->m_atk;
+			((cEnemy*)other)->GetRefLive() = false;
 		}
 	}
 
-	if (m_hp <= 0) SetActive(false);
+	if (m_hp <= 0) m_isLive = false;
 }
 
 
@@ -121,6 +121,7 @@ void cPlayer::Init()
 	//초기 무기 딜레이
 	m_fireDelay[0] = 1;
 	m_fireDelay[1] = 0.2;
+	if(m_fire) m_fire->m_delay = m_fireDelay[m_nowWeapon];
 
 	//초기 무기 공격력
 	m_atk[0] = 1;
@@ -130,6 +131,7 @@ void cPlayer::Init()
 	m_isQ = false;
 	m_isW = false;
 	m_isBoost = false;
+	m_isLive = true;
 
 	m_hp = 100;
 	m_hpMax = 100;
@@ -154,10 +156,42 @@ void cPlayer::Release()
 
 void cPlayer::Dead()
 {
-	CAMERA->SetShake(0.1, 10, 10);
+	static int cnt = 0;
+	static float deadTime = 0.f;
 
-	//죽는 모션 후
-	//게임 오버씬으로 이동
+	deadTime += D_TIME;
+	if (deadTime < 1) {
+		GAME->TIME_SCALE = 0.5f;
+		SOUND->Stop("StageBGM");
+		return;
+	}
+
+	if (cnt < 100) {
+		if(cnt == 1) SCENE->ChangeSceneEffect("Fade", 2.f);
+		if (cnt % 5 == 0) {
+			CAMERA->SetShake(0.1, 2, 5);
+			SOUND->Copy("PlayerHitSND");
+			char str[256];
+			sprintf(str, "Explosion%dIMG", 8 + rand() % 3);
+			auto text = IMAGE->FindMultiTexture(str);
+			EFFECT->AddEffect(new cEffect(str, text->GetImgSize(), 0.1,
+				VEC2(m_pos.x + rand() % 50 - rand() % 50, m_pos.y + rand() % 50 - rand() % 50),
+				VEC2(0, 0)
+			));
+		}
+		cnt++;
+		return;
+	}
+	m_isLive = true;
+	cnt = 0;
+	deadTime = 0.f;
+	GAME->TIME_SCALE = 1.f;
+	((cBulletManager*)OBJFIND(BULLET))->Reset();
+	((cEnemyManager*)OBJFIND(ENEMY))->Release();
+	EFFECT->Reset();
+	Release();
+
+	SCENE->ChangeScene("GameOverScene");
 }
 
 void cPlayer::ChangeWeapon()
@@ -180,7 +214,7 @@ void cPlayer::Boost()
 {
 	m_boostTime += D_TIME;
 	if (m_boostTime < m_boostDelay)
-		Lerp(m_moveSpd, m_moveSpd, m_originSpd, 0.3);
+		Lerp(m_moveSpd, m_originSpd, 0.3);
 	else {
 		m_moveSpd = m_originSpd;
 		m_boostTime = 0.f;

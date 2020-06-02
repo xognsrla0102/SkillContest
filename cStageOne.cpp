@@ -24,6 +24,7 @@ void cStageOne::Init()
 	GAME->Init();
 	SOUND->Play("StageBGM", true);
 	OBJFIND(PLAYER)->SetActive(true);
+	((cPlayer*)OBJFIND(PLAYER))->Init();
 
 	CAMERA->m_pos = VEC2(WINSIZEX / 2 + 300, WINSIZEY / 2);
 
@@ -64,7 +65,6 @@ void cStageOne::DelayPattern()
 {
 	if (m_patternTime > 3.f) {
 		m_patternTime = 0.f;
-
 		//한 번 더 딜레이 걸리면 맵 생성이 너무 늦을 것 같아서 빼버림
 		m_mapPattern = 1 + rand() % (m_totalPattern - 1);
 	}

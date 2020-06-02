@@ -49,27 +49,10 @@ void cSceneManager::ChangeScene(const string& key)
 
 void cSceneManager::Update()
 {
-	if (m_isChangeScene) {
-		m_isChangeScene = FALSE;
-		m_isFadeOut = TRUE;
-	}
+	if(m_isFadeChange) FadeSceneChange();
+	else if(m_isPlaneChange) PlaneSceneChange();
 
-	if (m_isFadeOut) {
-		FadeOut();
-		return;
-	}
-
-	if (m_next) {
-		m_now = m_next;
-		m_next = nullptr;
-		m_now->Init();
-		m_isFadeIn = TRUE;
-	}
-
-	if (m_isFadeIn) FadeIn();
-
-	if (!m_now) return;
-	m_now->Update();
+	if (m_now) m_now->Update();
 }
 
 void cSceneManager::Render()
@@ -106,10 +89,43 @@ void cSceneManager::FadeOut()
 	m_white->SetNowRGB();
 }
 
-void cSceneManager::ChangeSceneEffect(FLOAT changeSpeed)
+void cSceneManager::FadeSceneChange()
+{
+	if (m_isFadeChange && m_isFadeOut == FALSE) {
+		m_isFadeOut = TRUE;
+	}
+
+	if (m_isFadeOut) {
+		FadeOut();
+		return;
+	}
+
+	if (m_next) {
+		m_now = m_next;
+		m_next = nullptr;
+		m_now->Init();
+		m_isFadeIn = TRUE;
+	}
+
+	if (m_isFadeIn) {
+		FadeIn();
+		return;
+	}
+	m_isFadeChange = FALSE;
+}
+
+void cSceneManager::PlaneSceneChange()
+{
+}
+
+void cSceneManager::ChangeSceneEffect(string changeName, FLOAT changeSpeed)
 {
 	m_changeSpeed = changeSpeed;
-	m_isChangeScene = TRUE;
+
+	if (changeName == "Fade")
+		m_isFadeChange = TRUE;
+	else if (changeName == "Plane")
+		m_isPlaneChange = TRUE;
 }
 
 string cSceneManager::GetNowSceneKey()

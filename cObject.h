@@ -36,6 +36,7 @@ public:
 	BOOL GetActive() { return m_isActive; }
 	cAnimation* GetAni() { return m_ani; }
 	RECT GetObjCollider();
+	RECT GetCustomCollider(float n, VEC2 size = VEC2(1, 1));
 	string GetName() { return m_objName; }
 
 	VEC2& GetRefPos() { return m_pos; }

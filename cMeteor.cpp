@@ -1,7 +1,4 @@
 #include "DXUT.h"
-#include "cBullet.h"
-#include "cBulletManager.h"
-#include "cPlayer.h"
 #include "cMeteor.h"
 
 cMeteor::cMeteor(string name, VEC2 pos, VEC2 size, float rot, float downSpd)
@@ -68,9 +65,6 @@ void cMeteor::OnCollision(cObject* other)
 		if (other->GetName() == "PlayerBullet") {
 			auto player = ((cPlayer*)OBJFIND(PLAYER));
 			m_hp -= player->m_atk[player->m_nowWeapon];
-		}
-		else if (other->GetName() == "Player") {
-			m_hp = 0;
 		}
 	}
 

@@ -29,6 +29,7 @@ void cMainProc::Update()
 	INPUT->Update();
 	CAMERA->Update();
 	SCENE->Update();
+	UI->Update();
 
 	if (GAME->m_isPause) return;
 

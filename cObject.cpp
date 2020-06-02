@@ -12,6 +12,17 @@ RECT cObject::GetObjCollider()
 	return rt;
 }
 
+RECT cObject::GetCustomCollider(float n, VEC2 size)
+{
+	RECT rt = {
+		GetPos().x - n * size.x,
+		GetPos().y - n * size.y,
+		GetPos().x + n * size.x,
+		GetPos().y + n * size.y,
+	};
+	return rt;
+}
+
 bool cObject::OutMapChk(int offset)
 {
 	RECT world = {

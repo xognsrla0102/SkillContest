@@ -25,6 +25,7 @@ void cSoundManager::AddSound(string key, wstring path)
 	}
 	CSound* sound;
 	m_manager->Create(&sound, (LPWSTR)path.c_str());
+
 	m_sounds[key] = sound;
 }
 
@@ -35,6 +36,7 @@ void cSoundManager::Play(string key, BOOL isLoop)
 		DEBUG_LOG("%s 사운드가 저장되있지 않습니다.\n", key.c_str());
 		return;
 	}
+	find->second->GetBuffer(0)->SetCurrentPosition(0);
 	find->second->Play(0, isLoop);
 }
 
