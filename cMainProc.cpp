@@ -12,16 +12,16 @@ cMainProc::cMainProc()
 
 cMainProc::~cMainProc()
 {
-	EFFECT->ReleaseInst();
 	INPUT->ReleaseInst();
+	GAME->ReleaseInst();
+	UI->ReleaseInst();
 	SCENE->ReleaseInst();
+	OBJECT->ReleaseInst();
+	FONT->ReleaseInst();
+	CAMERA->ReleaseInst();
+	EFFECT->ReleaseInst();
 	SOUND->ReleaseInst();
 	IMAGE->ReleaseInst();
-	CAMERA->ReleaseInst();
-	FONT->ReleaseInst();
-	GAME->ReleaseInst();
-	OBJECT->ReleaseInst();
-	UI->ReleaseInst();
 }
 
 void cMainProc::Update()
@@ -32,6 +32,15 @@ void cMainProc::Update()
 	UI->Update();
 
 	if (GAME->m_isPause) return;
+
+	if (KEYDOWN(VK_F4)) {
+		DEBUG_LOG("메뉴로 이동\n");
+		SCENE->ChangeScene("TitleScene", "None", 0.f);
+	}
+	if (KEYDOWN(VK_F5)) {
+		DEBUG_LOG("스테이지1로 이동\n");
+		SCENE->ChangeScene("StageOneScene", "None", 0.f);
+	}
 
 	if (SCENE->GetNowSceneKey() == "StageOneScene" || SCENE->GetNowSceneKey() == "StageTwoScene") {
 		OBJECT->Update();

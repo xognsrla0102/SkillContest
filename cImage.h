@@ -13,6 +13,8 @@ public:
 	float m_g = 255.f;
 	float m_b = 255.f;
 
+	VEC2 m_pos;
+
 	D3DXCOLOR m_color = D3DCOLOR_ARGB(255, 255, 255, 255);
 
 	cImage() {}

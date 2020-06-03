@@ -14,6 +14,8 @@ cStageOne::cStageOne()
 
 cStageOne::~cStageOne()
 {
+	Release();
+
 	SAFE_DELETE(m_map);
 	SAFE_DELETE(m_timePlus);
 	SAFE_DELETE(m_createMeteor);
@@ -25,6 +27,7 @@ void cStageOne::Init()
 	SOUND->Play("StageBGM", true);
 	OBJFIND(PLAYER)->SetActive(true);
 	((cPlayer*)OBJFIND(PLAYER))->Init();
+	m_map->Init();
 
 	CAMERA->m_pos = VEC2(WINSIZEX / 2 + 300, WINSIZEY / 2);
 
@@ -62,6 +65,7 @@ void cStageOne::Release()
 
 	((cBulletManager*)OBJFIND(BULLET))->Reset();
 	((cEnemyManager*)OBJFIND(ENEMY))->Release();
+	m_map->Release();
 	EFFECT->Reset();
 }
 

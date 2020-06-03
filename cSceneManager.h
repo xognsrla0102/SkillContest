@@ -14,6 +14,7 @@ private:
 	BOOL m_isFadeIn = FALSE;
 	BOOL m_isFadeOut = FALSE;
 
+	BOOL m_isSceneChange = FALSE;
 	BOOL m_isFadeChange = FALSE;
 	BOOL m_isPlaneChange = FALSE;
 	

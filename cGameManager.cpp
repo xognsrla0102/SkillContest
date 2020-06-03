@@ -41,15 +41,6 @@ void cGameManager::Update()
 
 	if (m_isPause) return;
 
-	if (KEYPRESS(VK_ADD) && TIME_SCALE < 5.f) {
-		TIME_SCALE += 0.1f;
-		if (TIME_SCALE > 5.f) TIME_SCALE = 5.f;
-	}
-	if (KEYPRESS(VK_SUBTRACT) && TIME_SCALE > 0) {
-		TIME_SCALE -= 0.1f;
-		if (TIME_SCALE < 0) TIME_SCALE = 0.f;
-	}
-
 	if (m_level < 5 && KEYDOWN('A')) {
 		m_nowExp += 1000;
 		m_totalExp += 1000;

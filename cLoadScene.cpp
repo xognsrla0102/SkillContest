@@ -155,6 +155,10 @@ void cLoadScene::Init()
 	Load("Explosion9IMG", "resources/image/effect/explosion/9/%d.png", 32);
 	Load("Explosion10IMG", "resources/image/effect/explosion/10/%d.png", 24);
 
+	//Load("ShadowIMG", "resources/image/ingame/planet/shadow/%d.png", 17);
+	//Load("PlanetIMG", "resources/image/ingame/planet/%d.png", 19);
+	Load("CloudIMG", "resources/image/ingame/%d.png", 4);
+
 	//UI
 	Load("num_dot", "resources/image/ui/num/dot.png");
 

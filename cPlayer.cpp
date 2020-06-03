@@ -20,13 +20,12 @@ cPlayer::~cPlayer()
 {
 	for (auto iter : m_motionInfo)
 		SAFE_DELETE(iter);
-
-	SAFE_DELETE(m_img);
 	SAFE_DELETE(m_fire);
-	SAFE_DELETE(m_motion);
-	SAFE_DELETE(m_ani);
 	SAFE_DELETE(m_boostCool);
+	SAFE_DELETE(m_motion);
+	SAFE_DELETE(m_img);
 	SAFE_DELETE(m_boostBar);
+	SAFE_DELETE(m_ani);
 }
 
 void cPlayer::Update()
@@ -137,7 +136,7 @@ void cPlayer::Init()
 	m_isLive = true;
 
 	m_hp = 10;
-	m_hpMax = 100;
+	m_hpMax = 10;
 
 	//¸ð¼Ç ÀÌÆåÆ® °¹¼ö
 	for (size_t i = 0; i < 5; i++)
@@ -160,17 +159,8 @@ void cPlayer::Release()
 void cPlayer::Dead()
 {
 	static int cnt = 0;
-	static float deadTime = 0.f;
-
-	if (deadTime < 1 && ) {
-		GAME->TIME_SCALE = 0.5f;
-		deadTime += D_TIME;
-		SOUND->Stop("StageBGM");
-		return;
-	}
-
 	if (cnt < 100) {
-		if (cnt % 5 == 0) {
+		if (cnt % 10 == 0) {
 			CAMERA->SetShake(0.1, 2, 5);
 			SOUND->Copy("PlayerHitSND");
 			char str[256];
@@ -184,12 +174,9 @@ void cPlayer::Dead()
 		cnt++;
 		return;
 	}
-	m_isLive = true;
 	cnt = 0;
-	deadTime = 0.f;
 	GAME->TIME_SCALE = 1.f;
 	Release();
-
 	SCENE->ChangeScene("GameOverScene", "Fade", 2.f);
 }
 

@@ -16,7 +16,6 @@ cSceneManager::~cSceneManager()
 {
 	SAFE_DELETE(m_white);
 
-	if (m_now) m_now->Release();
 	for (auto iter : m_scenes)
 		SAFE_DELETE(iter.second);
 	m_scenes.clear();
@@ -52,11 +51,14 @@ void cSceneManager::ChangeScene(const string& key, string changeName, FLOAT chan
 	}
 	else if (changeName == "Plane")
 		m_isPlaneChange = true;
+
+	if (changeName != "None") m_isSceneChange = true;
+	else m_isSceneChange = false;
 }
 
 void cSceneManager::Update()
 {
-	if ((!(m_isFadeChange || m_isPlaneChange) && m_next) ||
+	if ((!m_isSceneChange && m_next) ||
 		(m_next && m_isFadeIn && m_white->m_a > 240.f)
 		) {
 		SAFE_RELEASE(m_now);
@@ -124,12 +126,14 @@ void cSceneManager::FadeSceneChange()
 		if (FadeIn()) {
 			m_isFadeIn = false;
 			m_isFadeChange = false;
+			m_isSceneChange = false;
 		}
 	}
 }
 
 void cSceneManager::PlaneSceneChange()
 {
+	m_isSceneChange = false;
 }
 
 string cSceneManager::GetNowSceneKey()
