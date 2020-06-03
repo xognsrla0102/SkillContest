@@ -13,7 +13,7 @@ cMeteor::cMeteor(string name, VEC2 pos, VEC2 size, float rot, float downSpd)
 	m_downSpd = downSpd;
 
 	m_hp = 20;
-	m_atk = 5;
+	m_atk = 1;
 
 	m_objName = "Meteor";
 }
@@ -44,8 +44,6 @@ void cMeteor::Render()
 
 void cMeteor::Dead()
 {
-	CAMERA->SetShake(0.05, 5, 5);
-
 	char str[256];
 	sprintf(str, "RockHit%dSND", rand() % 4);
 	SOUND->Copy(str);

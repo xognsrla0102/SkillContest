@@ -12,8 +12,11 @@ private:
 	cImage* m_expBar;
 	cImage* m_backWhite;
 	cImage* m_player;
-	cImage* m_damaged;
 	cImage* m_pCore;
+public:
+	VEC2 m_targetPos;
+	cImage* m_hp;
+	cImage* m_damaged;
 public:
 	cIngameUI();
 	virtual ~cIngameUI();

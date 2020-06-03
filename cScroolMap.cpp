@@ -33,7 +33,7 @@ void cScroolMap::Init()
 void cScroolMap::Update()
 {
 	if (m_createGas->Update()) {
-		m_createGas->m_delay = 1.f + (rand() % 2 / 2.f);
+		m_createGas->m_delay = 2.f + rand() % 3;
 		m_gas.push_back(new cImage);
 		m_gas[m_gas.size() - 1]->m_text = IMAGE->FindTexture("CloudIMG", rand() % 4);
 		m_gas[m_gas.size() - 1]->m_pos = VEC2(rand() % WINSIZEX, -300);

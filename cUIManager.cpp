@@ -61,3 +61,10 @@ void cUIManager::Render()
 	if(SCENE->GetNowSceneKey() != "LoadScene")
 		DRAW_FLOAT_SIZE(to_string(DXUTGetFPS()), VEC2(1130, 680), 5, 22, 20, VEC2(0.5, 0.5));
 }
+
+cUI* cUIManager::FindUI(string name)
+{
+	auto find = m_UIs.find(name);
+	if (find == m_UIs.end()) return nullptr;
+	return find->second;
+}

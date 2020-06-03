@@ -1,4 +1,5 @@
 #include "DXUT.h"
+#include "cIngameUI.h"
 #include "cPlayer.h"
 
 cPlayer::cPlayer()
@@ -93,14 +94,27 @@ void cPlayer::Render()
 void cPlayer::OnCollision(cObject* other)
 {
 	if (AABB(GetCustomCollider(5), other->GetObjCollider())) {
+		CAMERA->SetShake(0.1, 5, 1);
+		SOUND->Copy("PlayerHitSND");
+
 		if (other->GetName() == "Meteor") {
-			SOUND->Copy("PlayerHitSND");
 			m_hp -= ((cEnemy*)other)->m_atk;
+			if (m_hp < 0) m_hp = 0;
 			((cEnemy*)other)->GetRefLive() = false;
 		}
+
+		auto ingameUI = ((cIngameUI*)UI->FindUI("IngameSceneUI"));
+		ingameUI->m_damaged->m_a = 255.f;
+		ingameUI->m_damaged->SetNowRGB();
+		ingameUI->m_targetPos = VEC2(688, 595);
+		Lerp(ingameUI->m_targetPos, VEC2(688, 399), (m_hpMax - m_hp) / (double)m_hpMax);
 	}
 
-	if (m_hp <= 0) m_isLive = false;
+	if (m_isLive && m_hp == 0) {
+		m_isLive = false;
+		GAME->TIME_SCALE = 0.3;
+		SOUND->Stop("StageBGM");
+	}
 }
 
 
@@ -158,10 +172,11 @@ void cPlayer::Release()
 
 void cPlayer::Dead()
 {
-	static int cnt = 0;
-	if (cnt < 100) {
+	static int cnt = 11;
+	if (cnt < 111) {
 		if (cnt % 10 == 0) {
-			CAMERA->SetShake(0.1, 2, 5);
+			//여기가 문제인듯
+			CAMERA->SetShake(0.1, 5, 5);
 			SOUND->Copy("PlayerHitSND");
 			char str[256];
 			sprintf(str, "Explosion%dIMG", 8 + rand() % 3);
@@ -174,10 +189,12 @@ void cPlayer::Dead()
 		cnt++;
 		return;
 	}
-	cnt = 0;
-	GAME->TIME_SCALE = 1.f;
-	Release();
 	SCENE->ChangeScene("GameOverScene", "Fade", 2.f);
+	if (!SCENE->m_isSceneChange) {
+		cnt = 11;
+		GAME->TIME_SCALE = 1.f;
+		Release();
+	}
 }
 
 void cPlayer::ChangeWeapon()
@@ -215,7 +232,7 @@ void cPlayer::Move()
 		) {
 		CAMERA->SetShake(0.15, 20, 10);
 		char str[256];
-		sprintf(str, "Dash%dSND", rand () % 2);
+		sprintf(str, "Dash%dSND", rand() % 2);
 		SOUND->Copy(str);
 		m_isBoost = m_isBoostCool = true;
 		m_boostCool->m_start = 0.f;
@@ -275,10 +292,10 @@ void cPlayer::Move()
 void cPlayer::Fire()
 {
 	if (KEYPRESS(VK_SPACE)) {
-		char str[256];
+		char str[256] = "";
 
 		if (m_nowWeapon == 0) sprintf(str, "Weapon0_%dSND", rand() % 9);
-		else sprintf(str, "Weapon1_%dSND", rand() % 4);
+		else if(m_nowWeapon == 1) sprintf(str, "Weapon1_%dSND", rand() % 4);
 
 		SOUND->Copy(str);
 		switch (m_nowWeapon) {

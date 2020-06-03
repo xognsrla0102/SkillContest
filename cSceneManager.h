@@ -9,16 +9,17 @@ private:
 	cScene* m_next = nullptr;
 	map<string, cScene*> m_scenes;
 
-	cImage* m_white;
 
 	BOOL m_isFadeIn = FALSE;
 	BOOL m_isFadeOut = FALSE;
 
-	BOOL m_isSceneChange = FALSE;
 	BOOL m_isFadeChange = FALSE;
 	BOOL m_isPlaneChange = FALSE;
 	
 	FLOAT m_changeSpeed = 20.f;
+public:
+	BOOL m_isSceneChange = FALSE;
+	cImage* m_white;
 public:
 	cSceneManager();
 	virtual ~cSceneManager();

@@ -62,11 +62,10 @@ void cStageOne::Release()
 {
 	SOUND->Stop("StageBGM");
 	OBJFIND(PLAYER)->SetActive(false);
-
 	((cBulletManager*)OBJFIND(BULLET))->Reset();
 	((cEnemyManager*)OBJFIND(ENEMY))->Release();
-	m_map->Release();
 	EFFECT->Reset();
+	m_map->Release();
 }
 
 void cStageOne::DelayPattern()

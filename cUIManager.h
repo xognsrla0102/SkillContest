@@ -15,6 +15,8 @@ public:
 	void Init();
 	void Update();
 	void Render();
+
+	cUI* FindUI(string name);
 };
 
 #define UI cUIManager::GetInst()

@@ -14,6 +14,7 @@ cIngameUI::cIngameUI()
 	m_player = new cImage;
 	m_damaged = new cImage;
 	m_pCore = new cImage;
+	m_hp = new cImage;
 }
 
 cIngameUI::~cIngameUI()
@@ -27,6 +28,7 @@ cIngameUI::~cIngameUI()
 	SAFE_DELETE(m_player);
 	SAFE_DELETE(m_damaged);
 	SAFE_DELETE(m_pCore);
+	SAFE_DELETE(m_hp);
 }
 
 void cIngameUI::Init()
@@ -37,12 +39,22 @@ void cIngameUI::Init()
 	m_level->m_text = IMAGE->FindTexture("IngameLevelUI");
 	m_expBar->m_text = IMAGE->FindTexture("IngameExpUI");
 	m_backWhite->m_text = IMAGE->FindTexture("IngameBackWhiteUI");
-	m_damaged->m_text = IMAGE->FindTexture("IngameDamagedUI");
 	m_pCore->m_text = IMAGE->FindTexture("PlayerCore");
+	m_hp->m_text = IMAGE->FindTexture("IngameHpUI");
+	m_hp->m_pos = m_targetPos = VEC2(688, 595);
+
+	m_damaged->m_text = IMAGE->FindTexture("IngameDamagedUI");
+	m_damaged->m_a = 0.f;
+	m_damaged->SetNowRGB();
 }
 
 void cIngameUI::Update()
 {
+	if (m_damaged->m_a != 0) {
+		Lerp(m_damaged->m_a, 0.f, 0.02);
+		m_damaged->SetNowRGB();
+	}
+	Lerp(m_hp->m_pos, m_targetPos, 0.10);
 }
 
 void cIngameUI::Render()
@@ -63,6 +75,9 @@ void cIngameUI::Render()
 
 	IMAGE->Render(m_backWhite->m_text, VEC2(680, 100));
 	IMAGE->Render(m_player->m_text, VEC2(710, 420), VEC2(1.8, 1.8));
+	IMAGE->Render(m_damaged->m_text, VEC2(40, 40), VEC2(1, 1), 0.f, false, m_damaged->m_color);
+
+	IMAGE->Render(m_hp->m_text, m_hp->m_pos);
 
 	IMAGE->Render(m_bg->m_text, VEC2(0, 0));
 
