@@ -16,6 +16,8 @@ void cTitleScene::Init()
 {
 	SOUND->Play("TitleBGM", true);
 	CAMERA->m_pos = VEC2(WINSIZEX / 2, WINSIZEY / 2);
+
+	GAME->m_nowStage = 0;
 }
 
 void cTitleScene::Update()

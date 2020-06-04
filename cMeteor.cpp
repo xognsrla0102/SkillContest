@@ -2,6 +2,7 @@
 #include "cMeteor.h"
 
 cMeteor::cMeteor(string name, VEC2 pos, VEC2 size, float rot, float downSpd)
+	: cEnemy()
 {
 	m_img = new cImage;
 	m_img->m_text = IMAGE->FindTexture(name);
@@ -27,14 +28,8 @@ void cMeteor::Update()
 {
 	m_pos.y += m_downSpd * D_TIME;
 	OutMapChk(200);
-
-	auto eBullet = ((cBulletManager*)OBJFIND(BULLET))->GetPlayerBullets();
-	for (auto iter : eBullet)
-		if(iter->GetLive() == true)
-			OnCollision((cObject*)iter);
-	OnCollision(OBJFIND(PLAYER));
-
-	if(m_isLive == false && !OutMapChk(200)) Dead();
+	if(m_isLive == false && !OutMapChk(200))
+		Dead();
 }
 
 void cMeteor::Render()
@@ -57,14 +52,3 @@ void cMeteor::Dead()
 	));
 }
 
-void cMeteor::OnCollision(cObject* other)
-{
-	if (AABB(GetObjCollider(), other->GetObjCollider())) {
-		if (other->GetName() == "PlayerBullet") {
-			auto player = ((cPlayer*)OBJFIND(PLAYER));
-			m_hp -= player->m_atk[player->m_nowWeapon];
-		}
-	}
-
-	if (m_hp <= 0) m_isLive = false;
-}

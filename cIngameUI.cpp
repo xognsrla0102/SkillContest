@@ -15,6 +15,9 @@ cIngameUI::cIngameUI()
 	m_damaged = new cImage;
 	m_pCore = new cImage;
 	m_hp = new cImage;
+
+	m_weapon.push_back(new cImage);
+	m_weapon.push_back(new cImage);
 }
 
 cIngameUI::~cIngameUI()
@@ -29,6 +32,10 @@ cIngameUI::~cIngameUI()
 	SAFE_DELETE(m_damaged);
 	SAFE_DELETE(m_pCore);
 	SAFE_DELETE(m_hp);
+
+	for (auto iter : m_weapon)
+		SAFE_DELETE(iter);
+	m_weapon.clear();
 }
 
 void cIngameUI::Init()
@@ -43,6 +50,17 @@ void cIngameUI::Init()
 	m_hp->m_text = IMAGE->FindTexture("IngameHpUI");
 	m_hp->m_pos = m_targetPos = VEC2(688, 595);
 
+	for (int i = 0; i < 2; ++i) {
+		char str[256];
+		sprintf(str, "PlayerBullet%dIMG", i);
+		m_weapon[i]->m_text = IMAGE->FindTexture(str);
+	}
+	m_weapon[0]->m_pos = VEC2(190, 660);
+	m_weapon[1]->m_pos = VEC2(190 + 75, 640);
+
+	m_pPos = VEC2(710, 420);
+	m_pShakeTime = 0.f;
+
 	m_damaged->m_text = IMAGE->FindTexture("IngameDamagedUI");
 	m_damaged->m_a = 0.f;
 	m_damaged->SetNowRGB();
@@ -50,9 +68,23 @@ void cIngameUI::Init()
 
 void cIngameUI::Update()
 {
-	if (m_damaged->m_a != 0) {
-		Lerp(m_damaged->m_a, 0.f, 0.02);
+	if ((int)m_damaged->m_a != 0) {
+		Lerp(m_damaged->m_a, 0.f, 0.05);
 		m_damaged->SetNowRGB();
+		
+		m_pShakeTime += D_TIME;
+
+		if (m_pShakeTime < 0.2f) {
+			m_pPos.x += rand() % 30 - rand() % 30;
+			m_pPos.y += rand() % 30 - rand() % 30;
+		}
+		else{
+			m_pShakeTime = 0.f;
+			m_pPos = VEC2(710, 420);
+
+			m_damaged->m_a = 0.f;
+			m_damaged->SetNowRGB();
+		}
 	}
 	Lerp(m_hp->m_pos, m_targetPos, 0.10);
 }
@@ -74,12 +106,15 @@ void cIngameUI::Render()
 		m_player->m_text = IMAGE->FindTexture("PlayerRight", ani->m_nowFrame);
 
 	IMAGE->Render(m_backWhite->m_text, VEC2(680, 100));
-	IMAGE->Render(m_player->m_text, VEC2(710, 420), VEC2(1.8, 1.8));
+	IMAGE->Render(m_player->m_text, m_pPos, VEC2(1.8, 1.8));
 	IMAGE->Render(m_damaged->m_text, VEC2(40, 40), VEC2(1, 1), 0.f, false, m_damaged->m_color);
 
 	IMAGE->Render(m_hp->m_text, m_hp->m_pos);
 
 	IMAGE->Render(m_bg->m_text, VEC2(0, 0));
+
+	for (auto iter : m_weapon)
+		IMAGE->Render(iter->m_text, iter->m_pos, VEC2(1.8, 1.8), 0.f, true);
 
 	int weapon = ((cPlayer*)OBJFIND(PLAYER))->m_nowWeapon;
 	IMAGE->Render(m_nowWeapon->m_text, VEC2(190 + 76 * weapon, 642), VEC2(1, 1), 0.f, true);

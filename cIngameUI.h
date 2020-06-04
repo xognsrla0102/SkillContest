@@ -13,8 +13,13 @@ private:
 	cImage* m_backWhite;
 	cImage* m_player;
 	cImage* m_pCore;
+
 public:
+	vector<cImage*> m_weapon;
 	VEC2 m_targetPos;
+	VEC2 m_pPos;
+	FLOAT m_pShakeTime;
+
 	cImage* m_hp;
 	cImage* m_damaged;
 public:

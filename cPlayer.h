@@ -22,6 +22,9 @@ private:
 
 	FLOAT m_boostTime;
 	FLOAT m_boostDelay;
+	FLOAT m_damageTime;
+
+	FLOAT m_alpha;
 
 	bool m_isBoostCool;
 	bool m_canFire;
@@ -37,6 +40,7 @@ public:
 	bool m_isQ;
 	bool m_isW;
 	bool m_isBoost;
+	bool m_isDamaged;
 
 	int m_hp;
 	int m_hpMax;

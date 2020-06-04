@@ -30,6 +30,11 @@ void cEnemyManager::Render()
 {
 	for (auto iter : m_meteor)
 		iter->Render();
+	for (auto iter : m_enemy)
+		iter->Render();
+
+	//if (m_mBoss) m_mBoss->Render();
+	//if (m_boss) m_boss->Render();
 }
 
 
@@ -38,5 +43,11 @@ void cEnemyManager::Release()
 	for (auto iter : m_meteor)
 		SAFE_DELETE(iter);
 	m_meteor.clear();
+	for (auto iter : m_enemy)
+		SAFE_DELETE(iter);
+	m_enemy.clear();
+
+	SAFE_DELETE(m_boss);
+	SAFE_DELETE(m_mBoss);
 }
 

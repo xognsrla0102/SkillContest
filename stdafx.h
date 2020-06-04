@@ -51,6 +51,7 @@ enum P_STATUS {
 #include "cObject.h"
 #include "cPlayer.h"
 #include "cButton.h"
+#include "cPath.h"
 #include "cImageManager.h"
 #include "cEffectManager.h"
 #include "cSceneManager.h"

@@ -1,18 +1,35 @@
 #pragma once
 #include "cObject.h"
-class cEnemy : public cObject 
+class cEnemy abstract : public cObject 
 {
 public:
-	int m_hp;
-	int m_atk;
+	vector<string> m_itemNames;
+
+	cPath* m_path = nullptr;
+
+	int m_hp   = 0.f;
+	int m_atk  = 0.f;
+	int m_divDelta = 2;
+
+	float m_bulletTime	= 0.f;
+	float m_bulletDelay = 0.f;
+
+	float m_dirRot		= 0.f;
+	float m_accelCurve	= 0.f;
+
+	float m_turnRot = 0.f;
+
+	bool m_isAccelCurve = false;
 public:
-	cEnemy() {}
+	cEnemy();
 	virtual ~cEnemy() {}
 
 	virtual void Update() PURE;
 	virtual void Render() PURE;
 
 	virtual void Dead() PURE;
-	virtual void OnCollision(cObject* other) PURE;
+	virtual bool CanFire();
+
+	vector<string>& GetItemNames() { return m_itemNames; }
 };
 

@@ -42,6 +42,16 @@ void cPlayer::Update()
 	Move();
 	ChangeWeapon();
 
+	if (m_isDamaged) {
+		m_damageTime += D_TIME;
+		if (m_damageTime > 2.f) {
+			m_alpha = 255.f;
+
+			m_damageTime = 0.f;
+			m_isDamaged = false;
+		}
+	}
+
 	if (m_isBoostCool) {
 		if (m_boostCool->Update())
 			m_isBoostCool = false;
@@ -88,26 +98,36 @@ void cPlayer::Render()
 		for (auto iter : m_motionInfo)
 			IMAGE->Render(m_img->m_text, iter->m_motionPos, m_size, m_rot, true, iter->m_color);
 	}
-	IMAGE->Render(m_img->m_text, m_pos, m_size, m_rot, true, m_img->m_color);
+	IMAGE->Render(m_img->m_text, m_pos, m_size, m_rot, true, D3DCOLOR_ARGB((int)m_alpha, 255, 255, 255));
 }
 
 void cPlayer::OnCollision(cObject* other)
 {
+	if (m_isDamaged) return;
+
 	if (AABB(GetCustomCollider(5), other->GetObjCollider())) {
-		CAMERA->SetShake(0.1, 5, 1);
+		CAMERA->SetShake(0.1, 10, 3);
 		SOUND->Copy("PlayerHitSND");
 
 		if (other->GetName() == "Meteor") {
-			m_hp -= ((cEnemy*)other)->m_atk;
+			if (m_isBoost == false) m_hp -= ((cEnemy*)other)->m_atk;
+
 			if (m_hp < 0) m_hp = 0;
 			((cEnemy*)other)->GetRefLive() = false;
 		}
 
-		auto ingameUI = ((cIngameUI*)UI->FindUI("IngameSceneUI"));
-		ingameUI->m_damaged->m_a = 255.f;
-		ingameUI->m_damaged->SetNowRGB();
-		ingameUI->m_targetPos = VEC2(688, 595);
-		Lerp(ingameUI->m_targetPos, VEC2(688, 399), (m_hpMax - m_hp) / (double)m_hpMax);
+		if (m_isBoost == false) {
+			auto ingameUI = ((cIngameUI*)UI->FindUI("IngameSceneUI"));
+			ingameUI->m_damaged->m_a = 255.f;
+			ingameUI->m_damaged->SetNowRGB();
+
+			ingameUI->m_targetPos = VEC2(688, 595);
+			Lerp(ingameUI->m_targetPos, VEC2(688, 399), (m_hpMax - m_hp) / (double)m_hpMax);
+
+			m_isDamaged = true;
+			m_damageTime = 0.f;
+			m_alpha = 128.f;
+		}
 	}
 
 	if (m_isLive && m_hp == 0) {
@@ -122,12 +142,16 @@ void cPlayer::Init()
 {
 	GAME->m_level = 1;
 
+	m_alpha = 255.f;
+
 	m_originSpd = m_moveSpd = 500.f;
 	m_boostTime = 0.f;
-	m_boostDelay = 0.3;
+	m_boostDelay = 0.5;
 
 	m_isBoostCool = false;
 	m_canFire = false;
+
+	m_damageTime = 0.f;
 
 	m_pos = GXY(GAMESIZEX / 2, GAMESIZEY - 80);
 	m_size = VEC2(0.8, 0.8);
@@ -147,6 +171,7 @@ void cPlayer::Init()
 	m_isQ = false;
 	m_isW = false;
 	m_isBoost = false;
+	m_isDamaged = false;
 	m_isLive = true;
 
 	m_hp = 10;
@@ -189,24 +214,21 @@ void cPlayer::Dead()
 		cnt++;
 		return;
 	}
-	SCENE->ChangeScene("GameOverScene", "Fade", 2.f);
 	if (!SCENE->m_isSceneChange) {
 		cnt = 11;
 		GAME->TIME_SCALE = 1.f;
 		Release();
 	}
+	SCENE->ChangeScene("GameOverScene", "Fade", 2.f);
 }
 
 void cPlayer::ChangeWeapon()
 {
-	if		(KEYDOWN('1')) m_nowWeapon = 0;
-	else if (KEYDOWN('2')) m_nowWeapon = 1;
-	else if (KEYDOWN('3')) m_nowWeapon = 2;
-	else if (KEYDOWN('4')) m_nowWeapon = 3;
-	else if (KEYDOWN('5')) m_nowWeapon = 4;
+	auto ingameUI = ((cIngameUI*)UI->FindUI("IngameSceneUI"));
 
-	for (int i = '1'; i <= '5'; ++i) {
+	for (int i = '1'; i < '1' + ingameUI->m_weapon.size(); ++i) {
 		if (KEYDOWN(i)) {
+			m_nowWeapon = i - '1';
 			m_fire->m_start = 0.f;
 			m_fire->m_delay = m_fireDelay[m_nowWeapon];
 		}

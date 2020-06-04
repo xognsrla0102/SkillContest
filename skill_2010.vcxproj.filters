@@ -171,6 +171,27 @@
     <Filter Include="Core\scene\rank">
       <UniqueIdentifier>{1fc97bb8-1ffc-409b-a4f4-f403b6baf2e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Object\path">
+      <UniqueIdentifier>{9ec3c533-5f74-479d-9b73-c5e291e566ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\midboss">
+      <UniqueIdentifier>{430a8258-ca9f-4163-b370-e242037f1ff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\boss">
+      <UniqueIdentifier>{5b47427b-51ef-4f3c-ae2c-d288bfde1e6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\_0straight">
+      <UniqueIdentifier>{690d3a6a-30e2-4aa7-88a9-8a502ff05362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\_1razer">
+      <UniqueIdentifier>{6500f9a0-cd56-48fc-bd9b-110cf4db7c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\_2radial">
+      <UniqueIdentifier>{421de88a-41af-463c-b139-f2947e02ccd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\_3rotate">
+      <UniqueIdentifier>{c7cf6b90-b81f-4920-a724-2c2164d66362}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -352,6 +373,12 @@
     <ClCompile Include="cButton.cpp">
       <Filter>Core\Object\button</Filter>
     </ClCompile>
+    <ClCompile Include="cPath.cpp">
+      <Filter>Core\Object\path</Filter>
+    </ClCompile>
+    <ClCompile Include="cRazer.cpp">
+      <Filter>Core\Object\enemy\_1razer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -479,6 +506,12 @@
     </ClInclude>
     <ClInclude Include="cButton.h">
       <Filter>Core\Object\button</Filter>
+    </ClInclude>
+    <ClInclude Include="cPath.h">
+      <Filter>Core\Object\path</Filter>
+    </ClInclude>
+    <ClInclude Include="cRazer.h">
+      <Filter>Core\Object\enemy\_1razer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

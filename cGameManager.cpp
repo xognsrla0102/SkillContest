@@ -1,6 +1,6 @@
 #include "DXUT.h"
+#include "cIngameUI.h"
 #include "cPlayer.h"
-#include "cTimer.h"
 #include "cGameManager.h"
 
 cGameManager::cGameManager()
@@ -20,6 +20,8 @@ void cGameManager::Init()
 
 	m_nowExp = 0;
 	m_totalExp = 0;
+
+	m_nowStage = 0;
 
 	m_level = 1;
 
@@ -72,6 +74,11 @@ void cGameManager::Update()
 		}
 		player->m_fire->m_delay = player->m_fireDelay[player->m_nowWeapon];
 		player->m_hp = player->m_hpMax;
+
+		auto ingameUI = ((cIngameUI*)UI->FindUI("IngameSceneUI"));
+
+		ingameUI->m_targetPos = VEC2(688, 595);
+		Lerp(ingameUI->m_targetPos, VEC2(688, 399), (player->m_hpMax - player->m_hp) / (double)player->m_hpMax);
 
 		VEC2 pos = OBJFIND(PLAYER)->GetPos();
 		FONT->AddFont("Level UP!!!", VEC2(pos.x - 40, pos.y - 50), 1.f, true);

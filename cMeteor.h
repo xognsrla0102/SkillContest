@@ -11,6 +11,5 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void Dead() override;
-	virtual void OnCollision(cObject* other) override;
 };
 

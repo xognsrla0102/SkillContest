@@ -2,6 +2,7 @@
 #include "cScroolMap.h"
 #include "cTimer.h"
 #include "cMeteor.h"
+#include "cRazer.h"
 #include "cEnemyManager.h"
 #include "cStageOne.h"
 
@@ -10,6 +11,7 @@ cStageOne::cStageOne()
 	m_map = new cScroolMap(IMAGE->FindTexture("StageOneBG"));
 	m_timePlus = new cTimer(1);
 	m_createMeteor = new cTimer(0.3);
+	m_createEnemy = new cTimer(1);
 }
 
 cStageOne::~cStageOne()
@@ -19,6 +21,7 @@ cStageOne::~cStageOne()
 	SAFE_DELETE(m_map);
 	SAFE_DELETE(m_timePlus);
 	SAFE_DELETE(m_createMeteor);
+	SAFE_DELETE(m_createEnemy);
 }
 
 void cStageOne::Init()
@@ -35,8 +38,10 @@ void cStageOne::Init()
 	m_isMidBoss = false;
 	m_isBoss = false;
 
+	GAME->m_nowStage = 1;
+
 	m_patternTime = 0.f;
-	m_mapPattern = 0;
+	m_mapPattern = rand() % m_totalPattern;
 }
 
 void cStageOne::Update()
@@ -70,19 +75,21 @@ void cStageOne::Release()
 
 void cStageOne::DelayPattern()
 {
-	if (m_patternTime > 3.f) {
+	//Boss 땐 지형 없음
+	if (m_patternTime > 10.f) {
 		m_patternTime = 0.f;
-		//한 번 더 딜레이 걸리면 맵 생성이 너무 늦을 것 같아서 빼버림
-		m_mapPattern = 1 + rand() % (m_totalPattern - 1);
+		m_mapPattern = rand() % m_totalPattern;
 	}
 }
 
 void cStageOne::MapPattern()
 {
 	m_patternTime += D_TIME;
-
+		
 	if (m_mapPattern == 4) m_createMeteor->m_delay = 0.5;
 	else m_createMeteor->m_delay = 0.3;
+
+	m_mapPattern = 1;
 
 	switch (m_mapPattern) {
 	case 0:
@@ -105,7 +112,7 @@ void cStageOne::MapPattern()
 
 void cStageOne::MapPattern1()
 {
-	if (m_patternTime > 5.f) {
+	if (m_patternTime > 10.f) {
 		m_patternTime = 0.f;
 		m_mapPattern = rand() % m_totalPattern;
 	}
@@ -120,6 +127,14 @@ void cStageOne::MapPattern1()
 			sprintf(key, "EnemyMeteor%dIMG", rand() % 3);
 			((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor().push_back(
 				new cMeteor(key, VEC2(GXY(GAMESIZEX - 50, -50)), VEC2(1, 1), 60 * rand() % 6, 200.f)
+			);
+		}
+
+		//맵의 패턴이 좌우 운석 직선 일 때
+		//돌아가는 적과, 레이저 적
+		if (m_createEnemy->Update()) {
+			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
+				new cRazer(VEC2(GXY(50 + rand() % (GAMESIZEX - 100), -200)))
 			);
 		}
 	}

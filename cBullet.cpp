@@ -73,7 +73,9 @@ void cBullet::Render()
 void cBullet::OnCollision(cObject* other)
 {
 	if (AABB(GetObjCollider(), other->GetObjCollider())) {
-		if (other->GetName() == "Meteor") {
+		if (GetName() == "PlayerBullet" && other->GetName() == "Meteor") {
+			auto player = ((cPlayer*)OBJFIND(PLAYER));
+			((cEnemy*)other)->m_hp -= player->m_atk[player->m_nowWeapon];
 			m_isLive = false;
 		}
 	}

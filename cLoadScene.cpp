@@ -143,6 +143,20 @@ void cLoadScene::Init()
 	Load("EnemyMeteor4IMG", "resources/image/enemy/meteor/meteor4.png");
 	Load("EnemyMeteor5IMG", "resources/image/enemy/meteor/meteor5.png");
 
+	Load("EnemyStage1_StraightIMG", "resources/image/enemy/stage1/straight.png");
+	Load("EnemyStage1_RotateIMG", "resources/image/enemy/stage1/rotate.png");
+	Load("EnemyStage1_RazerIMG", "resources/image/enemy/stage1/razer.png");
+	Load("EnemyStage1_RadialIMG", "resources/image/enemy/stage1/radial.png");
+	Load("EnemyStage1_MidBossIMG", "resources/image/enemy/stage1/midboss.png");
+	Load("EnemyStage1_BossIMG", "resources/image/enemy/stage1/lastboss.png");
+
+	Load("EnemyStage2_StraightIMG", "resources/image/enemy/stage2/straight.png");
+	Load("EnemyStage2_RotateIMG", "resources/image/enemy/stage2/rotate.png");
+	Load("EnemyStage2_RazerIMG", "resources/image/enemy/stage2/razer.png");
+	Load("EnemyStage2_RadialIMG", "resources/image/enemy/stage2/radial.png");
+	Load("EnemyStage2_MidBossIMG", "resources/image/enemy/stage2/midboss.png");
+	Load("EnemyStage2_BossIMG", "resources/image/enemy/stage2/lastboss.png");
+
 	Load("Explosion0IMG", "resources/image/effect/explosion/0/%d.png", 24);
 	Load("Explosion1IMG", "resources/image/effect/explosion/1/%d.png", 24);
 	Load("Explosion2IMG", "resources/image/effect/explosion/2/%d.png", 23);

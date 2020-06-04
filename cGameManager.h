@@ -14,6 +14,8 @@ public:
 
 	int m_level = 1;
 
+	int m_nowStage = 0;
+
 	bool m_isPause = false;
 public:
 	cGameManager();

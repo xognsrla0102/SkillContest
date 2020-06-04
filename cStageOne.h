@@ -8,6 +8,7 @@ private:
 	cScroolMap* m_map;
 	cTimer* m_timePlus;
 	cTimer* m_createMeteor;
+	cTimer* m_createEnemy;
 	FLOAT m_patternTime;
 
 	int m_gameTime;
