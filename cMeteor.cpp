@@ -13,8 +13,8 @@ cMeteor::cMeteor(string name, VEC2 pos, VEC2 size, float rot, float downSpd)
 
 	m_downSpd = downSpd;
 
-	m_hp = 20;
-	m_atk = 1;
+	m_hp = 20 + GAME->m_level * GAME->m_level / 2.f;
+	m_atk = 5;
 
 	m_objName = "Meteor";
 }

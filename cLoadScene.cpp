@@ -133,8 +133,10 @@ void cLoadScene::Init()
 
 	Load("PlayerBullet0IMG", "resources/image/bullet/playerBullet0.png");
 	Load("PlayerBullet1IMG", "resources/image/bullet/playerbullet1.png");
-	Load("PlayerBullet2IMG", "resources/image/bullet/playerbullet2.png");
-	Load("PlayerBullet3IMG", "resources/image/bullet/playerbullet3.png");
+
+	Load("EnemyRazerIMG", "resources/image/bullet/razer.png");
+	Load("EnemyStraightIMG", "resources/image/bullet/straight.png");
+	Load("EnemyRadialIMG", "resources/image/bullet/radial.png");
 
 	Load("EnemyMeteor0IMG", "resources/image/enemy/meteor/meteor0.png");
 	Load("EnemyMeteor1IMG", "resources/image/enemy/meteor/meteor1.png");
@@ -168,6 +170,8 @@ void cLoadScene::Init()
 	Load("Explosion8IMG", "resources/image/effect/explosion/8/%d.png", 32);
 	Load("Explosion9IMG", "resources/image/effect/explosion/9/%d.png", 32);
 	Load("Explosion10IMG", "resources/image/effect/explosion/10/%d.png", 24);
+
+	Load("ChargeRazerIMG", "resources/image/effect/chargeRazerEffect/%d.png", 24);
 
 	//Load("ShadowIMG", "resources/image/ingame/planet/shadow/%d.png", 17);
 	//Load("PlanetIMG", "resources/image/ingame/planet/%d.png", 19);

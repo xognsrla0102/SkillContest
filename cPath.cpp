@@ -40,8 +40,8 @@ BOOL cPath::Update(VEC2 pos, FLOAT moveDist)
 	FLOAT d = DistPoint(pos, m_endPoint[m_nowPos].m_pos);
 
 	//남은 거리가 이동할 거리보다 작을 때 또는
-	//남은 거리가 5.f 미만일 때
-	if (d <= moveDist || d < 5.f) {
+	//남은 거리가 2.f 미만일 때
+	if (d <= moveDist || d < 2.f) {
 		//목표 지점이 최종지점일 때
 		if (m_nowPos == m_endPoint.size() - 1) {
 			if (m_isLoop == TRUE) {

@@ -21,7 +21,6 @@ private:
 	FLOAT m_moveSpd;
 
 	FLOAT m_boostTime;
-	FLOAT m_boostDelay;
 	FLOAT m_damageTime;
 
 	FLOAT m_alpha;
@@ -33,6 +32,7 @@ public:
 
 	//총알 딜레이[무기];
 	float m_fireDelay[5] = { 0 };
+
 	//무기 공격력[무기];
 	float m_atk[5] = { 0 };
 

@@ -6,7 +6,7 @@ cPlayer::cPlayer()
 {
 	Init();
 	m_fire = new cTimer(m_fireDelay[m_nowWeapon]);
-	m_boostCool = new cTimer(1);
+	m_boostCool = new cTimer(0.3);
 	m_motion = new cTimer(0.02);
 	m_img = new cImage;
 	m_boostBar = new cImage;
@@ -35,6 +35,7 @@ void cPlayer::Update()
 		Dead();
 		return;
 	}
+
 	if (!m_isActive || !m_isLive) return;
 
 	m_ani->Update();
@@ -57,7 +58,7 @@ void cPlayer::Update()
 			m_isBoostCool = false;
 	}
 
-	if (m_motion->Update()) MotionBlur();
+	MotionBlur();
 	if (m_isBoost) Boost();
 
 	if (m_status == P_IDLE)
@@ -77,6 +78,10 @@ void cPlayer::Update()
 	}
 
 	for(auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor())
+		OnCollision(iter);
+	for (auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy())
+		OnCollision(iter);
+	for (auto iter : ((cBulletManager*)OBJFIND(BULLET))->GetEnemyBullets())
 		OnCollision(iter);
 }
 
@@ -107,27 +112,83 @@ void cPlayer::OnCollision(cObject* other)
 
 	if (AABB(GetCustomCollider(5), other->GetObjCollider())) {
 		CAMERA->SetShake(0.1, 10, 3);
-		SOUND->Copy("PlayerHitSND");
 
 		if (other->GetName() == "Meteor") {
-			if (m_isBoost == false) m_hp -= ((cEnemy*)other)->m_atk;
+			other->SetLive(false);
 
+			if (m_isBoost) return;
+			m_hp -= ((cEnemy*)other)->m_atk;
 			if (m_hp < 0) m_hp = 0;
-			((cEnemy*)other)->GetRefLive() = false;
 		}
 
-		if (m_isBoost == false) {
-			auto ingameUI = ((cIngameUI*)UI->FindUI("IngameSceneUI"));
-			ingameUI->m_damaged->m_a = 255.f;
-			ingameUI->m_damaged->SetNowRGB();
+		else if (other->GetName() == "Razer") {
+			((cEnemy*)other)->m_hp -= 10;
+			if (((cEnemy*)other)->m_hp <= 0) other->SetLive(false);
 
-			ingameUI->m_targetPos = VEC2(688, 595);
-			Lerp(ingameUI->m_targetPos, VEC2(688, 399), (m_hpMax - m_hp) / (double)m_hpMax);
+			char str[256];
+			sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
+			auto img = IMAGE->FindMultiTexture(str);
+			EFFECT->AddEffect(new cEffect(
+				str, img->GetImgSize(), 0.03,
+				VEC2(GetPos().x + rand() % 30 - rand() % 30, GetPos().y + rand() % 30 - rand() % 30),
+				VEC2(0, 0), VEC2(0, 0), VEC2(1.5, 1.5)
+			));
 
-			m_isDamaged = true;
-			m_damageTime = 0.f;
-			m_alpha = 128.f;
+			sprintf(str, "EnemyHit%dSND", rand() % 4);
+			SOUND->Copy(str);
+
+			if (m_isBoost) return;
+			m_hp -= ((cEnemy*)other)->m_atk;
+			if (m_hp < 0) m_hp = 0;
 		}
+
+		else if (other->GetName() == "Straight") {
+			((cEnemy*)other)->m_hp -= 5;
+			if (((cEnemy*)other)->m_hp <= 0) other->SetLive(false);
+
+			char str[256];
+			sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
+			auto img = IMAGE->FindMultiTexture(str);
+			EFFECT->AddEffect(new cEffect(
+				str, img->GetImgSize(), 0.03,
+				VEC2(GetPos().x + rand() % 30 - rand() % 30, GetPos().y + rand() % 30 - rand() % 30),
+				VEC2(0, 0), VEC2(0, 0), VEC2(1.5, 1.5)
+			));
+
+			sprintf(str, "EnemyHit%dSND", rand() % 4);
+			SOUND->Copy(str);
+
+			if (m_isBoost) return;
+			m_hp -= ((cEnemy*)other)->m_atk;
+			if (m_hp < 0) m_hp = 0;
+		}
+
+		else if (other->GetName() == "EnemyRazer") {
+			if (m_isBoost) return;
+			m_hp -= ((cBullet*)other)->m_atk;
+			if (m_hp < 0) m_hp = 0;
+		}
+
+		else if (other->GetName() == "EnemyStraight") {
+			if (m_isBoost) return;
+			m_hp -= ((cBullet*)other)->m_atk;
+			if (m_hp < 0) m_hp = 0;
+		}
+
+
+		if (m_isBoost) return;
+		SOUND->Copy("PlayerHitSND");
+
+		auto ingameUI = ((cIngameUI*)UI->FindUI("IngameSceneUI"));
+		ingameUI->m_damaged->m_a = 255.f;
+		ingameUI->m_damaged->SetNowRGB();
+
+		ingameUI->m_targetPos = VEC2(688, 595);
+		Lerp(ingameUI->m_targetPos, VEC2(688, 399), (m_hpMax - m_hp) / (double)m_hpMax);
+
+		m_isDamaged = true;
+		m_damageTime = 0.f;
+		m_alpha = 128.f;
 	}
 
 	if (m_isLive && m_hp == 0) {
@@ -146,7 +207,6 @@ void cPlayer::Init()
 
 	m_originSpd = m_moveSpd = 500.f;
 	m_boostTime = 0.f;
-	m_boostDelay = 0.5;
 
 	m_isBoostCool = false;
 	m_canFire = false;
@@ -160,11 +220,11 @@ void cPlayer::Init()
 
 	//초기 무기 딜레이
 	m_fireDelay[0] = 1;
-	m_fireDelay[1] = 0.2;
+	m_fireDelay[1] = 0.5;
 	if(m_fire) m_fire->m_delay = m_fireDelay[m_nowWeapon];
 
 	//초기 무기 공격력
-	m_atk[0] = 1;
+	m_atk[0] = 5;
 	m_atk[1] = 3;
 
 	m_status = P_IDLE;
@@ -174,13 +234,12 @@ void cPlayer::Init()
 	m_isDamaged = false;
 	m_isLive = true;
 
-	m_hp = 10;
-	m_hpMax = 10;
+	m_hp = 20;
+	m_hpMax = 20;
 
 	//모션 이펙트 갯수
 	for (size_t i = 0; i < 5; i++)
 		m_motionInfo.push_back(new cMotionInfo(m_pos));
-
 	m_motionInfo[0]->m_color = D3DCOLOR_ARGB(45, 128, 128, 255);
 	m_motionInfo[1]->m_color = D3DCOLOR_ARGB(90, 128, 128, 255);
 	m_motionInfo[2]->m_color = D3DCOLOR_ARGB(135, 128, 128, 255);
@@ -238,7 +297,7 @@ void cPlayer::ChangeWeapon()
 void cPlayer::Boost()
 {
 	m_boostTime += D_TIME;
-	if (m_boostTime < m_boostDelay)
+	if (m_boostTime < 0.5)
 		Lerp(m_moveSpd, m_originSpd, 0.3);
 	else {
 		m_moveSpd = m_originSpd;
@@ -249,7 +308,7 @@ void cPlayer::Boost()
 
 void cPlayer::Move()
 {
-	if (m_isBoostCool == false && KEYDOWN('R') &&
+	if (m_isDamaged == false && m_isBoostCool == false && KEYDOWN('R') &&
 		(KEYPRESS(VK_UP) || KEYPRESS(VK_DOWN) || KEYPRESS(VK_LEFT) || KEYPRESS(VK_RIGHT))
 		) {
 		CAMERA->SetShake(0.15, 20, 10);
@@ -258,7 +317,6 @@ void cPlayer::Move()
 		SOUND->Copy(str);
 		m_isBoost = m_isBoostCool = true;
 		m_boostCool->m_start = 0.f;
-		m_boostCool->m_delay = 3.f;
 
 		m_moveSpd = m_originSpd * 6.5;
 	}
@@ -324,38 +382,38 @@ void cPlayer::Fire()
 		case 0:
 			switch (GAME->m_level) {
 			case 1:
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 3, 10, m_pos, VEC2(0, -1), VEC2(2,2), 150.f, false, false, false, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 3, 10, m_pos, VEC2(0, -1), VEC2(2,2), 150.f, 0, false, false, false, true);
 				break;
 			case 2:
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 3, 10, m_pos, VEC2(0, -1), VEC2(2,2), 150.f, false, false, false, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 3, 10, m_pos, VEC2(0, -1), VEC2(2,2), 150.f, 0, false, false, false, true);
 				break;
 			case 3:
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 5, 10, m_pos, VEC2(0, -1), VEC2(2,2), 200.f, false, false, false, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 5, 10, m_pos, VEC2(0, -1), VEC2(2,2), 200.f, 0, false, false, false, true);
 				break;
 			case 4:
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 5, 10, m_pos, VEC2(0, -1), VEC2(2,2), 200.f, false, false, false, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 5, 10, m_pos, VEC2(0, -1), VEC2(2,2), 200.f, 0, false, false, false, true);
 				break;
 			case 5:
-				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 8, 10, m_pos, VEC2(0, -1), VEC2(2,2), 250.f, false, false, false, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan("PlayerBullet", "PlayerBullet0IMG", 8, 10, m_pos, VEC2(0, -1), VEC2(2,2), 250.f, 0, false, false, false, true);
 				break;
 			}
 			break;
 		case 1:
 			switch (GAME->m_level) {
 			case 1:
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 1, 10, m_pos, VEC2(0, -1), VEC2(2, 2), 500.f, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 1, 10, m_pos, VEC2(0, -1), VEC2(2, 2), 500.f, 0, true);
 				break;
 			case 2:
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 3, 10, m_pos, VEC2(0, -1), VEC2(2, 2), 500.f, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 3, 10, m_pos, VEC2(0, -1), VEC2(2, 2), 500.f, 0, true);
 				break;
 			case 3:
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 3, 20, m_pos, VEC2(0, -1), VEC2(2, 2), 800.f, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 3, 20, m_pos, VEC2(0, -1), VEC2(2, 2), 800.f, 0, true);
 				break;
 			case 4:
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 5, 20, m_pos, VEC2(0, -1), VEC2(2, 2), 800.f, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 5, 20, m_pos, VEC2(0, -1), VEC2(2, 2), 800.f, 0, true);
 				break;
 			case 5:
-				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 8, 20, m_pos, VEC2(0, -1), VEC2(2, 2), 1000.f, true);
+				((cBulletManager*)OBJFIND(BULLET))->N_Straight_Tan("PlayerBullet", "PlayerBullet1IMG", 8, 20, m_pos, VEC2(0, -1), VEC2(2, 2), 1000.f, 0, true);
 				break;
 			}
 			break;
@@ -367,7 +425,6 @@ void cPlayer::Fire()
 void cPlayer::MotionBlur()
 {
 	if (m_motionInfo.size() == 0) return;
-
 	for (int i = 0; i < m_motionInfo.size() - 1; ++i)
 		m_motionInfo[i]->m_motionPos = m_motionInfo[i + 1]->m_motionPos;
 	m_motionInfo[m_motionInfo.size() - 1]->m_motionPos = m_pos;

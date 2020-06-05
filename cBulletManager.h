@@ -18,8 +18,8 @@ public:
 	vector<cBullet*>& GetEnemyBullets()  { return m_eBullet; }
 
 	//ºÎÃ¤²Ã ¼¦
-	void N_Way_Tan(const string& bulletName, const string& imageName, int n, int theta, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, bool isRandShot = false, bool isHoming = false, bool isFaccel = false, bool isSaccel = false);
+	void N_Way_Tan(const string& bulletName, const string& imageName, int n, int theta, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, float atk, bool isRandShot = false, bool isHoming = false, bool isFaccel = false, bool isSaccel = false);
 	//Á÷»ç°¢Çü ¼¦
-	void N_Straight_Tan(const string& bulletName, const string& imageName, int n, int length, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, bool isFaccel = false, bool isSaccel = false);
+	void N_Straight_Tan(const string& bulletName, const string& imageName, int n, int length, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, float atk, bool isFaccel = false, bool isSaccel = false);
 };
 

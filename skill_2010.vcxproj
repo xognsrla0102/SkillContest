@@ -388,7 +388,9 @@
     <ClCompile Include="cGameOverScene.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cPath.cpp" />
+    <ClCompile Include="cRadial.cpp" />
     <ClCompile Include="cRazer.cpp" />
+    <ClCompile Include="cStraight.cpp" />
     <ClCompile Include="cTitleUI.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="cAnimation.cpp" />
@@ -428,7 +430,9 @@
     <ClInclude Include="cGameOverScene.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="cPath.h" />
+    <ClInclude Include="cRadial.h" />
     <ClInclude Include="cRazer.h" />
+    <ClInclude Include="cStraight.h" />
     <ClInclude Include="cTitleUI.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="cAnimation.h" />

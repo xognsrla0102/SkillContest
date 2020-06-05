@@ -2,6 +2,7 @@
 #include "cScroolMap.h"
 #include "cTimer.h"
 #include "cMeteor.h"
+#include "cStraight.h"
 #include "cRazer.h"
 #include "cEnemyManager.h"
 #include "cStageOne.h"
@@ -11,7 +12,10 @@ cStageOne::cStageOne()
 	m_map = new cScroolMap(IMAGE->FindTexture("StageOneBG"));
 	m_timePlus = new cTimer(1);
 	m_createMeteor = new cTimer(0.3);
-	m_createEnemy = new cTimer(1);
+	m_createRazer = new cTimer(10);
+	m_createStraight = new cTimer(1);
+	m_createRadial = new cTimer(1);
+	m_createRotate = new cTimer(3);
 }
 
 cStageOne::~cStageOne()
@@ -21,7 +25,10 @@ cStageOne::~cStageOne()
 	SAFE_DELETE(m_map);
 	SAFE_DELETE(m_timePlus);
 	SAFE_DELETE(m_createMeteor);
-	SAFE_DELETE(m_createEnemy);
+	SAFE_DELETE(m_createRazer);
+	SAFE_DELETE(m_createStraight);
+	SAFE_DELETE(m_createRadial);
+	SAFE_DELETE(m_createRotate);
 }
 
 void cStageOne::Init()
@@ -66,6 +73,7 @@ void cStageOne::Render()
 void cStageOne::Release()
 {
 	SOUND->Stop("StageBGM");
+	((cPlayer*)OBJFIND(PLAYER))->Release();
 	OBJFIND(PLAYER)->SetActive(false);
 	((cBulletManager*)OBJFIND(BULLET))->Reset();
 	((cEnemyManager*)OBJFIND(ENEMY))->Release();
@@ -112,9 +120,12 @@ void cStageOne::MapPattern()
 
 void cStageOne::MapPattern1()
 {
-	if (m_patternTime > 10.f) {
+	if (m_patternTime > 30.f) {
 		m_patternTime = 0.f;
 		m_mapPattern = rand() % m_totalPattern;
+
+		m_createRazer->m_start = 0.f;
+		m_createStraight->m_start = 0.f;
 	}
 	else {
 		if (m_createMeteor->Update()) {
@@ -132,9 +143,14 @@ void cStageOne::MapPattern1()
 
 		//맵의 패턴이 좌우 운석 직선 일 때
 		//돌아가는 적과, 레이저 적
-		if (m_createEnemy->Update()) {
+		if (m_createRazer->Update()) {
 			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
-				new cRazer(VEC2(GXY(50 + rand() % (GAMESIZEX - 100), -200)))
+				new cRazer(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
+			);
+		}
+		if (m_createStraight->Update()) {
+			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
+				new cStraight(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
 			);
 		}
 	}
@@ -145,6 +161,9 @@ void cStageOne::MapPattern2()
 	static int cnt = 0, dir = 1;
 
 	if (m_patternTime > 5.f) {
+		m_createRotate->m_start = 0.f;
+		m_createStraight->m_start = 0.f;
+
 		m_patternTime = 0.f;
 		m_mapPattern = rand() % m_totalPattern;
 		cnt = 0;
@@ -164,6 +183,12 @@ void cStageOne::MapPattern2()
 			);
 			cnt += dir;
 		}
+
+		if (m_createStraight->Update()) {
+			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
+				new cStraight(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
+			);
+		}
 	}
 
 	if (dir == -1 && cnt < 0) dir = 1;
@@ -175,6 +200,9 @@ void cStageOne::MapPattern3()
 	static int cnt = 0, dir = 1;
 
 	if (m_patternTime > 5.f) {
+		m_createRotate->m_start = 0.f;
+		m_createStraight->m_start = 0.f;
+
 		m_patternTime = 0.f;
 		m_mapPattern = rand() % m_totalPattern;
 		cnt = 0;
@@ -194,6 +222,12 @@ void cStageOne::MapPattern3()
 			);
 			cnt += dir;
 		}
+
+		if (m_createStraight->Update()) {
+			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
+				new cStraight(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
+			);
+		}
 	}
 
 	if (dir == -1 && cnt < 0) dir = 1;
@@ -202,7 +236,10 @@ void cStageOne::MapPattern3()
 
 void cStageOne::MapPattern4()
 {
-	if (m_patternTime > 5.f) {
+	if (m_patternTime > 30.f) {
+		m_createRadial->m_start = 0.f;
+		m_createRazer->m_start = 0.f;
+
 		m_patternTime = 0.f;
 		m_mapPattern = rand() % m_totalPattern;
 	}
@@ -213,6 +250,16 @@ void cStageOne::MapPattern4()
 			((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor().push_back(
 				new cMeteor(key, VEC2(GXY(rand() % GAMESIZEX, -50)), VEC2(1, 1), 60 * rand() % 6, 200.f)
 			);
+		}
+
+		if (m_createRazer->Update()) {
+			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
+				new cRazer(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
+			);
+		}
+
+		if (m_createRadial->Update()) {
+			
 		}
 	}
 }

@@ -16,12 +16,22 @@ cEnemyManager::~cEnemyManager()
 void cEnemyManager::Update()
 {
 	size_t size = m_meteor.size();
-	for (size_t i = 0; i < size; i++) {
+	for (size_t i = 0; i < size; ++i) {
 		m_meteor[i]->Update();
-		if (m_meteor[i]->GetLive() == FALSE) {
+		if (m_meteor[i]->GetLive() == false) {
 			SAFE_DELETE(m_meteor[i]);
 			m_meteor.erase(m_meteor.begin() + i);
-			i--, size--;
+			--i, --size;
+		}
+	}
+
+	size = m_enemy.size();
+	for (size_t i = 0; i < size; ++i) {
+		m_enemy[i]->Update();
+		if (m_enemy[i]->GetLive() == false) {
+			SAFE_DELETE(m_enemy[i]);
+			m_enemy.erase(m_enemy.begin() + i);
+			--i, --size;
 		}
 	}
 }

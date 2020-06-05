@@ -1,13 +1,12 @@
 #pragma once
 #include "cEnemy.h"
-class cRazer : public cEnemy
+class cStraight : public cEnemy
 {
 private:
-	cAnimation* m_chargeEffect;
-	bool m_isChargeTime = false;
+	float m_downSpd;
 public:
-	cRazer(VEC2 pos);
-	virtual ~cRazer();
+	cStraight(VEC2 pos);
+	virtual ~cStraight();
 
 	virtual void Update() override;
 	virtual void Render() override;

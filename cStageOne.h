@@ -8,7 +8,11 @@ private:
 	cScroolMap* m_map;
 	cTimer* m_timePlus;
 	cTimer* m_createMeteor;
-	cTimer* m_createEnemy;
+	cTimer* m_createRazer;
+	cTimer* m_createStraight;
+	cTimer* m_createRadial;
+	cTimer* m_createRotate;
+
 	FLOAT m_patternTime;
 
 	int m_gameTime;

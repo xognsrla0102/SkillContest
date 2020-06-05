@@ -379,6 +379,12 @@
     <ClCompile Include="cRazer.cpp">
       <Filter>Core\Object\enemy\_1razer</Filter>
     </ClCompile>
+    <ClCompile Include="cStraight.cpp">
+      <Filter>Core\Object\enemy\_0straight</Filter>
+    </ClCompile>
+    <ClCompile Include="cRadial.cpp">
+      <Filter>Core\Object\enemy\_2radial</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -512,6 +518,12 @@
     </ClInclude>
     <ClInclude Include="cRazer.h">
       <Filter>Core\Object\enemy\_1razer</Filter>
+    </ClInclude>
+    <ClInclude Include="cStraight.h">
+      <Filter>Core\Object\enemy\_0straight</Filter>
+    </ClInclude>
+    <ClInclude Include="cRadial.h">
+      <Filter>Core\Object\enemy\_2radial</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

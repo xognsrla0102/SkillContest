@@ -53,7 +53,7 @@ void cBulletManager::Reset()
 	m_eBullet.clear();
 }
 
-void cBulletManager::N_Way_Tan(const string& bulletName, const string& imageName, int n, int theta, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, bool isRandShot, bool isHoming, bool isFaccel, bool isSaccel)
+void cBulletManager::N_Way_Tan(const string& bulletName, const string& imageName, int n, int theta, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, float atk, bool isRandShot, bool isHoming, bool isFaccel, bool isSaccel)
 {
 	float rot = D3DXToDegree(atan2(dir.y, dir.x));
 	float newRot;
@@ -76,16 +76,17 @@ void cBulletManager::N_Way_Tan(const string& bulletName, const string& imageName
 		}
 		auto bullet = new cBullet(imageName, pos, dir, D3DXToDegree(atan2(dir.y, dir.x)) + 90, bulletSpd, size, isHoming, isFaccel, isSaccel);
 		bullet->SetName(bulletName);
+		bullet->m_atk = atk;
 
 		if (bulletName == "PlayerBullet")
 			m_pBullet.push_back(bullet);
-		else if (bulletName == "EnemyBullet")
+		else if (strstr(bulletName.c_str(), "Enemy") != nullptr)
 			m_eBullet.push_back(bullet);
 		newRot -= theta;
 	}
 }
 
-void cBulletManager::N_Straight_Tan(const string& bulletName, const string& imageName, int n, int length, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, bool isFaccel, bool isSaccel)
+void cBulletManager::N_Straight_Tan(const string& bulletName, const string& imageName, int n, int length, VEC2 pos, VEC2 dir, VEC2 size, float bulletSpd, float atk, bool isFaccel, bool isSaccel)
 {
 	float rot = D3DXToDegree(atan2(dir.y, dir.x));
 
@@ -95,7 +96,7 @@ void cBulletManager::N_Straight_Tan(const string& bulletName, const string& imag
 	for (size_t i = 0; i < n; ++i) {
 		auto bullet = new cBullet(imageName, VEC2(pos.x + i * length, pos.y), dir, rot + 90, bulletSpd, size, false, isFaccel, isSaccel);
 		bullet->SetName(bulletName);
-
+		bullet->m_atk = atk;
 		if (bulletName == "PlayerBullet")
 			m_pBullet.push_back(bullet);
 		else if (bulletName == "EnemyBullet")
