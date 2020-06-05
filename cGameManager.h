@@ -4,19 +4,19 @@
 class cGameManager : public cSingleton<cGameManager>
 {
 public:
-	float OLD_TIME_SCALE = 1.f;
-	float TIME_SCALE = 1.f;
+	float OLD_TIME_SCALE;
+	float TIME_SCALE;
 
-	int m_expMax = 1000;
+	int m_expMax;
 
-	int m_nowExp = 0;
-	int m_totalExp = 0;
+	int m_nowExp;
+	int m_totalExp;
 
-	int m_level = 1;
+	int m_level;
 
-	int m_nowStage = 0;
+	int m_nowStage = 1;
 
-	bool m_isPause = false;
+	bool m_isPause;
 public:
 	cGameManager();
 	virtual ~cGameManager();

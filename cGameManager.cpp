@@ -5,6 +5,7 @@
 
 cGameManager::cGameManager()
 {
+	Init();
 }
 
 cGameManager::~cGameManager()
@@ -20,8 +21,6 @@ void cGameManager::Init()
 
 	m_nowExp = 0;
 	m_totalExp = 0;
-
-	m_nowStage = 0;
 
 	m_level = 1;
 

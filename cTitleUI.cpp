@@ -52,6 +52,7 @@ void cTitleUI::Update()
 	if (KEYDOWN(VK_RETURN)) {
 		switch (m_nowButton) {
 		case 0:
+			GAME->m_nowStage = 1;
 			SCENE->ChangeScene("StageOneScene", "Fade", 30.f);
 			break;
 		case 1:

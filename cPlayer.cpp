@@ -6,7 +6,7 @@ cPlayer::cPlayer()
 {
 	Init();
 	m_fire = new cTimer(m_fireDelay[m_nowWeapon]);
-	m_boostCool = new cTimer(0.3);
+	m_boostCool = new cTimer(2);
 	m_motion = new cTimer(0.02);
 	m_img = new cImage;
 	m_boostBar = new cImage;
@@ -121,8 +121,10 @@ void cPlayer::OnCollision(cObject* other)
 			if (m_hp < 0) m_hp = 0;
 		}
 
-		else if (other->GetName() == "Razer") {
-			((cEnemy*)other)->m_hp -= 10;
+		else if (other->GetName() == "Razer" || other->GetName() == "Straight" || other->GetName() == "Radial") {
+			if (other->GetName() == "Razer")			((cEnemy*)other)->m_hp -= 10;
+			else if(other->GetName() == "Straight")		((cEnemy*)other)->m_hp -= 5;
+
 			if (((cEnemy*)other)->m_hp <= 0) other->SetLive(false);
 
 			char str[256];
@@ -142,34 +144,7 @@ void cPlayer::OnCollision(cObject* other)
 			if (m_hp < 0) m_hp = 0;
 		}
 
-		else if (other->GetName() == "Straight") {
-			((cEnemy*)other)->m_hp -= 5;
-			if (((cEnemy*)other)->m_hp <= 0) other->SetLive(false);
-
-			char str[256];
-			sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
-			auto img = IMAGE->FindMultiTexture(str);
-			EFFECT->AddEffect(new cEffect(
-				str, img->GetImgSize(), 0.03,
-				VEC2(GetPos().x + rand() % 30 - rand() % 30, GetPos().y + rand() % 30 - rand() % 30),
-				VEC2(0, 0), VEC2(0, 0), VEC2(1.5, 1.5)
-			));
-
-			sprintf(str, "EnemyHit%dSND", rand() % 4);
-			SOUND->Copy(str);
-
-			if (m_isBoost) return;
-			m_hp -= ((cEnemy*)other)->m_atk;
-			if (m_hp < 0) m_hp = 0;
-		}
-
-		else if (other->GetName() == "EnemyRazer") {
-			if (m_isBoost) return;
-			m_hp -= ((cBullet*)other)->m_atk;
-			if (m_hp < 0) m_hp = 0;
-		}
-
-		else if (other->GetName() == "EnemyStraight") {
+		else if (other->GetName() == "EnemyRazer" || other->GetName() == "EnemyStraight" || other->GetName() == "EnemyRadial") {
 			if (m_isBoost) return;
 			m_hp -= ((cBullet*)other)->m_atk;
 			if (m_hp < 0) m_hp = 0;

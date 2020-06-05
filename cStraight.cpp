@@ -58,5 +58,5 @@ void cStraight::Fire()
 {
 	SOUND->Copy("EnemyFireSND");
 	auto eBullet = (cBulletManager*)OBJFIND(BULLET);
-	eBullet->N_Way_Tan("EnemyStraight", "EnemyStraightIMG", 3, 10, VEC2(m_pos.x, m_pos.y + 20), VEC2(0, 1), VEC2(1.5, 1.5), 70.f, 2, false, false, false, true);
+	eBullet->N_Way_Tan("EnemyStraight", "EnemyStraightIMG", 3, 10, VEC2(m_pos.x, m_pos.y + 20), VEC2(0, 1), VEC2(1.5, 1.5), 70.f, 5.f, false, false, false, true);
 }

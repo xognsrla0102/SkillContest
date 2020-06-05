@@ -36,11 +36,19 @@ void cMainProc::Update()
 	if (KEYDOWN(VK_F4)) {
 		SCENE->m_white->m_a = 0.f;
 		SCENE->m_white->SetNowRGB();
+		GAME->m_nowStage = 0;
 		SCENE->ChangeScene("TitleScene", "None", 0.f);
 	}
-	if (KEYDOWN(VK_F5)) {
+	else if (KEYDOWN(VK_F5)) {
 		SCENE->m_white->m_a = 0.f;
 		SCENE->m_white->SetNowRGB();
+		GAME->m_nowStage = 1;
+		SCENE->ChangeScene("StageOneScene", "None", 0.f);
+	}
+	else if (KEYDOWN(VK_F6)) {
+		SCENE->m_white->m_a = 0.f;
+		SCENE->m_white->SetNowRGB();
+		GAME->m_nowStage = 2;
 		SCENE->ChangeScene("StageOneScene", "None", 0.f);
 	}
 
@@ -49,6 +57,7 @@ void cMainProc::Update()
 		EFFECT->Update();
 		FONT->Update();
 	}
+	DEBUG_LOG("%d\n", GAME->m_nowStage);
 }
 
 void cMainProc::Render()

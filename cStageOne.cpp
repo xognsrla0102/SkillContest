@@ -4,6 +4,7 @@
 #include "cMeteor.h"
 #include "cStraight.h"
 #include "cRazer.h"
+#include "cRadial.h"
 #include "cEnemyManager.h"
 #include "cStageOne.h"
 
@@ -44,8 +45,6 @@ void cStageOne::Init()
 	m_gameTime = 0;
 	m_isMidBoss = false;
 	m_isBoss = false;
-
-	GAME->m_nowStage = 1;
 
 	m_patternTime = 0.f;
 	m_mapPattern = rand() % m_totalPattern;
@@ -94,10 +93,10 @@ void cStageOne::MapPattern()
 {
 	m_patternTime += D_TIME;
 		
-	if (m_mapPattern == 4) m_createMeteor->m_delay = 0.5;
+	if (m_mapPattern == 4) m_createMeteor->m_delay = 1.f;
 	else m_createMeteor->m_delay = 0.3;
 
-	m_mapPattern = 1;
+	m_mapPattern = 4;
 
 	switch (m_mapPattern) {
 	case 0:
@@ -258,8 +257,15 @@ void cStageOne::MapPattern4()
 			);
 		}
 
-		if (m_createRadial->Update()) {
-			
+		if (m_createRadial->Update() && ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().size() < 2) {
+			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
+				new cRadial(VEC2(GXY(20, GAMESIZEY + 50)))
+			);
+
+			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
+				new cRadial(VEC2(GXY(GAMESIZEX - 20, -50)))
+			);
+
 		}
 	}
 }

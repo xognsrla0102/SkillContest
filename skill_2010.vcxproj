@@ -390,6 +390,7 @@
     <ClCompile Include="cPath.cpp" />
     <ClCompile Include="cRadial.cpp" />
     <ClCompile Include="cRazer.cpp" />
+    <ClCompile Include="cRotate.cpp" />
     <ClCompile Include="cStraight.cpp" />
     <ClCompile Include="cTitleUI.cpp" />
     <ClCompile Include="math.cpp" />
@@ -432,6 +433,7 @@
     <ClInclude Include="cPath.h" />
     <ClInclude Include="cRadial.h" />
     <ClInclude Include="cRazer.h" />
+    <ClInclude Include="cRotate.h" />
     <ClInclude Include="cStraight.h" />
     <ClInclude Include="cTitleUI.h" />
     <ClInclude Include="math.h" />

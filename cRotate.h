@@ -1,13 +1,10 @@
 #pragma once
 #include "cEnemy.h"
-class cRadial : public cEnemy
+class cRotate : public cEnemy
 {
-private:
-	float m_downSpd;
-	int dir = 1;
 public:
-	cRadial(VEC2 pos);
-	virtual ~cRadial();
+	cRotate(VEC2 pos);
+	virtual ~cRotate();
 
 	virtual void Update() override;
 	virtual void Render() override;

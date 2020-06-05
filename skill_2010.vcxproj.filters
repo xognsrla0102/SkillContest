@@ -135,9 +135,6 @@
     <Filter Include="Core\scene\ingame\stageTwo">
       <UniqueIdentifier>{ea3cd91c-0205-441c-ba4d-83003d037c59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Object\enemy\meteor">
-      <UniqueIdentifier>{66e490e8-4689-46ab-b01a-e26a7cbfd375}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Object\_object">
       <UniqueIdentifier>{fc55c11d-bd2a-40f6-b6cc-070556aeb590}</UniqueIdentifier>
     </Filter>
@@ -174,12 +171,6 @@
     <Filter Include="Core\Object\path">
       <UniqueIdentifier>{9ec3c533-5f74-479d-9b73-c5e291e566ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Object\enemy\midboss">
-      <UniqueIdentifier>{430a8258-ca9f-4163-b370-e242037f1ff5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Object\enemy\boss">
-      <UniqueIdentifier>{5b47427b-51ef-4f3c-ae2c-d288bfde1e6e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Object\enemy\_0straight">
       <UniqueIdentifier>{690d3a6a-30e2-4aa7-88a9-8a502ff05362}</UniqueIdentifier>
     </Filter>
@@ -191,6 +182,15 @@
     </Filter>
     <Filter Include="Core\Object\enemy\_3rotate">
       <UniqueIdentifier>{c7cf6b90-b81f-4920-a724-2c2164d66362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\_4meteor">
+      <UniqueIdentifier>{66e490e8-4689-46ab-b01a-e26a7cbfd375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\_5midboss">
+      <UniqueIdentifier>{430a8258-ca9f-4163-b370-e242037f1ff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\enemy\_6boss">
+      <UniqueIdentifier>{5b47427b-51ef-4f3c-ae2c-d288bfde1e6e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -356,7 +356,7 @@
       <Filter>Core\Object\enemy\_enemy</Filter>
     </ClCompile>
     <ClCompile Include="cMeteor.cpp">
-      <Filter>Core\Object\enemy\meteor</Filter>
+      <Filter>Core\Object\enemy\_4meteor</Filter>
     </ClCompile>
     <ClCompile Include="math.cpp">
       <Filter>stdafx\math</Filter>
@@ -384,6 +384,9 @@
     </ClCompile>
     <ClCompile Include="cRadial.cpp">
       <Filter>Core\Object\enemy\_2radial</Filter>
+    </ClCompile>
+    <ClCompile Include="cRotate.cpp">
+      <Filter>Core\Object\enemy\_3rotate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -496,7 +499,7 @@
       <Filter>Core\Object\enemy\_enemy</Filter>
     </ClInclude>
     <ClInclude Include="cMeteor.h">
-      <Filter>Core\Object\enemy\meteor</Filter>
+      <Filter>Core\Object\enemy\_4meteor</Filter>
     </ClInclude>
     <ClInclude Include="math.h">
       <Filter>stdafx\math</Filter>
@@ -524,6 +527,9 @@
     </ClInclude>
     <ClInclude Include="cRadial.h">
       <Filter>Core\Object\enemy\_2radial</Filter>
+    </ClInclude>
+    <ClInclude Include="cRotate.h">
+      <Filter>Core\Object\enemy\_3rotate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

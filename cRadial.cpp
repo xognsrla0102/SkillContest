@@ -7,7 +7,7 @@ cRadial::cRadial(VEC2 pos) : cEnemy()
 
 	m_downSpd = (1 + rand() % 3) * 100;
 
-	m_bulletDelay = 0.8 + rand() % 30 / 10.f;
+	m_bulletDelay = 0.3;
 
 	m_pos = pos;
 	m_size = VEC2(0.3, 0.3);
@@ -17,6 +17,7 @@ cRadial::cRadial(VEC2 pos) : cEnemy()
 
 	char str[256];
 	sprintf(str, "EnemyStage%d_RadialIMG", GAME->m_nowStage);
+	DEBUG_LOG("%s이미지 생성\n", str);
 	m_img->m_text = IMAGE->FindTexture(str);
 
 	m_objName = "Radial";
@@ -29,7 +30,9 @@ cRadial::~cRadial()
 
 void cRadial::Update()
 {
-	m_pos.y += m_downSpd * D_TIME;
+	if (dir && m_pos.y > GY(GAMESIZEY)) dir = -1;
+	else if (dir == -1 && m_pos.y < GY(0)) dir = 1;
+	m_pos.y += m_downSpd * dir * D_TIME;
 
 	m_bulletTime += D_TIME;
 	if (CanFire() && m_bulletTime > m_bulletDelay) {
@@ -56,7 +59,10 @@ void cRadial::Dead()
 
 void cRadial::Fire()
 {
+	static int cnt = 0;
 	SOUND->Copy("EnemyFireSND");
 	auto eBullet = (cBulletManager*)OBJFIND(BULLET);
-	eBullet->N_Way_Tan("EnemyRadial", "EnemyRadialIMG", 10, 36, VEC2(m_pos.x, m_pos.y + 20), VEC2(0, 1), VEC2(1.5, 1.5), 70.f, false, false, false, true);
+	eBullet->N_Way_Tan("EnemyRadial", "EnemyRadialIMG", 4, 90, m_pos, VEC2(cos(D3DXToRadian(cnt)), sin(D3DXToRadian(cnt))), VEC2(1, 1), 50.f, 5.f);
+	cnt += 3;
+	if (cnt > 360) cnt -= 360;
 }

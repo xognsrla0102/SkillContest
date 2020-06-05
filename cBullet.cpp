@@ -75,36 +75,21 @@ void cBullet::Render()
 void cBullet::OnCollision(cObject* other)
 {
 	if (AABB(GetObjCollider(), other->GetObjCollider())) {
-		if (GetName() == "PlayerBullet" && other->GetName() == "Meteor") {
+		if (GetName() == "PlayerBullet") {
+			if (other->GetName() == "Razer" && AABB(GetObjCollider(), other->GetCustomCollider(20))
+				||
+				other->GetName() == "Straight" && AABB(GetObjCollider(), other->GetCustomCollider(5))
+				) {
+				char str[256];
+				sprintf(str, "EnemyHit%dSND", rand() % 4);
+				SOUND->Copy(str);
+			}
+			if (other->GetName() == "Radial") return;
+
 			auto player = ((cPlayer*)OBJFIND(PLAYER));
 			((cEnemy*)other)->m_hp -= player->m_atk[player->m_nowWeapon];
 			if (((cEnemy*)other)->m_hp <= 0) other->SetLive(false);
 			m_isLive = false;
-		}
-		if (GetName() == "PlayerBullet" && other->GetName() == "Razer") {
-			if (AABB(GetObjCollider(), other->GetCustomCollider(20))) {
-				char str[256];
-				sprintf(str, "EnemyHit%dSND", rand() % 4);
-				SOUND->Copy(str);
-
-				auto player = ((cPlayer*)OBJFIND(PLAYER));
-				((cEnemy*)other)->m_hp -= player->m_atk[player->m_nowWeapon];
-				if (((cEnemy*)other)->m_hp <= 0) other->SetLive(false);
-				m_isLive = false;
-			}
-		}
-
-		if (GetName() == "PlayerBullet" && other->GetName() == "Straight") {
-			if (AABB(GetObjCollider(), other->GetCustomCollider(5))) {
-				char str[256];
-				sprintf(str, "EnemyHit%dSND", rand() % 4);
-				SOUND->Copy(str);
-
-				auto player = ((cPlayer*)OBJFIND(PLAYER));
-				((cEnemy*)other)->m_hp -= player->m_atk[player->m_nowWeapon];
-				if (((cEnemy*)other)->m_hp <= 0) other->SetLive(false);
-				m_isLive = false;
-			}
 		}
 	}
 }
