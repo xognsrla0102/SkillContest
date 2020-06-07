@@ -38,9 +38,11 @@ cBullet::~cBullet()
 void cBullet::Update()
 {
 	for(auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor())
-		OnCollision(iter);
+		if(iter->GetLive())
+			OnCollision(iter);
 	for (auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy())
-		OnCollision(iter);
+		if (iter->GetLive())
+			OnCollision(iter);
 
 	if (m_objName == "PlayerBullet") OutMapChk(0);
 	else OutMapChk(200);
@@ -76,19 +78,36 @@ void cBullet::OnCollision(cObject* other)
 {
 	if (AABB(GetObjCollider(), other->GetObjCollider())) {
 		if (GetName() == "PlayerBullet") {
-			if (other->GetName() == "Razer" && AABB(GetObjCollider(), other->GetCustomCollider(20))
-				||
-				other->GetName() == "Straight" && AABB(GetObjCollider(), other->GetCustomCollider(5))
-				) {
+			string name = other->GetName();
+
+			if (name == "Razer" || name == "Straight" || name == "Rotate") {
 				char str[256];
 				sprintf(str, "EnemyHit%dSND", rand() % 4);
 				SOUND->Copy(str);
 			}
+			else if (name == "Meteor") {
+				char str[256];
+				sprintf(str, "RockHit%dSND", rand() % 4);
+				SOUND->Copy(str);
+			}
+
 			if (other->GetName() == "Radial") return;
 
 			auto player = ((cPlayer*)OBJFIND(PLAYER));
 			((cEnemy*)other)->m_hp -= player->m_atk[player->m_nowWeapon];
-			if (((cEnemy*)other)->m_hp <= 0) other->SetLive(false);
+			if (((cEnemy*)other)->m_hp <= 0) {
+				other->SetLive(false);
+				int getScore = 0;
+				if (name == "Razer")		 getScore = 500 * GAME->m_level / 2.f;
+				else if (name == "Straight") getScore = 200 * GAME->m_level / 2.f;
+				else if (name == "Rotate")	 getScore = 500 * GAME->m_level / 2.f;
+				if (name != "Meteor") {
+					GAME->m_score += getScore;
+					FONT->AddFont("+" + to_string(getScore) + "EXP", m_pos, 1.f, true);
+					if (GAME->m_level == 5) getScore = 0;
+					GAME->m_nowExp += getScore;
+				}
+			}
 			m_isLive = false;
 		}
 	}

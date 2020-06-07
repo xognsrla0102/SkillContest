@@ -36,7 +36,8 @@ void cScroolMap::Update()
 		m_createGas->m_delay = 2.f + rand() % 3;
 		m_gas.push_back(new cImage);
 		m_gas[m_gas.size() - 1]->m_text = IMAGE->FindTexture("CloudIMG", rand() % 4);
-		m_gas[m_gas.size() - 1]->m_pos = VEC2(rand() % WINSIZEX, -300);
+		int height = m_gas[m_gas.size() - 1]->m_text->m_info.Height;
+		m_gas[m_gas.size() - 1]->m_pos = GXY(100 * (rand() % 3), -height);
 	}
 
 	pos1.y += m_mapSpd * D_TIME;
@@ -50,7 +51,7 @@ void cScroolMap::Update()
 	size_t size = m_gas.size();
 	for(int i = 0; i < size; ++i){
 		m_gas[i]->m_pos.y += m_gasSpd * D_TIME;
-		if (m_gas[i]->m_pos.y > GY(GAMESIZEY + m_gas[i]->m_text->m_info.Height)) {
+		if (m_gas[i]->m_pos.y > GY(GAMESIZEY)) {
 			SAFE_DELETE(m_gas[i]);
 			m_gas.erase(m_gas.begin() + i);
 			--i, --size;
@@ -64,7 +65,7 @@ void cScroolMap::Render()
 	IMAGE->Render(m_img2->m_text, pos2);
 
 	for (auto iter : m_gas)
-		IMAGE->Render(iter->m_text, iter->m_pos, VEC2(1, 1), 0.f, true);
+		IMAGE->Render(iter->m_text, iter->m_pos, VEC2(1, 1), 0.f);
 }
 
 void cScroolMap::Release()

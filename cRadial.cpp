@@ -8,16 +8,16 @@ cRadial::cRadial(VEC2 pos) : cEnemy()
 	m_downSpd = (1 + rand() % 3) * 100;
 
 	m_bulletDelay = 0.3;
+	m_bulletDelay /= GAME->m_nowStage;
 
 	m_pos = pos;
 	m_size = VEC2(0.3, 0.3);
 
-	m_hp = 3 * GAME->m_level * GAME->m_level / 2;
-	m_atk = 5 * GAME->m_level;
+	m_hp = 2 * GAME->m_level * GAME->m_level / 2;
+	m_atk = 3 * GAME->m_level;
 
 	char str[256];
 	sprintf(str, "EnemyStage%d_RadialIMG", GAME->m_nowStage);
-	DEBUG_LOG("%s이미지 생성\n", str);
 	m_img->m_text = IMAGE->FindTexture(str);
 
 	m_objName = "Radial";
@@ -41,8 +41,6 @@ void cRadial::Update()
 	}
 
 	OutMapChk(200);
-	if (m_isLive == false && !OutMapChk(200))
-		Dead();
 }
 
 void cRadial::Render()
@@ -50,12 +48,6 @@ void cRadial::Render()
 	IMAGE->Render(m_img->m_text, m_pos, m_size, m_rot, true);
 }
 
-void cRadial::Dead()
-{
-	char str[256];
-	sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
-	EFFECT->AddEffect(new cEffect(str, IMAGE->FindMultiTexture(str)->GetImgSize(), 0.02, m_pos, VEC2(0, 0), VEC2(0.5, 0.5), VEC2(0.5, 0.5)));
-}
 
 void cRadial::Fire()
 {

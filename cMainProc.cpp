@@ -57,7 +57,6 @@ void cMainProc::Update()
 		EFFECT->Update();
 		FONT->Update();
 	}
-	DEBUG_LOG("%d\n", GAME->m_nowStage);
 }
 
 void cMainProc::Render()
@@ -67,8 +66,8 @@ void cMainProc::Render()
 	IMAGE->Begin(false);
 
 	SCENE->Render();
-	OBJECT->Render();
 	EFFECT->Render();
+	OBJECT->Render();
 	FONT->Render();
 
 	IMAGE->ReBegin(true);

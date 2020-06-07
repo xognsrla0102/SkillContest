@@ -12,8 +12,6 @@ cEnemy::cEnemy()
 
 	m_dirRot = 0.f;
 	m_accelCurve = 0.f;
-
-	m_turnRot = 0.f;
 }
 
 bool cEnemy::CanFire()

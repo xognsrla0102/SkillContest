@@ -192,6 +192,12 @@
     <Filter Include="Core\Object\enemy\_6boss">
       <UniqueIdentifier>{5b47427b-51ef-4f3c-ae2c-d288bfde1e6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Object\item\manager">
+      <UniqueIdentifier>{215c7421-bbe8-4aac-b9c0-4c2cd7d16818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\item\item">
+      <UniqueIdentifier>{c6bff0a5-c06a-4d94-a828-2a363ed6c5b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -388,6 +394,12 @@
     <ClCompile Include="cRotate.cpp">
       <Filter>Core\Object\enemy\_3rotate</Filter>
     </ClCompile>
+    <ClCompile Include="cItem.cpp">
+      <Filter>Core\Object\item\item</Filter>
+    </ClCompile>
+    <ClCompile Include="cItemManager.cpp">
+      <Filter>Core\Object\item\manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -530,6 +542,12 @@
     </ClInclude>
     <ClInclude Include="cRotate.h">
       <Filter>Core\Object\enemy\_3rotate</Filter>
+    </ClInclude>
+    <ClInclude Include="cItem.h">
+      <Filter>Core\Object\item\item</Filter>
+    </ClInclude>
+    <ClInclude Include="cItemManager.h">
+      <Filter>Core\Object\item\manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

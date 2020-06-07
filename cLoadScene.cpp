@@ -2,6 +2,7 @@
 #include "cPlayer.h"
 #include "cBulletManager.h"
 #include "cEnemyManager.h"
+#include "cItemManager.h"
 
 #include "cTitleScene.h"
 #include "cGameOverScene.h"
@@ -120,6 +121,7 @@ void cLoadScene::Init()
 	Load("NoSkillSND", L"resources/sound/noskill.wav");
 	Load("StealSND", L"resources/sound/steal.wav");
 	Load("WarningSND", L"resources/sound/warning.wav");
+	Load("GetItemSND", L"resources/sound/getitem.wav");
 
 	//이미지 로드
 	Load("TitleBG", "resources/image/title/bg.png");
@@ -173,9 +175,15 @@ void cLoadScene::Init()
 
 	Load("ChargeRazerIMG", "resources/image/effect/chargeRazerEffect/%d.png", 24);
 
-	//Load("ShadowIMG", "resources/image/ingame/planet/shadow/%d.png", 17);
-	//Load("PlanetIMG", "resources/image/ingame/planet/%d.png", 19);
+	Load("SkillQIMG", "resources/image/effect/skillq/%d.png", 40);
+
+	Load("ShadowIMG", "resources/image/ui/ingame/planet/shadow/%d.png", 17);
+	Load("PlanetIMG", "resources/image/ui/ingame/planet/%d.png", 19);
 	Load("CloudIMG", "resources/image/ingame/%d.png", 4);
+
+	Load("ItemLevelUpIMG", "resources/image/item/levelup.png");
+	Load("ItemHpIMG", "resources/image/item/hp.png");
+	Load("ItemSkillTimeIMG", "resources/image/item/skilltime.png");
 
 	//UI
 	Load("num_dot", "resources/image/ui/num/dot.png");
@@ -229,7 +237,7 @@ void cLoadScene::Update()
 		OBJECT->AddOBJ(new cPlayer, PLAYER);
 		OBJECT->AddOBJ(new cBulletManager, BULLET);
 		OBJECT->AddOBJ(new cEnemyManager, ENEMY);
-		//OBJECT->AddOBJ(new cItemAdmin, ITEM);
+		OBJECT->AddOBJ(new cItemManager, ITEM);
 
 		SCENE->AddScene("TitleScene", new cTitleScene);
 		SCENE->AddScene("StageOneScene", new cStageOne);

@@ -386,6 +386,8 @@
   <ItemGroup>
     <ClCompile Include="cButton.cpp" />
     <ClCompile Include="cGameOverScene.cpp" />
+    <ClCompile Include="cItem.cpp" />
+    <ClCompile Include="cItemManager.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cPath.cpp" />
     <ClCompile Include="cRadial.cpp" />
@@ -429,6 +431,8 @@
     <ClCompile Include="stdafx.cpp" />
     <ClInclude Include="cButton.h" />
     <ClInclude Include="cGameOverScene.h" />
+    <ClInclude Include="cItem.h" />
+    <ClInclude Include="cItemManager.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="cPath.h" />
     <ClInclude Include="cRadial.h" />

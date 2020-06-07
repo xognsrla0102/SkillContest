@@ -48,22 +48,11 @@ void cCameraManager::ResetSetting()
 
 void cCameraManager::SetShake(float time, int radius, int velocity)
 {
-	//흔들리는 와중에 흔들림이 발생할 때
-	if (m_isShake) {
-		//시간이 더 많은 것 위주
-		if (m_delay < time) m_delay = time;
-		//흔들림 폭과 증가폭은 더 늘어나게
-		m_radius += radius;
-		m_velocity += velocity;
-	}
-	//안 흔들리다가 흔들릴 때
-	else {
-		m_start = 0;
-		m_delay = time;
-		m_radius = radius;
-		m_velocity = velocity;
-		m_isShake = true;
-	}
+	m_start = 0;
+	m_delay = time;
+	m_radius = radius;
+	m_velocity = velocity;
+	m_isShake = true;
 }
 
 void cCameraManager::Shake()

@@ -17,8 +17,6 @@ public:
 	float m_dirRot		= 0.f;
 	float m_accelCurve	= 0.f;
 
-	float m_turnRot = 0.f;
-
 	bool m_isAccelCurve = false;
 public:
 	cEnemy();
@@ -27,7 +25,6 @@ public:
 	virtual void Update() PURE;
 	virtual void Render() PURE;
 
-	virtual void Dead() PURE;
 	virtual bool CanFire();
 
 	vector<string>& GetItemNames() { return m_itemNames; }

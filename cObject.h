@@ -26,7 +26,7 @@ public:
 	virtual void Update() PURE;
 	virtual void Render() PURE;
 
-	bool OutMapChk(int offset);
+	bool OutMapChk(int offset = 0);
 
 	cTexture* GetImg() { return m_img->m_text; }
 	VEC2 GetPos() { return m_pos; }

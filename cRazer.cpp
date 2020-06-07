@@ -12,7 +12,7 @@ cRazer::cRazer(VEC2 pos) : cEnemy()
 
 	m_size = VEC2(0.8, 0.8);
 
-	m_hp = 10 * GAME->m_level * GAME->m_level / 2;
+	m_hp = 3 * GAME->m_level * GAME->m_level / 2;
 	m_atk = 3 * GAME->m_level;
 
 	char str[256];
@@ -46,6 +46,8 @@ void cRazer::Update()
 	//가만히 있기 시작할 때 레이저 로드를 해줘야함
 	if (nowPath.m_delay != 0) {
 		if (m_isChargeTime != true) {
+			SOUND->Copy("RazerChargeSND");
+			SOUND->Copy("RazerChargeSND");
 			SOUND->Copy("RazerChargeSND");
 			m_isChargeTime = true;
 		}
@@ -83,13 +85,11 @@ void cRazer::Update()
 		}
 	}
 
-	OutMapChk(200);
-	if (m_isLive == false && !OutMapChk(200))
-		Dead();
-
 	if (CanFire() && m_isChargeTime) {
 		Fire();
 	}
+
+	OutMapChk(200);
 }
 
 void cRazer::Render()
@@ -99,12 +99,6 @@ void cRazer::Render()
 		IMAGE->Render(IMAGE->FindTexture("ChargeRazerIMG", m_chargeEffect->m_nowFrame), VEC2(m_pos.x, m_pos.y + 50), VEC2(3, 3), 0.f, true);
 }
 
-void cRazer::Dead()
-{
-	char str[256];
-	sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
-	EFFECT->AddEffect(new cEffect(str, IMAGE->FindMultiTexture(str)->GetImgSize(), 0.02, m_pos, VEC2(0, 0), VEC2(0.5, 0.5), VEC2(0.3, 0.3)));
-}
 
 void cRazer::Fire()
 {

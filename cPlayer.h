@@ -17,6 +17,8 @@ private:
 
 	cImage* m_boostBar;
 
+	cAnimation* m_qAni;
+
 	FLOAT m_originSpd;
 	FLOAT m_moveSpd;
 
@@ -28,19 +30,28 @@ private:
 	bool m_isBoostCool;
 	bool m_canFire;
 public:
+	string m_stealTanName;
+
 	cTimer* m_fire = nullptr;
 
 	//총알 딜레이[무기];
-	float m_fireDelay[5] = { 0 };
+	float m_fireDelay[3] = { 0 };
 
 	//무기 공격력[무기];
-	float m_atk[5] = { 0 };
+	float m_atk[3] = { 0 };
 
 	P_STATUS m_status;
-	bool m_isQ;
-	bool m_isW;
+
 	bool m_isBoost;
 	bool m_isDamaged;
+
+	bool m_isSteal;
+
+	bool m_isQ;
+	bool m_isW;
+
+	float m_Qtime;
+	float m_Wtime;
 
 	int m_hp;
 	int m_hpMax;
@@ -64,6 +75,8 @@ public:
 	void Boost();
 	void Move();
 	void Fire();
+
+	void Skill();
 
 	void MotionBlur();
 };

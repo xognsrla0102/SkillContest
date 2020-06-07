@@ -27,9 +27,9 @@ constexpr int GAMESIZEY = 570;
 //오브젝트 태그는 렌더링 순서에 의존적임. 순서 변동하면 렌더 순서가 바뀜
 enum TAGS {
 	ENEMY,
+	ITEM,
 	BULLET,
 	PLAYER,
-	ITEM,
 	TAG_END,
 };
 
@@ -66,6 +66,8 @@ enum P_STATUS {
 #include "cEnemyManager.h"
 #include "cBullet.h"
 #include "cBulletManager.h"
+#include "cItem.h"
+#include "cItemManager.h"
 
 template<typename T>
 void Lerp(T& pV1, const T& pV2, double s) {

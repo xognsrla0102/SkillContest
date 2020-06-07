@@ -5,6 +5,7 @@
 #include "cStraight.h"
 #include "cRazer.h"
 #include "cRadial.h"
+#include "cRotate.h"
 #include "cEnemyManager.h"
 #include "cStageOne.h"
 
@@ -13,10 +14,10 @@ cStageOne::cStageOne()
 	m_map = new cScroolMap(IMAGE->FindTexture("StageOneBG"));
 	m_timePlus = new cTimer(1);
 	m_createMeteor = new cTimer(0.3);
-	m_createRazer = new cTimer(10);
+	m_createRazer = new cTimer(5);
 	m_createStraight = new cTimer(1);
 	m_createRadial = new cTimer(1);
-	m_createRotate = new cTimer(3);
+	m_createRotate = new cTimer(1.5);
 }
 
 cStageOne::~cStageOne()
@@ -47,20 +48,56 @@ void cStageOne::Init()
 	m_isBoss = false;
 
 	m_patternTime = 0.f;
-	m_mapPattern = rand() % m_totalPattern;
+	m_mapPattern = 0;
+
+	m_createRazer->m_delay = 5.f / GAME->m_nowStage;
+	m_createStraight->m_delay = 1.f / GAME->m_nowStage;
 }
 
 void cStageOne::Update()
 {
 	GAME->Update();
 
-	if (m_timePlus->Update()) m_gameTime++;
-	if (m_gameTime == 1000) m_isMidBoss = true;
-	if (m_gameTime == 2000) m_isBoss = true;
+	if (m_timePlus->Update()) {
+		m_gameTime++;
 
+		if (m_gameTime == 50) {
+			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
+				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
+			);
+		}
+
+		if (m_gameTime == 100) {
+			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
+				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
+			);
+			m_isMidBoss = true;
+			m_patternTime = 999.f;
+		}
+
+		//중간보스 싸움시간 대략 60초로 가정
+		if (m_gameTime == 160) {
+			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
+				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
+			);
+			m_isMidBoss = false;
+		}
+
+		if (m_gameTime == 200) {
+			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
+				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
+			);
+			m_isBoss = true;
+			m_patternTime = 999.f;
+		}
+
+		if (m_gameTime == 250) {
+			m_isBoss = false;
+		}
+	}
+	MapPattern();
 	if (m_isMidBoss == false && m_isBoss == false) {
 		m_map->Update();
-		MapPattern();
 	}
 }
 
@@ -76,6 +113,7 @@ void cStageOne::Release()
 	OBJFIND(PLAYER)->SetActive(false);
 	((cBulletManager*)OBJFIND(BULLET))->Reset();
 	((cEnemyManager*)OBJFIND(ENEMY))->Release();
+	((cItemManager*)OBJFIND(ITEM))->Release();
 	EFFECT->Reset();
 	m_map->Release();
 }
@@ -83,9 +121,11 @@ void cStageOne::Release()
 void cStageOne::DelayPattern()
 {
 	//Boss 땐 지형 없음
-	if (m_patternTime > 10.f) {
+	if (m_isBoss || m_isMidBoss) return;
+
+	if (m_patternTime > 5.f) {
 		m_patternTime = 0.f;
-		m_mapPattern = rand() % m_totalPattern;
+		m_mapPattern = 1 + rand() % (m_totalPattern - 1);
 	}
 }
 
@@ -95,8 +135,6 @@ void cStageOne::MapPattern()
 		
 	if (m_mapPattern == 4) m_createMeteor->m_delay = 1.f;
 	else m_createMeteor->m_delay = 0.3;
-
-	m_mapPattern = 4;
 
 	switch (m_mapPattern) {
 	case 0:
@@ -115,11 +153,17 @@ void cStageOne::MapPattern()
 		MapPattern4();
 		break;
 	}
+
+	if (m_isBoss || m_isMidBoss) {
+		if (m_mapPattern != 0.f) {
+			m_mapPattern = 0.f;
+		}
+	}
 }
 
 void cStageOne::MapPattern1()
 {
-	if (m_patternTime > 30.f) {
+	if (m_patternTime > 10.f) {
 		m_patternTime = 0.f;
 		m_mapPattern = rand() % m_totalPattern;
 
@@ -131,25 +175,23 @@ void cStageOne::MapPattern1()
 			char key[256];
 			sprintf(key, "EnemyMeteor%dIMG", rand() % 3);
 			((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor().push_back(
-				new cMeteor(key, VEC2(GXY(50, -50)), VEC2(1, 1), 60 * rand() % 6, 200.f)
+				new cMeteor(key, GXY(10, -50), VEC2(1, 1), 60 * rand() % 6, 200.f)
 			);
 
 			sprintf(key, "EnemyMeteor%dIMG", rand() % 3);
 			((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor().push_back(
-				new cMeteor(key, VEC2(GXY(GAMESIZEX - 50, -50)), VEC2(1, 1), 60 * rand() % 6, 200.f)
+				new cMeteor(key, GXY(GAMESIZEX - 10, -50), VEC2(1, 1), 60 * rand() % 6, 200.f)
 			);
 		}
 
-		//맵의 패턴이 좌우 운석 직선 일 때
-		//돌아가는 적과, 레이저 적
 		if (m_createRazer->Update()) {
 			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
-				new cRazer(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
+				new cRazer(GXY(120 + rand() % (GAMESIZEX - 240), -200))
 			);
 		}
 		if (m_createStraight->Update()) {
 			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
-				new cStraight(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
+				new cStraight(GXY(120 + rand() % (GAMESIZEX - 240), -200))
 			);
 		}
 	}
@@ -159,12 +201,15 @@ void cStageOne::MapPattern2()
 {
 	static int cnt = 0, dir = 1;
 
-	if (m_patternTime > 5.f) {
+	if (m_patternTime > 10.f) {
 		m_createRotate->m_start = 0.f;
 		m_createStraight->m_start = 0.f;
 
 		m_patternTime = 0.f;
 		m_mapPattern = rand() % m_totalPattern;
+
+		((cBulletManager*)OBJFIND(BULLET))->Reset();
+
 		cnt = 0;
 		dir = 1;
 	}
@@ -173,20 +218,32 @@ void cStageOne::MapPattern2()
 			char key[256];
 			sprintf(key, "EnemyMeteor%dIMG", rand() % 3);
 			((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor().push_back(
-				new cMeteor(key, VEC2(GXY(10 + cnt * 30, -50)), VEC2(1, 1), 60 * rand() % 6, 200.f)
+				new cMeteor(key, GXY(10 + cnt * 30, -50), VEC2(1, 1), 60 * rand() % 6, 200.f)
 			);
 
 			sprintf(key, "EnemyMeteor%dIMG", rand() % 3);
 			((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor().push_back(
-				new cMeteor(key, VEC2(GXY(GAMESIZEX - 50, -50)), VEC2(1, 1), 60 * rand() % 6, 200.f)
+				new cMeteor(key, GXY(GAMESIZEX - 10, -50), VEC2(1, 1), 60 * rand() % 6, 200.f)
 			);
 			cnt += dir;
 		}
 
 		if (m_createStraight->Update()) {
 			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
-				new cStraight(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
+				new cStraight(GXY(120 + rand() % (GAMESIZEX - 240), -200))
 			);
+		}
+
+		if (m_createRotate->Update()) {
+			auto& eBullet = ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy();
+
+			eBullet.push_back(new cRotate(GXY(-100, 0)));
+			eBullet[eBullet.size() - 1]->m_path = new cPath(GXY(-100, 0));
+			eBullet[eBullet.size() - 1]->m_path->AddCurve(GXY(-100, 0), GXY(GAMESIZEX, 50), GXY(GAMESIZEX - 300, GAMESIZEY + 300), 300.f);
+
+			eBullet.push_back(new cRotate(GXY(GAMESIZEX + 100, 0)));
+			eBullet[eBullet.size() - 1]->m_path = new cPath(GXY(GAMESIZEX + 100, 0));
+			eBullet[eBullet.size() - 1]->m_path->AddCurve(GXY(GAMESIZEX + 100, 0), GXY(0, 50), GXY(300, GAMESIZEY + 300), 300.f);
 		}
 	}
 
@@ -198,12 +255,15 @@ void cStageOne::MapPattern3()
 {
 	static int cnt = 0, dir = 1;
 
-	if (m_patternTime > 5.f) {
+	if (m_patternTime > 10.f) {
 		m_createRotate->m_start = 0.f;
 		m_createStraight->m_start = 0.f;
 
 		m_patternTime = 0.f;
 		m_mapPattern = rand() % m_totalPattern;
+
+		((cBulletManager*)OBJFIND(BULLET))->Reset();
+
 		cnt = 0;
 		dir = 1;
 	}
@@ -212,20 +272,32 @@ void cStageOne::MapPattern3()
 			char key[256];
 			sprintf(key, "EnemyMeteor%dIMG", rand() % 3);
 			((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor().push_back(
-				new cMeteor(key, VEC2(GXY(50, -50)), VEC2(1, 1), 60 * rand() % 6, 200.f)
+				new cMeteor(key, GXY(10, -50), VEC2(1, 1), 60 * rand() % 6, 200.f)
 			);
 
 			sprintf(key, "EnemyMeteor%dIMG", rand() % 3);
 			((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor().push_back(
-				new cMeteor(key, VEC2(GXY(GAMESIZEX - 50 - cnt * 30, -50)), VEC2(1, 1), 60 * rand() % 6, 200.f)
+				new cMeteor(key, GXY(GAMESIZEX - 10 - cnt * 30, -50), VEC2(1, 1), 60 * rand() % 6, 200.f)
 			);
 			cnt += dir;
 		}
 
 		if (m_createStraight->Update()) {
 			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
-				new cStraight(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
+				new cStraight(GXY(120 + rand() % (GAMESIZEX - 240), -200))
 			);
+		}
+
+		if (m_createRotate->Update()) {
+			auto& eBullet = ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy();
+
+			eBullet.push_back(new cRotate(GXY(-100, 0)));
+			eBullet[eBullet.size() - 1]->m_path = new cPath(GXY(-100, 0));
+			eBullet[eBullet.size() - 1]->m_path->AddCurve(GXY(-100, 0), GXY(GAMESIZEX, 50), GXY(GAMESIZEX - 300, GAMESIZEY + 300), 300.f);
+
+			eBullet.push_back(new cRotate(GXY(GAMESIZEX + 100, 0)));
+			eBullet[eBullet.size() - 1]->m_path = new cPath(GXY(GAMESIZEX + 100, 0));
+			eBullet[eBullet.size() - 1]->m_path->AddCurve(GXY(GAMESIZEX + 100, 0), GXY(0, 50), GXY(300, GAMESIZEY + 300), 300.f);
 		}
 	}
 
@@ -235,9 +307,20 @@ void cStageOne::MapPattern3()
 
 void cStageOne::MapPattern4()
 {
-	if (m_patternTime > 30.f) {
+	if (m_patternTime > 15.f) {
 		m_createRadial->m_start = 0.f;
 		m_createRazer->m_start = 0.f;
+
+		auto& enemy = ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy();
+		size_t size = enemy.size();
+		for (size_t i = 0; i < size; ++i) {
+			if (enemy[i]->GetName() == "Radial") {
+				SAFE_DELETE(enemy[i]);
+				enemy.erase(enemy.begin() + i);
+				--i, --size;
+			}
+		}
+		((cBulletManager*)OBJFIND(BULLET))->Reset();
 
 		m_patternTime = 0.f;
 		m_mapPattern = rand() % m_totalPattern;
@@ -247,23 +330,23 @@ void cStageOne::MapPattern4()
 			char key[256];
 			sprintf(key, "EnemyMeteor%dIMG", rand() % 3);
 			((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor().push_back(
-				new cMeteor(key, VEC2(GXY(rand() % GAMESIZEX, -50)), VEC2(1, 1), 60 * rand() % 6, 200.f)
+				new cMeteor(key, GXY(rand() % GAMESIZEX, -50), VEC2(1, 1), 60 * rand() % 6, 200.f)
 			);
 		}
 
 		if (m_createRazer->Update()) {
 			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
-				new cRazer(VEC2(GXY(120 + rand() % (GAMESIZEX - 240), -200)))
+				new cRazer(GXY(120 + rand() % (GAMESIZEX - 240), -200))
 			);
 		}
 
 		if (m_createRadial->Update() && ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().size() < 2) {
 			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
-				new cRadial(VEC2(GXY(20, GAMESIZEY + 50)))
+				new cRadial(GXY(20, GAMESIZEY + 50))
 			);
 
 			((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy().push_back(
-				new cRadial(VEC2(GXY(GAMESIZEX - 20, -50)))
+				new cRadial(GXY(GAMESIZEX - 20, -50))
 			);
 
 		}

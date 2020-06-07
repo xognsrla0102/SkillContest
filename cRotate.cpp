@@ -7,24 +7,18 @@ cRotate::cRotate(VEC2 pos) : cEnemy()
 
 	m_pos = pos;
 
-	m_size = VEC2(0.8, 0.8);
+	m_bulletTime = 0.f;
+	m_bulletDelay = 0.5 + rand() % 6 / 10.f;
+	m_bulletDelay /= GAME->m_nowStage;
 
-	m_hp = 10 * GAME->m_level * GAME->m_level / 2;
+	m_size = VEC2(0.3, 0.3);
+
+	m_hp = 2 * GAME->m_level * GAME->m_level / 2;
 	m_atk = 3 * GAME->m_level;
 
 	char str[256];
 	sprintf(str, "EnemyStage%d_RotateIMG", GAME->m_nowStage);
 	m_img->m_text = IMAGE->FindTexture(str);
-
-	m_path = new cPath(pos);
-	m_path->AddPoint(VEC2(pos.x, GY(50)), 0.05, 0);
-	m_path->AddPoint(VEC2(pos.x, GY(50)), 0, 3.f);
-
-	//생성위치가 왼쪽일 경우 왼쪽으로 이동
-	if (pos.x < GX(GAMESIZEX / 2))
-		m_path->AddPoint(VEC2(GX(-200), pos.y), 0.03, 0);
-	else
-		m_path->AddPoint(VEC2(GX(GAMESIZEX + 200), pos.y), 0.03, 0);
 
 	m_objName = "Rotate";
 }
@@ -69,11 +63,17 @@ void cRotate::Update()
 		}
 	}
 
-	OutMapChk(200);
-	if (m_isLive == false && !OutMapChk(200))
-		Dead();
 
-	if (CanFire()) Fire();
+	m_bulletTime += D_TIME;
+	if (CanFire() && m_bulletTime > m_bulletDelay) {
+		m_bulletTime = 0.f;
+		Fire();
+	}
+
+	OutMapChk(200);
+
+	m_rot+=5;
+	if (m_rot > 360) m_rot -= 360;
 }
 
 void cRotate::Render()
@@ -81,13 +81,12 @@ void cRotate::Render()
 	IMAGE->Render(m_img->m_text, m_pos, m_size, m_rot, true);
 }
 
-void cRotate::Dead()
-{
-	char str[256];
-	sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
-	EFFECT->AddEffect(new cEffect(str, IMAGE->FindMultiTexture(str)->GetImgSize(), 0.02, m_pos, VEC2(0, 0), VEC2(0.5, 0.5), VEC2(0.3, 0.3)));
-}
-
 void cRotate::Fire()
 {
+	static int cnt = 0;
+	SOUND->Copy("EnemyFireSND");
+	auto eBullet = (cBulletManager*)OBJFIND(BULLET);
+	eBullet->N_Way_Tan("EnemyRotate", "EnemyRadialIMG", 4, 90, m_pos, VEC2(cos(D3DXToRadian(cnt)), sin(D3DXToRadian(cnt))), VEC2(1, 1), 50.f, 5.f);
+	cnt += 5;
+	if (cnt > 360) cnt -= 360;
 }
