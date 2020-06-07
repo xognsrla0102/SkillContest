@@ -1,6 +1,4 @@
 #include "DXUT.h"
-//#include "cItem.h"
-//#include "cItemAdmin.h"
 #include "cEnemy.h"
 #include "cEnemyManager.h"
 
@@ -34,6 +32,10 @@ void cEnemyManager::Update()
 			--i, --size;
 		}
 	}
+
+	//m_mBoss->Update();
+	//if (m_mBoss->GetLive() == false)
+	//	SAFE_DELETE(m_mBoss);
 }
 
 void cEnemyManager::Render()
@@ -57,7 +59,7 @@ void cEnemyManager::Release()
 		SAFE_DELETE(iter);
 	m_enemy.clear();
 
-	SAFE_DELETE(m_boss);
 	SAFE_DELETE(m_mBoss);
+	SAFE_DELETE(m_boss);
 }
 

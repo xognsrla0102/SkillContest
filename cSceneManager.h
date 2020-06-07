@@ -20,6 +20,7 @@ private:
 public:
 	BOOL m_isSceneChange = FALSE;
 	cImage* m_white;
+	cImage* m_plane;
 public:
 	cSceneManager();
 	virtual ~cSceneManager();

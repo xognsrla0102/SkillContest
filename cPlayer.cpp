@@ -145,9 +145,12 @@ void cPlayer::OnCollision(cObject* other)
 
 				if (other->GetName() == "EnemyRazer" || other->GetName() == "EnemyStraight" ||
 					other->GetName() == "EnemyRadial" || other->GetName() == "EnemyRotate") {
-					SOUND->Copy("StealSND");
-					SOUND->Copy("StealSND");
-					SOUND->Copy("StealSND");
+
+					if (other->GetName() != "EnemyRazer") {
+						SOUND->Copy("StealSND");
+						SOUND->Copy("StealSND");
+						SOUND->Copy("StealSND");
+					}
 
 					m_stealTanName = other->GetName();
 					if (!m_isSteal) m_isSteal = true;
@@ -165,6 +168,7 @@ void cPlayer::OnCollision(cObject* other)
 						m_fire->m_start = 0.f;
 					}
 				}
+				return;
 			}
 		}
 	}
@@ -174,10 +178,8 @@ void cPlayer::OnCollision(cObject* other)
 
 	if (AABB(GetCustomCollider(5), other->GetObjCollider())) {
 		CAMERA->SetShake(0.1, 10, 3);
-
 		if (other->GetName() == "Meteor") {
 			other->SetLive(false);
-
 			if (m_isBoost) return;
 			m_hp -= ((cEnemy*)other)->m_atk;
 		}
@@ -190,13 +192,12 @@ void cPlayer::OnCollision(cObject* other)
 			else if (other->GetName() == "Rotate")		((cEnemy*)other)->m_hp -= 5;
 
 			if (((cEnemy*)other)->m_hp <= 0) other->SetLive(false);
-
 			char str[256];
 			sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
 			auto img = IMAGE->FindMultiTexture(str);
 			EFFECT->AddEffect(new cEffect(
 				str, img->GetImgSize(), 0.03,
-				VEC2(GetPos().x + rand() % 30 - rand() % 30, GetPos().y + rand() % 30 - rand() % 30),
+				VEC2(m_pos.x + rand() % 30 - rand() % 30, m_pos.y + rand() % 30 - rand() % 30),
 				VEC2(0, 0), VEC2(0, 0), VEC2(1.5, 1.5)
 			));
 
@@ -211,6 +212,15 @@ void cPlayer::OnCollision(cObject* other)
 			other->GetName() == "EnemyRazer" || other->GetName() == "EnemyStraight" ||
 			other->GetName() == "EnemyRadial" || other->GetName() == "EnemyRotate") {
 			if (m_isBoost) return;
+
+			char str[256];
+			sprintf(str, "Explosion%dIMG", 8 + rand() % 3);
+			auto text = IMAGE->FindMultiTexture(str);
+			EFFECT->AddEffect(new cEffect(str, text->GetImgSize(), 0.1,
+				VEC2(m_pos.x + rand() % 50 - rand() % 50, m_pos.y + rand() % 50 - rand() % 50),
+				VEC2(0, 0)
+			));
+
 			m_hp -= ((cBullet*)other)->m_atk;
 			((cBulletManager*)OBJFIND(BULLET))->Reset();
 		}
@@ -557,7 +567,7 @@ void cPlayer::Fire()
 void cPlayer::Skill()
 {
 	if (KEYDOWN('Q')) {
-		if (m_isQ) {
+		if (m_isQ || GAME->m_level < 3) {
 			FONT->AddFont("아직 사용할 수 없습니다.", GXY(GAMESIZEX / 2 - 100, 100), 2.f, false, D3DCOLOR_XRGB(255, 0, 0));
 			SOUND->Copy("NoSkillSND");
 		}
@@ -567,11 +577,17 @@ void cPlayer::Skill()
 		}
 	}
 	else if (KEYDOWN('W')) {
-		if (m_isW) {
+		if (m_isW || GAME->m_level < 5) {
 			FONT->AddFont("아직 사용할 수 없습니다.", GXY(GAMESIZEX / 2 - 100, 100), 2.f, false, D3DCOLOR_XRGB(255, 0, 0));
 			SOUND->Copy("NoSkillSND");
 		}
-		else m_isW = true;
+		else {
+			auto ingame = ((cIngameUI*)UI->FindUI("IngameSceneUI"));
+			ingame->m_planet->m_text = IMAGE->FindTexture("PlanetIMG", rand() % 16);
+			ingame->m_shadowAni->m_nowFrame = 0;
+			GAME->m_isNotDead = true;
+			m_isW = true;
+		}
 	}
 }
 

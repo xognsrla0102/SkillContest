@@ -17,13 +17,14 @@ private:
 	cImage* m_noW;
 	cImage* m_qCool;
 	cImage* m_wCool;
-
 public:
+	cAnimation* m_shadowAni;
 	vector<cImage*> m_weapon;
 	VEC2 m_targetPos;
 
 	cImage* m_hp;
 	cImage* m_damaged;
+	cImage* m_planet;
 public:
 	cIngameUI();
 	virtual ~cIngameUI();

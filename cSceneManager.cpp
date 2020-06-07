@@ -5,16 +5,22 @@
 cSceneManager::cSceneManager()
 {
 	IMAGE->AddTexture("ChangeSceneEffect", "resources/image/scenechange/white.png");
-	
+	IMAGE->AddTexture("ChangeScenePlaneEffect", "resources/image/scenechange/plane.png");
+
 	m_white = new cImage;
 	m_white->m_text = IMAGE->FindTexture("ChangeSceneEffect");
 	m_white->m_a = 0.f;
 	m_white->SetNowRGB();
+
+	m_plane = new cImage;
+	m_plane->m_text = IMAGE->FindTexture("ChangeScenePlaneEffect");
+	m_plane->m_pos = VEC2(WINSIZEX + m_plane->m_text->m_info.Width, -300);
 }
 
 cSceneManager::~cSceneManager()
 {
 	SAFE_DELETE(m_white);
+	SAFE_DELETE(m_plane);
 
 	for (auto iter : m_scenes)
 		SAFE_DELETE(iter.second);
@@ -59,7 +65,8 @@ void cSceneManager::ChangeScene(const string& key, string changeName, FLOAT chan
 void cSceneManager::Update()
 {
 	if ((!m_isSceneChange && m_next) ||
-		(m_next && m_isFadeIn && m_white->m_a > 240.f)
+		(m_next && m_isFadeIn && m_white->m_a > 240.f) ||
+		(m_next && m_plane->m_pos.x < -(int)m_plane->m_text->m_info.Width)
 		) {
 		SAFE_RELEASE(m_now);
 		m_now = m_next;
@@ -79,6 +86,8 @@ void cSceneManager::Render()
 
 	if (m_isFadeChange)
 		IMAGE->Render(m_white->m_text, VEC2(0, 0), VEC2(1, 1), 0.f, FALSE, m_white->m_color);
+	else if (m_isPlaneChange)
+		IMAGE->Render(m_plane->m_text, m_plane->m_pos);
 }
 
 //점점 나타남
@@ -133,7 +142,12 @@ void cSceneManager::FadeSceneChange()
 
 void cSceneManager::PlaneSceneChange()
 {
-	m_isSceneChange = false;
+	m_plane->m_pos.x -= m_changeSpeed * D_TIME;
+	if (m_plane->m_pos.x < -(int)m_plane->m_text->m_info.Width) {
+		m_plane->m_pos = VEC2(WINSIZEX + m_plane->m_text->m_info.Width, -300);
+		m_isPlaneChange = false;
+		m_isSceneChange = false;
+	}
 }
 
 string cSceneManager::GetNowSceneKey()

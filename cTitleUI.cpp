@@ -53,7 +53,7 @@ void cTitleUI::Update()
 		switch (m_nowButton) {
 		case 0:
 			GAME->m_nowStage = 1;
-			SCENE->ChangeScene("StageOneScene", "Fade", 30.f);
+			SCENE->ChangeScene("StageOneScene", "Plane", 3000.f);
 			break;
 		case 1:
 			break;

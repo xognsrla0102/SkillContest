@@ -178,7 +178,7 @@ void cLoadScene::Init()
 	Load("SkillQIMG", "resources/image/effect/skillq/%d.png", 40);
 
 	Load("ShadowIMG", "resources/image/ui/ingame/planet/shadow/%d.png", 17);
-	Load("PlanetIMG", "resources/image/ui/ingame/planet/%d.png", 19);
+	Load("PlanetIMG", "resources/image/ui/ingame/planet/%d.png", 16);
 	Load("CloudIMG", "resources/image/ingame/%d.png", 4);
 
 	Load("ItemLevelUpIMG", "resources/image/item/levelup.png");
