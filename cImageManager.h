@@ -9,7 +9,6 @@ private:
 private:
 	map<string, cMultiTexture*> m_imgs;
 	LPD3DXSPRITE m_sprite;
-	LPD3DXFONT m_font;
 public:
 	cImageManager();
 	virtual ~cImageManager();
@@ -32,7 +31,7 @@ public:
 	void DrawNum(string text, VEC2 pos, int numD, VEC2 size = VEC2(1, 1));
 	void DrawFloat(string text, VEC2 pos, int length, int dotD, int numD, VEC2 size = VEC2(1, 1));
 
-	void DrawFont(string text, VEC2 pos, D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255));
+	void DrawFont(string text, VEC2 pos, D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255), int size = 20);
 };
 
 #define IMAGE cImageManager::GetInst()

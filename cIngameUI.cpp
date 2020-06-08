@@ -1,6 +1,9 @@
 #include "DXUT.h"
 #include "cPlayer.h"
 #include "cImage.h"
+#include "cEnemyManager.h"
+//#include "cBoss.h"
+#include "cMidBoss.h"
 #include "cIngameUI.h"
 
 cIngameUI::cIngameUI()
@@ -22,6 +25,7 @@ cIngameUI::cIngameUI()
 	m_qCool = new cImage;
 	m_wCool = new cImage;
 	m_planet = new cImage;
+	m_bossHP = new cImage;
 
 	m_weapon.push_back(new cImage);
 	m_weapon.push_back(new cImage);
@@ -48,6 +52,7 @@ cIngameUI::~cIngameUI()
 	SAFE_DELETE(m_qCool);
 	SAFE_DELETE(m_wCool);
 	SAFE_DELETE(m_planet);
+	SAFE_DELETE(m_bossHP);
 
 	for (auto iter : m_weapon)
 		SAFE_DELETE(iter);
@@ -73,6 +78,8 @@ void cIngameUI::Init()
 
 	m_qCool->m_text = IMAGE->FindTexture("IngameSkillUI");
 	m_wCool->m_text = IMAGE->FindTexture("IngameSkillUI");
+
+	m_bossHP->m_text = IMAGE->FindTexture("IngameBossHPUI");
 
 	for (int i = 0; i < 2; ++i) {
 		char str[256];
@@ -101,25 +108,60 @@ void cIngameUI::Update()
 
 	if (((cPlayer*)OBJFIND(PLAYER))->m_isW) {
 		m_shadowAni->Update();
-		if (m_shadowAni->m_nowFrame == m_shadowAni->m_endFrame / 2) {
-			CAMERA->SetShake(0.3, 10, 10);
-
+		if (m_shadowAni->m_nowFrame < m_shadowAni->m_endFrame - 1) {
+			CAMERA->SetShake(0.1, 5, 5);
 			char str[256];
-			sprintf(str, "EnemyHit%dSND", rand() % 4);
-			SOUND->Copy(str);
 
-			for (auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy()) {
+			auto enemy = ((cEnemyManager*)OBJFIND(ENEMY));
+
+			for (auto iter : enemy->GetMeteor()) {
+				if (iter->GetLive()) {
+					sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
+					auto img = IMAGE->FindMultiTexture(str);
+					EFFECT->AddEffect(new cEffect(
+						str, img->GetImgSize(), 0.03,
+						VEC2(iter->GetPos().x + rand() % 30 - rand() % 30, iter->GetPos().y + rand() % 30 - rand() % 30),
+						VEC2(0, 0), VEC2(0, 0), VEC2(1.5, 1.5)
+					));
+					iter->SetLive(false);
+				}
+			}
+
+			for (auto iter : enemy->GetEnemy()) {
+				if (iter->GetLive()) {
+					sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
+					auto img = IMAGE->FindMultiTexture(str);
+					EFFECT->AddEffect(new cEffect(
+						str, img->GetImgSize(), 0.03,
+						VEC2(iter->GetPos().x + rand() % 30 - rand() % 30, iter->GetPos().y + rand() % 30 - rand() % 30),
+						VEC2(0, 0), VEC2(0, 0), VEC2(1.5, 1.5)
+					));
+					sprintf(str, "EnemyHit%dSND", rand() % 4);
+					SOUND->Copy(str);
+
+					iter->m_hp -= 3;
+					if (iter->m_hp <= 0) iter->SetLive(false);
+				}
+			}
+
+			if (enemy->m_mBoss) {
+				char str[256];
 				sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
 				auto img = IMAGE->FindMultiTexture(str);
 				EFFECT->AddEffect(new cEffect(
 					str, img->GetImgSize(), 0.03,
-					VEC2(iter->GetPos().x + rand() % 30 - rand() % 30, iter->GetPos().y + rand() % 30 - rand() % 30),
+					VEC2(enemy->m_mBoss->GetPos().x + rand() % 30 - rand() % 30, enemy->m_mBoss->GetPos().y + rand() % 30 - rand() % 30),
 					VEC2(0, 0), VEC2(0, 0), VEC2(1.5, 1.5)
 				));
+				sprintf(str, "EnemyHit%dSND", rand() % 4);
+				SOUND->Copy(str);
+				enemy->m_mBoss->m_hp--;
 			}
 
+			//if (enemy->m_boss)
+				//enemy->m_boss->m_hp--;
+
 			((cBulletManager*)OBJFIND(BULLET))->Reset();
-			((cEnemyManager*)OBJFIND(ENEMY))->Release();
 
 			GAME->m_isNotDead = false;
 		}
@@ -135,8 +177,8 @@ void cIngameUI::Render()
 	IMAGE->ReBegin(true);
 
 	if (((cPlayer*)OBJFIND(PLAYER))->m_isW && m_shadowAni->m_nowFrame < m_shadowAni->m_endFrame - 1) {
-		IMAGE->Render(m_planet->m_text, VEC2(340, 350), VEC2(0.3, 0.3), 0.f, true);
-		IMAGE->Render(IMAGE->FindTexture("ShadowIMG", m_shadowAni->m_nowFrame), VEC2(340, 350), VEC2(0.3, 0.3), 0.f, true);
+		IMAGE->Render(m_planet->m_text, VEC2(340, 350), VEC2(0.3, 0.3), 0.f, true, D3DCOLOR_ARGB(128, 255, 255, 255));
+		IMAGE->Render(IMAGE->FindTexture("ShadowIMG", m_shadowAni->m_nowFrame), VEC2(340, 350), VEC2(0.3, 0.3), 0.f, true, D3DCOLOR_ARGB(128, 255, 255, 255));
 	}
 
 	P_STATUS status = ((cPlayer*)OBJFIND(PLAYER))->m_status;
@@ -164,7 +206,26 @@ void cIngameUI::Render()
 
 	int weapon = ((cPlayer*)OBJFIND(PLAYER))->m_nowWeapon;
 	IMAGE->Render(m_nowWeapon->m_text, VEC2(265 + 76 * weapon, 642), VEC2(1, 1), 0.f, true);
-	IMAGE->Render(m_gameName->m_text, VEC2(785, 200), VEC2(1, 1), 0.f, true);
+
+	if (GAME->m_isBoss || GAME->m_isMidBoss) {
+		auto enemy = ((cEnemyManager*)OBJFIND(ENEMY));
+		RECT rt;
+		if (GAME->m_isMidBoss) {
+			rt = {
+				0, 0,
+				(int)(enemy->GetMidBoss()->m_hp / (float)enemy->GetMidBoss()->m_hpMax * m_bossHP->m_text->m_info.Width),
+				(int)m_bossHP->m_text->m_info.Height
+			};
+
+			int time = ((cEnemyManager*)OBJFIND(ENEMY))->GetMidBoss()->m_patternTime;
+			IMAGE->DrawFont(to_string(60 - time), VEC2(680, 130), D3DCOLOR_XRGB(255, 0, 0), 150);
+		}
+		//else
+		IMAGE->CropRender(m_bossHP->m_text, VEC2(50, 50), VEC2(1, 1), rt);
+	}
+	else {
+		IMAGE->Render(m_gameName->m_text, VEC2(785, 200), VEC2(1, 1), 0.f, true);
+	}
 	for (size_t i = 0; i < GAME->m_level; ++i)
 		IMAGE->Render(m_level->m_text, VEC2(710 + 40 * i, 370), VEC2(1, 1), 0.f, true);
 
@@ -187,7 +248,7 @@ void cIngameUI::Render()
 	};
 	IMAGE->CropRender(m_qCool->m_text, VEC2(920, 540), VEC2(1, 1), rt);
 
-	result = player->m_Wtime / 30.f;
+	result = player->m_Wtime / 20.f;
 	rt = {
 		0, 0,
 		(LONG)(m_wCool->m_text->m_info.Width * result),

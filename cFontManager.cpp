@@ -32,9 +32,7 @@ void cFontInfo::Render()
 
 cFontManager::~cFontManager()
 {
-	for (auto iter : m_fonts)
-		SAFE_DELETE(iter);
-	m_fonts.clear();
+	Release();
 }
 
 void cFontManager::Update()
@@ -54,6 +52,13 @@ void cFontManager::Render()
 {
 	for (auto iter : m_fonts)
 		iter->Render();
+}
+
+void cFontManager::Release()
+{
+	for (auto iter : m_fonts)
+		SAFE_DELETE(iter);
+	m_fonts.clear();
 }
 
 void cFontManager::AddFont(string text, VEC2 pos, INT printTime, BOOL isScoreText, D3DCOLOR color)

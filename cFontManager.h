@@ -29,6 +29,7 @@ public:
 
 	void Update();
 	void Render();
+	void Release();
 
 	void AddFont(string text, VEC2 pos, INT printTime, BOOL isScoreText = FALSE, D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255));
 };

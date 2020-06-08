@@ -5,28 +5,11 @@
 cImageManager::cImageManager()
 {
 	D3DXCreateSprite(DEVICE, &m_sprite);
-
-	D3DXCreateFontA(
-		DEVICE,
-		20,
-		0,
-		FW_NORMAL,
-		1,
-		FALSE,
-		DEFAULT_CHARSET,
-		OUT_DEFAULT_PRECIS,
-		DEFAULT_QUALITY,
-		DEFAULT_PITCH | FF_DONTCARE,
-		"HY¿±¼­M",
-		&m_font
-	);
 }
 
 cImageManager::~cImageManager()
 {
 	SAFE_RELEASE(m_sprite);
-	m_font->Release();
-
 	for (auto iter : m_imgs)
 		SAFE_DELETE(iter.second);
 	m_imgs.clear();
@@ -189,14 +172,31 @@ void cImageManager::DrawFloat(string text, VEC2 pos, int length, int dotD, int n
 	}
 }
 
-void cImageManager::DrawFont(string text, VEC2 pos, D3DCOLOR color)
+void cImageManager::DrawFont(string text, VEC2 pos, D3DCOLOR color, int size)
 {
+	LPD3DXFONT font;
+
+	D3DXCreateFontA(
+		DEVICE,
+		size,
+		0,
+		FW_NORMAL,
+		1,
+		FALSE,
+		DEFAULT_CHARSET,
+		OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE,
+		"HY¿±¼­M",
+		&font
+	);
+
 	RECT rt = { pos.x, pos.y, 0, 0 };
 	MATRIX mat;
 	D3DXMatrixIdentity(&mat);
 	m_sprite->SetTransform(&mat);
 
-	m_font->DrawTextA(
+	font->DrawTextA(
 		m_sprite,
 		text.c_str(),
 		-1,
@@ -204,4 +204,6 @@ void cImageManager::DrawFont(string text, VEC2 pos, D3DCOLOR color)
 		DT_NOCLIP,
 		color
 	);
+
+	SAFE_RELEASE(font);
 }

@@ -206,6 +206,7 @@ void cLoadScene::Init()
 	Load("IngameNoSkillUI", "resources/image/ui/ingame/noskill.png");
 	Load("IngameBackWhiteUI", "resources/image/ui/ingame/backwhite.png");
 	Load("IngameDamagedUI", "resources/image/ui/ingame/damaged.png");
+	Load("IngameBossHPUI", "resources/image/ui/ingame/bosshp.png");
 
 	//TITLE UI
 	Load("TitleNameUI", "resources/image/ui/title/titleName.png");

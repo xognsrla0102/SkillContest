@@ -37,12 +37,17 @@ cBullet::~cBullet()
 
 void cBullet::Update()
 {
-	for(auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor())
+	auto enemy = (cEnemyManager*)OBJFIND(ENEMY);
+	for(auto iter : enemy->GetMeteor())
 		if(iter->GetLive())
 			OnCollision(iter);
-	for (auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy())
+	for (auto iter : enemy->GetEnemy())
 		if (iter->GetLive())
 			OnCollision(iter);
+	if(enemy->m_boss)
+		OnCollision((cObject*)enemy->m_boss);
+	if(enemy->m_mBoss)
+		OnCollision((cObject*)enemy->m_mBoss);
 
 	if (m_objName == "PlayerBullet") OutMapChk(0);
 	else OutMapChk(200);
@@ -80,7 +85,7 @@ void cBullet::OnCollision(cObject* other)
 		if (GetName() == "PlayerBullet") {
 			string name = other->GetName();
 
-			if (name == "Razer" || name == "Straight" || name == "Rotate") {
+			if (name == "Razer" || name == "Straight" || name == "Rotate" || name == "MidBoss" || name == "Boss") {
 				char str[256];
 				sprintf(str, "EnemyHit%dSND", rand() % 4);
 				SOUND->Copy(str);
@@ -101,6 +106,17 @@ void cBullet::OnCollision(cObject* other)
 				if (name == "Razer")		 getScore = 500 * GAME->m_level / 2.f;
 				else if (name == "Straight") getScore = 200 * GAME->m_level / 2.f;
 				else if (name == "Rotate")	 getScore = 500 * GAME->m_level / 2.f;
+				else if (name == "MidBoss") {
+					GAME->m_isMidBoss = false;
+					((cEnemyManager*)OBJFIND(ENEMY))->Release();
+					getScore = 5000 * GAME->m_level / 2.f;
+				}
+				else if (name == "Boss") {
+					GAME->m_isBoss = false;
+					((cEnemyManager*)OBJFIND(ENEMY))->Release();
+					getScore = 20000 * GAME->m_level / 2.f;
+				}
+
 				if (name != "Meteor") {
 					GAME->m_score += getScore;
 					FONT->AddFont("+" + to_string(getScore) + "EXP", m_pos, 1.f, true);

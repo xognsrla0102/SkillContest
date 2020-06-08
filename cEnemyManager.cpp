@@ -1,5 +1,6 @@
 #include "DXUT.h"
 #include "cEnemy.h"
+#include "cMidBoss.h"
 #include "cEnemyManager.h"
 
 cEnemyManager::cEnemyManager()
@@ -33,9 +34,11 @@ void cEnemyManager::Update()
 		}
 	}
 
-	//m_mBoss->Update();
-	//if (m_mBoss->GetLive() == false)
-	//	SAFE_DELETE(m_mBoss);
+	if (m_mBoss) {
+		m_mBoss->Update();
+		if (m_mBoss->GetLive() == false)
+			SAFE_DELETE(m_mBoss);
+	}
 }
 
 void cEnemyManager::Render()
@@ -45,7 +48,7 @@ void cEnemyManager::Render()
 	for (auto iter : m_enemy)
 		iter->Render();
 
-	//if (m_mBoss) m_mBoss->Render();
+	if (m_mBoss) m_mBoss->Render();
 	//if (m_boss) m_boss->Render();
 }
 

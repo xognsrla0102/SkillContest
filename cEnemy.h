@@ -3,11 +3,10 @@
 class cEnemy abstract : public cObject 
 {
 public:
-	vector<string> m_itemNames;
-
 	cPath* m_path = nullptr;
 
 	int m_hp   = 0.f;
+	int m_hpMax = 0.f;
 	int m_atk  = 0.f;
 	int m_divDelta = 2;
 
@@ -26,7 +25,5 @@ public:
 	virtual void Render() PURE;
 
 	virtual bool CanFire();
-
-	vector<string>& GetItemNames() { return m_itemNames; }
 };
 

@@ -9,7 +9,6 @@ private:
 	cScene* m_next = nullptr;
 	map<string, cScene*> m_scenes;
 
-
 	BOOL m_isFadeIn = FALSE;
 	BOOL m_isFadeOut = FALSE;
 

@@ -400,6 +400,9 @@
     <ClCompile Include="cItemManager.cpp">
       <Filter>Core\Object\item\manager</Filter>
     </ClCompile>
+    <ClCompile Include="cMidBoss.cpp">
+      <Filter>Core\Object\enemy\_5midboss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -548,6 +551,9 @@
     </ClInclude>
     <ClInclude Include="cItemManager.h">
       <Filter>Core\Object\item\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cMidBoss.h">
+      <Filter>Core\Object\enemy\_5midboss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

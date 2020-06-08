@@ -9,8 +9,9 @@ class cEnemyManager : public cObject
 private:
 	vector<cEnemy*> m_meteor;
 	vector<cEnemy*> m_enemy;
-	cBoss* m_boss = nullptr;
+public:
 	cMidBoss* m_mBoss = nullptr;
+	cBoss* m_boss = nullptr;
 public:
 	cEnemyManager();
 	~cEnemyManager();
@@ -21,7 +22,7 @@ public:
 
 	vector<cEnemy*>& GetMeteor() { return m_meteor; }
 	vector<cEnemy*>& GetEnemy() { return m_enemy; }
-	cBoss* GetBoss() { return m_boss; }
 	cMidBoss* GetMidBoss() { return m_mBoss; }
+	cBoss* GetBoss() { return m_boss; }
 };
 

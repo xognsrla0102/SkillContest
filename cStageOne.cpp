@@ -1,4 +1,5 @@
 #include "DXUT.h"
+#include "cIngameUI.h"
 #include "cScroolMap.h"
 #include "cTimer.h"
 #include "cMeteor.h"
@@ -6,6 +7,8 @@
 #include "cRazer.h"
 #include "cRadial.h"
 #include "cRotate.h"
+#include "cMidBoss.h"
+//#include "cBoss.h"
 #include "cEnemyManager.h"
 #include "cStageOne.h"
 
@@ -23,7 +26,6 @@ cStageOne::cStageOne()
 cStageOne::~cStageOne()
 {
 	Release();
-
 	SAFE_DELETE(m_map);
 	SAFE_DELETE(m_timePlus);
 	SAFE_DELETE(m_createMeteor);
@@ -37,19 +39,20 @@ void cStageOne::Init()
 {
 	GAME->Init();
 	SOUND->Play("StageBGM", true);
+
+	((cIngameUI*)UI->FindUI("IngameSceneUI"))->Init();
+
 	OBJFIND(PLAYER)->SetActive(true);
 	((cPlayer*)OBJFIND(PLAYER))->Init();
 	m_map->Init();
-
+	
 	CAMERA->m_pos = VEC2(WINSIZEX / 2 + 300, WINSIZEY / 2);
-
+	
 	m_gameTime = 0;
-	m_isMidBoss = false;
-	m_isBoss = false;
-
+	
 	m_patternTime = 0.f;
 	m_mapPattern = 0;
-
+	
 	m_createRazer->m_delay = 5.f / GAME->m_nowStage;
 	m_createStraight->m_delay = 1.f / GAME->m_nowStage;
 }
@@ -57,46 +60,68 @@ void cStageOne::Init()
 void cStageOne::Update()
 {
 	GAME->Update();
-
+	
 	if (m_timePlus->Update()) {
 		m_gameTime++;
-
+	
+		//미드보스 끝나기 10초전
+		if (GAME->m_isMidBoss && (m_createMidBossTime + 50 <= m_gameTime && m_gameTime <= m_createMidBossTime + 60)) {
+			SOUND->Copy("WarningSND");
+			SOUND->Copy("WarningSND");
+		}
+		else if (GAME->m_isBoss && (m_createBossTime + 40 <= m_gameTime && m_gameTime <= m_createBossTime + 50)) {
+			SOUND->Copy("WarningSND");
+			SOUND->Copy("WarningSND");
+		}
+	
 		if (m_gameTime == 50) {
 			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
 				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
 			);
 		}
-
-		if (m_gameTime == 100) {
+	
+		if (m_gameTime == m_createMidBossTime) {
 			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
 				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
 			);
-			m_isMidBoss = true;
+			GAME->m_isMidBoss = true;
+			SOUND->Stop("StageBGM");
+			SOUND->Play("MidBossBGM", true);
+	
+			((cEnemyManager*)OBJFIND(ENEMY))->m_mBoss = new cMidBoss;
 			m_patternTime = 999.f;
 		}
-
+	
 		//중간보스 싸움시간 대략 60초로 가정
-		if (m_gameTime == 160) {
+		if (m_gameTime == m_createMidBossTime + 60) {
 			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
 				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
 			);
-			m_isMidBoss = false;
+			if (GAME->m_isMidBoss) {
+				GAME->m_isMidBoss = false;
+				((cEnemyManager*)OBJFIND(ENEMY))->Release();
+			}
 		}
-
-		if (m_gameTime == 200) {
+	
+		if (m_gameTime == m_createBossTime) {
 			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
 				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
 			);
-			m_isBoss = true;
+			GAME->m_isBoss = true;
+			SOUND->Play("LastBossBGM", true);
 			m_patternTime = 999.f;
 		}
-
-		if (m_gameTime == 250) {
-			m_isBoss = false;
+	
+		if (m_gameTime == m_createBossTime + 50) {
+			if (GAME->m_isBoss) {
+				GAME->m_isBoss = false;
+				((cEnemyManager*)OBJFIND(ENEMY))->Release();
+			}
 		}
 	}
+
 	MapPattern();
-	if (m_isMidBoss == false && m_isBoss == false) {
+	if (GAME->m_isMidBoss == false && GAME->m_isBoss == false) {
 		m_map->Update();
 	}
 }
@@ -108,21 +133,35 @@ void cStageOne::Render()
 
 void cStageOne::Release()
 {
-	SOUND->Stop("StageBGM");
-	((cPlayer*)OBJFIND(PLAYER))->Release();
+	if (GAME->m_isBoss) {
+		SOUND->Stop("LastBossBGM");
+		GAME->m_isBoss = false;
+	}
+	else if (GAME->m_isMidBoss) {
+		SOUND->Stop("MidBossBGM");
+		GAME->m_isMidBoss = false;
+	}
+	else
+	{
+		SOUND->Stop("StageBGM");
+	}
+
+	m_map->Release();
+
 	OBJFIND(PLAYER)->SetActive(false);
+	((cPlayer*)OBJFIND(PLAYER))->Release();
 	((cBulletManager*)OBJFIND(BULLET))->Reset();
 	((cEnemyManager*)OBJFIND(ENEMY))->Release();
 	((cItemManager*)OBJFIND(ITEM))->Release();
+	FONT->Release();
 	EFFECT->Reset();
-	m_map->Release();
 }
 
 void cStageOne::DelayPattern()
 {
 	//Boss 땐 지형 없음
-	if (m_isBoss || m_isMidBoss) return;
-
+	if (GAME->m_isBoss || GAME->m_isMidBoss) return;
+	
 	if (m_patternTime > 5.f) {
 		m_patternTime = 0.f;
 		m_mapPattern = 1 + rand() % (m_totalPattern - 1);
@@ -135,7 +174,7 @@ void cStageOne::MapPattern()
 		
 	if (m_mapPattern == 4) m_createMeteor->m_delay = 1.f;
 	else m_createMeteor->m_delay = 0.3;
-
+	
 	switch (m_mapPattern) {
 	case 0:
 		DelayPattern();
@@ -153,8 +192,8 @@ void cStageOne::MapPattern()
 		MapPattern4();
 		break;
 	}
-
-	if (m_isBoss || m_isMidBoss) {
+	
+	if (GAME->m_isBoss || GAME->m_isMidBoss) {
 		if (m_mapPattern != 0.f) {
 			m_mapPattern = 0.f;
 		}

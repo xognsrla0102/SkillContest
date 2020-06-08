@@ -29,6 +29,7 @@ void cTitleUI::Init()
 	m_buttons[2]->SetImage("TitleHelpUI");
 
 	m_buttons[m_nowButton]->m_isOn = false;
+	m_nowButton = 0;
 	m_buttons[0]->m_isOn = true;
 }
 

@@ -99,7 +99,7 @@ void cBulletManager::N_Straight_Tan(const string& bulletName, const string& imag
 		bullet->m_atk = atk;
 		if (bulletName == "PlayerBullet")
 			m_pBullet.push_back(bullet);
-		else if (bulletName == "EnemyBullet")
+		else if (strstr(bulletName.c_str(), "Enemy") != nullptr)
 			m_eBullet.push_back(bullet);
 	}
 }

@@ -388,6 +388,7 @@
     <ClCompile Include="cGameOverScene.cpp" />
     <ClCompile Include="cItem.cpp" />
     <ClCompile Include="cItemManager.cpp" />
+    <ClCompile Include="cMidBoss.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cPath.cpp" />
     <ClCompile Include="cRadial.cpp" />
@@ -433,6 +434,7 @@
     <ClInclude Include="cGameOverScene.h" />
     <ClInclude Include="cItem.h" />
     <ClInclude Include="cItemManager.h" />
+    <ClInclude Include="cMidBoss.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="cPath.h" />
     <ClInclude Include="cRadial.h" />

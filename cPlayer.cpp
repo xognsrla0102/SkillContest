@@ -54,7 +54,7 @@ void cPlayer::Update()
 	}
 
 	if (m_isW) {
-		if (m_Wtime < 30.f) {
+		if (m_Wtime < 20.f) {
 			m_Wtime += D_TIME;
 		}
 		else {
@@ -103,12 +103,18 @@ void cPlayer::Update()
 		Fire();
 	}
 
-	for (auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetMeteor())
+	auto enemy = (cEnemyManager*)OBJFIND(ENEMY);
+	for (auto iter : enemy->GetMeteor())
 		if (iter->GetLive())
 			OnCollision(iter);
-	for (auto iter : ((cEnemyManager*)OBJFIND(ENEMY))->GetEnemy())
+	for (auto iter : enemy->GetEnemy())
 		if (iter->GetLive())
 			OnCollision(iter);
+	if (enemy->m_boss)
+		OnCollision((cObject*)enemy->m_boss);
+	if (enemy->m_mBoss)
+		OnCollision((cObject*)enemy->m_mBoss);
+
 	for (auto iter : ((cBulletManager*)OBJFIND(BULLET))->GetEnemyBullets())
 		if (iter->GetLive())
 			OnCollision(iter);
@@ -185,7 +191,8 @@ void cPlayer::OnCollision(cObject* other)
 		}
 
 		else if (
-			other->GetName() == "Razer" || other->GetName() == "Straight" || other->GetName() == "Rotate"
+			other->GetName() == "Razer" || other->GetName() == "Straight" || other->GetName() == "Rotate" ||
+			other->GetName() == "MidBoss" || other->GetName() == "Boss"
 			) {
 			if (other->GetName() == "Razer")			((cEnemy*)other)->m_hp -= 10;
 			else if(other->GetName() == "Straight")		((cEnemy*)other)->m_hp -= 5;
@@ -216,7 +223,7 @@ void cPlayer::OnCollision(cObject* other)
 			char str[256];
 			sprintf(str, "Explosion%dIMG", 8 + rand() % 3);
 			auto text = IMAGE->FindMultiTexture(str);
-			EFFECT->AddEffect(new cEffect(str, text->GetImgSize(), 0.1,
+			EFFECT->AddEffect(new cEffect(str, text->GetImgSize(), 0.03,
 				VEC2(m_pos.x + rand() % 50 - rand() % 50, m_pos.y + rand() % 50 - rand() % 50),
 				VEC2(0, 0)
 			));

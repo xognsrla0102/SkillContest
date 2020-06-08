@@ -28,6 +28,9 @@ void cGameManager::Init()
 	m_isNotDead = false;
 	m_isDebugInfo = false;
 
+	m_isBoss = false;
+	m_isMidBoss = false;
+
 	m_learnBullet1 = 0;
 	m_learnBullet2 = 0;
 	m_learnBullet3 = 0;

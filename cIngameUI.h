@@ -17,6 +17,7 @@ private:
 	cImage* m_noW;
 	cImage* m_qCool;
 	cImage* m_wCool;
+	cImage* m_bossHP;
 public:
 	cAnimation* m_shadowAni;
 	vector<cImage*> m_weapon;

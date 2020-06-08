@@ -23,6 +23,9 @@ public:
 	bool m_isPause;
 	bool m_isNotDead;
 	bool m_isDebugInfo;
+
+	bool m_isMidBoss;
+	bool m_isBoss;
 public:
 	cGameManager();
 	virtual ~cGameManager();

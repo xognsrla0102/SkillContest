@@ -1,4 +1,5 @@
 #include "DXUT.h"
+#include "cTitleUI.h"
 #include "cTitleScene.h"
 
 cTitleScene::cTitleScene()
@@ -14,6 +15,9 @@ cTitleScene::~cTitleScene()
 
 void cTitleScene::Init()
 {
+	auto titleUI = (cTitleUI*)UI->FindUI("TitleSceneUI");
+	titleUI->Init();
+
 	SOUND->Play("TitleBGM", true);
 	CAMERA->m_pos = VEC2(WINSIZEX / 2, WINSIZEY / 2);
 }

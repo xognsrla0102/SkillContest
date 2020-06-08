@@ -15,11 +15,11 @@ private:
 
 	FLOAT m_patternTime;
 
+	int m_createMidBossTime = 100.f;
+	int m_createBossTime = 200.f;
 	int m_gameTime;
 	int m_mapPattern;
 	int m_totalPattern = 5;
-	bool m_isMidBoss;
-	bool m_isBoss;
 public:
 	cStageOne();
 	virtual ~cStageOne();
