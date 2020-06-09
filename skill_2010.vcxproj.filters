@@ -132,9 +132,6 @@
     <Filter Include="Core\Manager\ui\manager">
       <UniqueIdentifier>{62a7b4a9-356b-4087-a771-c136f18afb62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\scene\ingame\stageTwo">
-      <UniqueIdentifier>{ea3cd91c-0205-441c-ba4d-83003d037c59}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Object\_object">
       <UniqueIdentifier>{fc55c11d-bd2a-40f6-b6cc-070556aeb590}</UniqueIdentifier>
     </Filter>
@@ -197,6 +194,9 @@
     </Filter>
     <Filter Include="Core\Object\item\item">
       <UniqueIdentifier>{c6bff0a5-c06a-4d94-a828-2a363ed6c5b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\scene\result">
+      <UniqueIdentifier>{97c8a083-0e29-4964-8a15-da8fefb9fa09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +403,12 @@
     <ClCompile Include="cMidBoss.cpp">
       <Filter>Core\Object\enemy\_5midboss</Filter>
     </ClCompile>
+    <ClCompile Include="cBoss.cpp">
+      <Filter>Core\Object\enemy\_6boss</Filter>
+    </ClCompile>
+    <ClCompile Include="cResultScene.cpp">
+      <Filter>Core\scene\result</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -554,6 +560,12 @@
     </ClInclude>
     <ClInclude Include="cMidBoss.h">
       <Filter>Core\Object\enemy\_5midboss</Filter>
+    </ClInclude>
+    <ClInclude Include="cBoss.h">
+      <Filter>Core\Object\enemy\_6boss</Filter>
+    </ClInclude>
+    <ClInclude Include="cResultScene.h">
+      <Filter>Core\scene\result</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

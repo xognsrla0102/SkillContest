@@ -20,8 +20,6 @@ cPlayer::cPlayer()
 
 cPlayer::~cPlayer()
 {
-	for (auto iter : m_motionInfo)
-		SAFE_DELETE(iter);
 	SAFE_DELETE(m_fire);
 	SAFE_DELETE(m_boostCool);
 	SAFE_DELETE(m_motion);
@@ -29,6 +27,8 @@ cPlayer::~cPlayer()
 	SAFE_DELETE(m_boostBar);
 	SAFE_DELETE(m_ani);
 	SAFE_DELETE(m_qAni);
+	for (auto iter : m_motionInfo)
+		SAFE_DELETE(iter);
 }
 
 void cPlayer::Update()
@@ -147,10 +147,9 @@ void cPlayer::OnCollision(cObject* other)
 	if (m_isQ) {
 		if (m_qAni->m_nowFrame < m_qAni->m_endFrame - 1) {
 			if (AABB(GetObjCollider(), other->GetObjCollider())) {
-				other->SetLive(false);
-
 				if (other->GetName() == "EnemyRazer" || other->GetName() == "EnemyStraight" ||
 					other->GetName() == "EnemyRadial" || other->GetName() == "EnemyRotate") {
+					other->SetLive(false);
 
 					if (other->GetName() != "EnemyRazer") {
 						SOUND->Copy("StealSND");
@@ -182,7 +181,7 @@ void cPlayer::OnCollision(cObject* other)
 	if (GAME->m_isNotDead) return;
 	if (m_isDamaged) return;
 
-	if (AABB(GetCustomCollider(5), other->GetObjCollider())) {
+	if (AABB(GetCustomCollider(3), other->GetObjCollider())) {
 		CAMERA->SetShake(0.1, 10, 3);
 		if (other->GetName() == "Meteor") {
 			other->SetLive(false);

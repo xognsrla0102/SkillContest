@@ -22,14 +22,13 @@ cMidBoss::cMidBoss()
 
 cMidBoss::~cMidBoss()
 {
+	GAME->m_isMidBoss = false;
 	SAFE_DELETE(m_timePlus);
 	SAFE_DELETE(m_img);
 }
 
 void cMidBoss::Update()
 {
-	DEBUG_LOG("now HP : %d\n", m_hp);
-
 	//보스가 플레이어 꼬라보게
 	auto player = ((cPlayer*)OBJFIND(PLAYER));
 	VEC2 dir = player->GetPos() - m_pos;
@@ -84,3 +83,4 @@ void cMidBoss::Render()
 {
 	IMAGE->Render(m_img->m_text, m_pos, m_size, m_rot, true);
 }
+

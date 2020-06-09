@@ -7,6 +7,7 @@
 #include "cTitleScene.h"
 #include "cGameOverScene.h"
 #include "cStageOne.h"
+#include "cResultScene.h"
 
 #include "cLoadScene.h"
 
@@ -127,6 +128,7 @@ void cLoadScene::Init()
 	Load("TitleBG", "resources/image/title/bg.png");
 	Load("StageOneBG", "resources/image/stageone/bg/bg.png");
 	Load("GameOverBG", "resources/image/gameover/bg.png");
+	Load("ResultBG", "resources/image/result/bg.png");
 
 	Load("PlayerIdle", "resources/image/player/idle.png");
 	Load("PlayerLeft", "resources/image/player/left%d.png", 5);
@@ -243,6 +245,7 @@ void cLoadScene::Update()
 		SCENE->AddScene("TitleScene", new cTitleScene);
 		SCENE->AddScene("StageOneScene", new cStageOne);
 		SCENE->AddScene("GameOverScene", new cGameOverScene);
+		SCENE->AddScene("ResultScene", new cResultScene);
 
 		UI->Init();
 

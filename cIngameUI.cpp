@@ -2,7 +2,7 @@
 #include "cPlayer.h"
 #include "cImage.h"
 #include "cEnemyManager.h"
-//#include "cBoss.h"
+#include "cBoss.h"
 #include "cMidBoss.h"
 #include "cIngameUI.h"
 
@@ -156,14 +156,33 @@ void cIngameUI::Update()
 				sprintf(str, "EnemyHit%dSND", rand() % 4);
 				SOUND->Copy(str);
 				enemy->m_mBoss->m_hp--;
+				if (enemy->m_mBoss->m_hp <= 0) {
+					SAFE_DELETE(enemy->m_mBoss);
+				}
 			}
 
-			//if (enemy->m_boss)
-				//enemy->m_boss->m_hp--;
+			if (enemy->m_boss) {
+				char str[256];
+				sprintf(str, "Explosion%dIMG", 1 + rand() % 7);
+				auto img = IMAGE->FindMultiTexture(str);
+				EFFECT->AddEffect(new cEffect(
+					str, img->GetImgSize(), 0.03,
+					VEC2(enemy->m_boss->GetPos().x + rand() % 30 - rand() % 30, enemy->m_boss->GetPos().y + rand() % 30 - rand() % 30),
+					VEC2(0, 0), VEC2(0, 0), VEC2(1.5, 1.5)
+				));
+				sprintf(str, "EnemyHit%dSND", rand() % 4);
+				SOUND->Copy(str);
+				enemy->m_boss->m_hp--;
+				if (enemy->m_boss->m_hp <= 0) {
+					SAFE_DELETE(enemy->m_boss);
+				}
+			}
 
-			((cBulletManager*)OBJFIND(BULLET))->Reset();
+			for(auto iter : ((cBulletManager*)OBJFIND(BULLET))->GetEnemyBullets())
+				SAFE_DELETE(iter);
+			((cBulletManager*)OBJFIND(BULLET))->GetEnemyBullets().clear();
 
-			GAME->m_isNotDead = false;
+			if (!GAME->m_isF1) GAME->m_isNotDead = false;
 		}
 	}
 
@@ -220,7 +239,16 @@ void cIngameUI::Render()
 			int time = ((cEnemyManager*)OBJFIND(ENEMY))->GetMidBoss()->m_patternTime;
 			IMAGE->DrawFont(to_string(60 - time), VEC2(680, 130), D3DCOLOR_XRGB(255, 0, 0), 150);
 		}
-		//else
+		else {
+			rt = {
+			0, 0,
+			(int)(enemy->GetBoss()->m_hp / (float)enemy->GetBoss()->m_hpMax * m_bossHP->m_text->m_info.Width),
+			(int)m_bossHP->m_text->m_info.Height
+			};
+
+			int time = ((cEnemyManager*)OBJFIND(ENEMY))->GetBoss()->m_patternTime;
+			IMAGE->DrawFont(to_string(50 - time), VEC2(680, 130), D3DCOLOR_XRGB(255, 0, 0), 150);
+		}
 		IMAGE->CropRender(m_bossHP->m_text, VEC2(50, 50), VEC2(1, 1), rt);
 	}
 	else {

@@ -16,20 +16,19 @@ public:
 
 	int m_nowStage = 1;
 
-	int m_learnBullet1;
-	int m_learnBullet2;
-	int m_learnBullet3;
-
 	bool m_isPause;
 	bool m_isNotDead;
 	bool m_isDebugInfo;
 
 	bool m_isMidBoss;
 	bool m_isBoss;
+
+	bool m_isF1;
 public:
 	cGameManager();
 	virtual ~cGameManager();
 
+	void StageInit();
 	void Init();
 	void Update();
 };

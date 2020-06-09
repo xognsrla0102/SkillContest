@@ -384,6 +384,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cBoss.cpp" />
     <ClCompile Include="cButton.cpp" />
     <ClCompile Include="cGameOverScene.cpp" />
     <ClCompile Include="cItem.cpp" />
@@ -393,6 +394,7 @@
     <ClCompile Include="cPath.cpp" />
     <ClCompile Include="cRadial.cpp" />
     <ClCompile Include="cRazer.cpp" />
+    <ClCompile Include="cResultScene.cpp" />
     <ClCompile Include="cRotate.cpp" />
     <ClCompile Include="cStraight.cpp" />
     <ClCompile Include="cTitleUI.cpp" />
@@ -430,6 +432,7 @@
     <ClCompile Include="DXUT\Optional\SDKsound.cpp" />
     <ClCompile Include="DXUT\Optional\SDKwavefile.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClInclude Include="cBoss.h" />
     <ClInclude Include="cButton.h" />
     <ClInclude Include="cGameOverScene.h" />
     <ClInclude Include="cItem.h" />
@@ -439,6 +442,7 @@
     <ClInclude Include="cPath.h" />
     <ClInclude Include="cRadial.h" />
     <ClInclude Include="cRazer.h" />
+    <ClInclude Include="cResultScene.h" />
     <ClInclude Include="cRotate.h" />
     <ClInclude Include="cStraight.h" />
     <ClInclude Include="cTitleUI.h" />

@@ -4,8 +4,8 @@
 
 
 //폰트 부분 -------------------------------------------------
-cFontInfo::cFontInfo(string text, VEC2 pos, INT printTime, BOOL isScoreText, D3DCOLOR color)
-	: m_text(text), m_pos(pos), m_isScoreText(isScoreText), m_color(color)
+cFontInfo::cFontInfo(string text, VEC2 pos, INT printTime, BOOL isScoreText, D3DCOLOR color, int size)
+	: m_text(text), m_pos(pos), m_isScoreText(isScoreText), m_color(color), m_size(size)
 {
 	m_timer = new cTimer(printTime);
 }
@@ -23,7 +23,7 @@ void cFontInfo::Update()
 
 void cFontInfo::Render()
 {
-	IMAGE->DrawFont(m_text, m_pos, m_color);
+	IMAGE->DrawFont(m_text, m_pos, m_color, m_size);
 }
 
 
@@ -61,7 +61,7 @@ void cFontManager::Release()
 	m_fonts.clear();
 }
 
-void cFontManager::AddFont(string text, VEC2 pos, INT printTime, BOOL isScoreText, D3DCOLOR color)
+void cFontManager::AddFont(string text, VEC2 pos, INT printTime, BOOL isScoreText, D3DCOLOR color, int size)
 {
 	m_fonts.push_back(new cFontInfo(text, pos, printTime, isScoreText, color));
 }

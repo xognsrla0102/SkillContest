@@ -12,28 +12,32 @@ cGameManager::~cGameManager()
 {
 }
 
-void cGameManager::Init()
+void cGameManager::StageInit()
 {
 	OLD_TIME_SCALE = 1.f;
 	TIME_SCALE = 1.f;
 
-	m_expMax = 2500;
-	m_nowExp = 0;
-
-	m_score = 0;
-
-	m_level = 1;
-
-	m_isPause = false;
-	m_isNotDead = false;
-	m_isDebugInfo = false;
-
 	m_isBoss = false;
 	m_isMidBoss = false;
 
-	m_learnBullet1 = 0;
-	m_learnBullet2 = 0;
-	m_learnBullet3 = 0;
+	m_expMax = 2500;
+	m_nowExp = 0;
+
+	m_level = 1;
+
+	m_isNotDead = false;
+}
+
+void cGameManager::Init()
+{
+	m_score = 0;
+
+	m_isPause = false;
+	m_isDebugInfo = false;
+
+	m_isF1 = false;
+
+	StageInit();
 }
 
 void cGameManager::Update()
@@ -51,7 +55,19 @@ void cGameManager::Update()
 
 	if (m_isPause) return;
 
-	if (KEYDOWN(VK_F1)) m_isNotDead = !m_isNotDead;
+	if (KEYDOWN(VK_SUBTRACT)) {
+		if (TIME_SCALE > 0.f) TIME_SCALE -= 0.1;
+		else TIME_SCALE = 0.f;
+	}
+	else if (KEYDOWN(VK_ADD)) {
+		if (TIME_SCALE < 3.f) TIME_SCALE += 0.1;
+		else TIME_SCALE = 3.f;
+	}
+
+	if (KEYDOWN(VK_F1)) {
+		m_isNotDead = !m_isNotDead;
+		m_isF1 = !m_isF1;
+	}
 	if (KEYDOWN(VK_F2)) if(m_level != 5) m_nowExp = m_expMax;
 
 	if (m_level < 5 && m_nowExp >= m_expMax) {
@@ -92,9 +108,18 @@ void cGameManager::Update()
 	}
 
 	if (KEYDOWN(VK_F3)) {
-		((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
-			new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
-		);
+		static bool isHp = true;
+		if (isHp) {
+			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
+				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
+			);
+		}
+		else {
+			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
+				new cItem("ItemSkillTimeIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
+			);
+		}
+		isHp = !isHp;
 	}
 
 	if (KEYDOWN(VK_F7)) {

@@ -6,6 +6,9 @@ private:
 	float m_accel;
 	float m_bulletSpd;
 public:
+	//유도 전용
+	VEC2 m_target;
+
 	VEC2 m_dir;
 	bool m_isFaccel = false;
 	bool m_isSaccel = false;

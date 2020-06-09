@@ -8,7 +8,7 @@
 #include "cRadial.h"
 #include "cRotate.h"
 #include "cMidBoss.h"
-//#include "cBoss.h"
+#include "cBoss.h"
 #include "cEnemyManager.h"
 #include "cStageOne.h"
 
@@ -37,8 +37,12 @@ cStageOne::~cStageOne()
 
 void cStageOne::Init()
 {
-	GAME->Init();
+	if (GAME->m_nowStage == 1) GAME->Init();
+	else GAME->StageInit();
+
 	SOUND->Play("StageBGM", true);
+
+	m_nowBGM = "StageBGM";
 
 	((cIngameUI*)UI->FindUI("IngameSceneUI"))->Init();
 
@@ -82,24 +86,29 @@ void cStageOne::Update()
 	
 		if (m_gameTime == m_createMidBossTime) {
 			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
-				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
+				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(rand() % (GAMESIZEX / 2), -100))
 			);
+
+			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
+				new cItem("ItemSkillTimeIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2 + rand() % (GAMESIZEX / 2), -100))
+			);
+
 			GAME->m_isMidBoss = true;
-			SOUND->Stop("StageBGM");
-			SOUND->Play("MidBossBGM", true);
+			SOUND->Stop(m_nowBGM);
+			m_nowBGM = "MidBossBGM";
+			SOUND->Play(m_nowBGM, true);
 	
 			((cEnemyManager*)OBJFIND(ENEMY))->m_mBoss = new cMidBoss;
 			m_patternTime = 999.f;
 		}
 	
-		//중간보스 싸움시간 대략 60초로 가정
+		//중간보스 싸움시간 60초
 		if (m_gameTime == m_createMidBossTime + 60) {
 			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
 				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
 			);
 			if (GAME->m_isMidBoss) {
-				GAME->m_isMidBoss = false;
-				((cEnemyManager*)OBJFIND(ENEMY))->Release();
+				((cEnemyManager*)OBJFIND(ENEMY))->m_mBoss->SetLive(false);
 			}
 		}
 	
@@ -108,14 +117,19 @@ void cStageOne::Update()
 				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
 			);
 			GAME->m_isBoss = true;
-			SOUND->Play("LastBossBGM", true);
+			SOUND->Stop(m_nowBGM);
+			m_nowBGM = "LastBossBGM";
+			SOUND->Play(m_nowBGM, true);
+
+			((cEnemyManager*)OBJFIND(ENEMY))->m_boss = new cBoss;
 			m_patternTime = 999.f;
 		}
 	
+		//보스 싸움시간 50초
 		if (m_gameTime == m_createBossTime + 50) {
 			if (GAME->m_isBoss) {
-				GAME->m_isBoss = false;
-				((cEnemyManager*)OBJFIND(ENEMY))->Release();
+				((cEnemyManager*)OBJFIND(ENEMY))->m_boss->SetLive(false);
+				SCENE->ChangeScene("ResultScene", "Fade", 3.f);
 			}
 		}
 	}
@@ -133,18 +147,9 @@ void cStageOne::Render()
 
 void cStageOne::Release()
 {
-	if (GAME->m_isBoss) {
-		SOUND->Stop("LastBossBGM");
-		GAME->m_isBoss = false;
-	}
-	else if (GAME->m_isMidBoss) {
-		SOUND->Stop("MidBossBGM");
-		GAME->m_isMidBoss = false;
-	}
-	else
-	{
-		SOUND->Stop("StageBGM");
-	}
+	SOUND->Stop(m_nowBGM);
+	if (GAME->m_isBoss)			GAME->m_isBoss = false;
+	else if (GAME->m_isMidBoss) GAME->m_isMidBoss = false;
 
 	m_map->Release();
 

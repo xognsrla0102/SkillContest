@@ -5,6 +5,7 @@ class cScroolMap;
 class cStageOne : public cScene
 {
 private:
+	string m_nowBGM;
 	cScroolMap* m_map;
 	cTimer* m_timePlus;
 	cTimer* m_createMeteor;
@@ -16,7 +17,7 @@ private:
 	FLOAT m_patternTime;
 
 	int m_createMidBossTime = 100.f;
-	int m_createBossTime = 200.f;
+	int m_createBossTime = 5.f;
 	int m_gameTime;
 	int m_mapPattern;
 	int m_totalPattern = 5;

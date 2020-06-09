@@ -1,4 +1,6 @@
 #include "DXUT.h"
+#include "cBoss.h"
+#include "cMidBoss.h"
 #include "cEnemyManager.h"
 #include "cBullet.h"
 
@@ -38,16 +40,20 @@ cBullet::~cBullet()
 void cBullet::Update()
 {
 	auto enemy = (cEnemyManager*)OBJFIND(ENEMY);
-	for(auto iter : enemy->GetMeteor())
-		if(iter->GetLive())
-			OnCollision(iter);
-	for (auto iter : enemy->GetEnemy())
-		if (iter->GetLive())
-			OnCollision(iter);
-	if(enemy->m_boss)
-		OnCollision((cObject*)enemy->m_boss);
-	if(enemy->m_mBoss)
-		OnCollision((cObject*)enemy->m_mBoss);
+
+	if (m_objName == "PlayerBullet") {
+		for (auto iter : enemy->GetMeteor())
+			if (iter->GetLive())
+				OnCollision(iter);
+		for (auto iter : enemy->GetEnemy())
+			if (iter->GetLive())
+				OnCollision(iter);
+
+		if (enemy->m_boss && enemy->m_boss->GetLive())
+			OnCollision((cObject*)enemy->m_boss);
+		if (enemy->m_mBoss && enemy->m_mBoss->GetLive())
+			OnCollision((cObject*)enemy->m_mBoss);
+	}
 
 	if (m_objName == "PlayerBullet") OutMapChk(0);
 	else OutMapChk(200);
@@ -99,27 +105,28 @@ void cBullet::OnCollision(cObject* other)
 			if (other->GetName() == "Radial") return;
 
 			auto player = ((cPlayer*)OBJFIND(PLAYER));
-			((cEnemy*)other)->m_hp -= player->m_atk[player->m_nowWeapon];
+			if (player->m_stealTanName == "EnemyRazer") ((cEnemy*)other)->m_hp -= 20;
+			else ((cEnemy*)other)->m_hp -= player->m_atk[player->m_nowWeapon];
 			if (((cEnemy*)other)->m_hp <= 0) {
+				CAMERA->SetShake(0.05, 5, 5);
 				other->SetLive(false);
 				int getScore = 0;
 				if (name == "Razer")		 getScore = 500 * GAME->m_level / 2.f;
 				else if (name == "Straight") getScore = 200 * GAME->m_level / 2.f;
 				else if (name == "Rotate")	 getScore = 500 * GAME->m_level / 2.f;
 				else if (name == "MidBoss") {
-					GAME->m_isMidBoss = false;
-					((cEnemyManager*)OBJFIND(ENEMY))->Release();
-					getScore = 5000 * GAME->m_level / 2.f;
+					other->SetLive(false);
+					getScore = 5000 * GAME->m_nowStage * 2.f;
 				}
 				else if (name == "Boss") {
-					GAME->m_isBoss = false;
-					((cEnemyManager*)OBJFIND(ENEMY))->Release();
-					getScore = 20000 * GAME->m_level / 2.f;
+					other->SetLive(false);
+					getScore = 20000 * GAME->m_nowStage * 2.f;
+					SCENE->ChangeScene("ResultScene", "Fade", 3.f);
 				}
 
 				if (name != "Meteor") {
 					GAME->m_score += getScore;
-					FONT->AddFont("+" + to_string(getScore) + "EXP", m_pos, 1.f, true);
+					FONT->AddFont("+" + to_string(getScore) + "EXP", m_pos, 1.5f, true);
 					if (GAME->m_level == 5) getScore = 0;
 					GAME->m_nowExp += getScore;
 				}
@@ -132,8 +139,6 @@ void cBullet::OnCollision(cObject* other)
 void cBullet::Dead()
 {
 	if (m_objName == "PlayerBullet") {
-		CAMERA->SetShake(0.05, 5, 5);
-
 		char str[256];
 		sprintf(str, "RocketHit%dSND", rand() % 5);
 		SOUND->Copy(str);
@@ -151,4 +156,8 @@ void cBullet::Dead()
 
 void cBullet::Homing()
 {
+	//보스 전용 유도탄
+	m_target = OBJFIND(PLAYER)->GetPos();
+
+	Lerp(m_dir, m_target, 0.015);
 }
