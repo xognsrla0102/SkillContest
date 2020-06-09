@@ -142,8 +142,8 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTInit( true, true ); // Parse the command line and show msgboxes
     DXUTSetHotkeyHandling( true, true, true );  // handle the default hotkeys
     DXUTSetCursorSettings( true, true ); // Show the cursor and clip it when in full screen
-    DXUTCreateWindow( L"기능대회" );
-    DXUTCreateDevice( true, WINSIZEX, WINSIZEY );
+    DXUTCreateWindow( L"기능대회 슈팅게임 연습" );
+    DXUTCreateDevice( false, WINSIZEX, WINSIZEY );
 
     // Start the render loop
     DXUTMainLoop();

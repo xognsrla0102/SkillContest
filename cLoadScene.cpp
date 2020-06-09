@@ -8,6 +8,8 @@
 #include "cGameOverScene.h"
 #include "cStageOne.h"
 #include "cResultScene.h"
+#include "cRankScene.h"
+#include "cHelpScene.h"
 
 #include "cLoadScene.h"
 
@@ -38,8 +40,8 @@ void cLoadScene::Init()
 	Load("StageBGM", L"resources/bgm/stage.wav");
 	Load("MidBossBGM", L"resources/bgm/midboss.wav");
 	Load("LastBossBGM", L"resources/bgm/lastboss.wav");
-	Load("OneEndingBGM", L"resources/bgm/oneending.wav");
-	Load("TwoEndingBGM", L"resources/bgm/twoending.wav");
+	Load("HelpBGM", L"resources/bgm/help.wav");
+	Load("RankBGM", L"resources/bgm/rank.wav");
 	Load("FailBGM", L"resources/bgm/fail.wav");
 	Load("ResultBGM", L"resources/bgm/result.wav");
 
@@ -129,6 +131,8 @@ void cLoadScene::Init()
 	Load("StageOneBG", "resources/image/stageone/bg/bg.png");
 	Load("GameOverBG", "resources/image/gameover/bg.png");
 	Load("ResultBG", "resources/image/result/bg.png");
+	Load("RankBG", "resources/image/rank/bg.png");
+	Load("HelpBG", "resources/image/help/bg.png");
 
 	Load("PlayerIdle", "resources/image/player/idle.png");
 	Load("PlayerLeft", "resources/image/player/left%d.png", 5);
@@ -246,6 +250,8 @@ void cLoadScene::Update()
 		SCENE->AddScene("StageOneScene", new cStageOne);
 		SCENE->AddScene("GameOverScene", new cGameOverScene);
 		SCENE->AddScene("ResultScene", new cResultScene);
+		SCENE->AddScene("RankScene", new cRankScene);
+		SCENE->AddScene("HelpScene", new cHelpScene);
 
 		UI->Init();
 

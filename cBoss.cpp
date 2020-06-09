@@ -6,7 +6,7 @@ cBoss::cBoss()
 	m_timePlus = new cTimer(1);
 	m_img = new cImage;
 
-	m_hp = 1500 * GAME->m_nowStage;
+	m_hp = 2000 * GAME->m_nowStage;
 	m_hpMax = m_hp;
 	m_atk = 8 * GAME->m_nowStage;
 
@@ -44,8 +44,8 @@ void cBoss::Update()
 		m_patternTime++;
 	}
 
-	//생성 후 20초까지는 랜덤으로 움직임
-	if (m_patternTime < 20) {
+	//생성 후 30초까지는 랜덤으로 움직임
+	if (m_patternTime < 30) {
 		if (m_isMoveDone) {
 			m_nextPos = GXY(rand() % GAMESIZEX, rand() % 150);
 			m_isMoveDone = false;
@@ -56,10 +56,10 @@ void cBoss::Update()
 				m_isMoveDone = true;
 		}
 	}
-	else if (m_patternTime == 20) {
+	else if (m_patternTime == 30) {
 		m_nextPos = GXY(GAMESIZEX / 2, 150);
 	}
-	else if (m_patternTime > 20) {
+	else if (m_patternTime > 30) {
 		Lerp(m_pos, m_nextPos, 0.03);
 		if (DistPoint(m_pos, m_nextPos) < 1.f) {
 			m_pos = GXY(GAMESIZEX / 2, 150);
@@ -72,7 +72,7 @@ void cBoss::Update()
 		m_circleTan = 0.f;
 		VEC2 dir = OBJFIND(PLAYER)->GetPos() - m_pos;
 		((cBulletManager*)OBJFIND(BULLET))->N_Way_Tan(
-			"EnemyRadial", "EnemyRadialIMG", 6 - bulletCnt0, 5 + 1 * bulletCnt0, m_pos, dir, VEC2(1.5, 1.5), (100.f + 50 * bulletCnt0) * GAME->m_nowStage, 3.f
+			"EnemyRadial", "EnemyRadialIMG", 5 - bulletCnt0, 5 + 3 * bulletCnt0, m_pos, dir, VEC2(1.5, 1.5), (100.f + 30 * bulletCnt0) * GAME->m_nowStage, 3.f
 		);
 		bulletCnt0++;
 	}
@@ -114,7 +114,7 @@ void cBoss::Update()
 		}
 		bulletCnt++;
 	}
-	else if (bulletCnt == 5 && m_straightTan > 0.5f / GAME->m_nowStage) {
+	else if (bulletCnt == 5 && m_straightTan > 1.f / GAME->m_nowStage) {
 		m_straightTan = 0.f;
 		bulletCnt = 0;
 	}

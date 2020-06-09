@@ -237,7 +237,7 @@ void cIngameUI::Render()
 			};
 
 			int time = ((cEnemyManager*)OBJFIND(ENEMY))->GetMidBoss()->m_patternTime;
-			IMAGE->DrawFont(to_string(60 - time), VEC2(680, 130), D3DCOLOR_XRGB(255, 0, 0), 150);
+			IMAGE->DrawFont(to_string(50 - time), VEC2(680, 130), D3DCOLOR_XRGB(255, 0, 0), 150);
 		}
 		else {
 			rt = {
@@ -247,7 +247,7 @@ void cIngameUI::Render()
 			};
 
 			int time = ((cEnemyManager*)OBJFIND(ENEMY))->GetBoss()->m_patternTime;
-			IMAGE->DrawFont(to_string(50 - time), VEC2(680, 130), D3DCOLOR_XRGB(255, 0, 0), 150);
+			IMAGE->DrawFont(to_string(60 - time), VEC2(680, 130), D3DCOLOR_XRGB(255, 0, 0), 150);
 		}
 		IMAGE->CropRender(m_bossHP->m_text, VEC2(50, 50), VEC2(1, 1), rt);
 	}

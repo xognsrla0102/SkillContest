@@ -6,7 +6,7 @@ cMidBoss::cMidBoss()
 	m_timePlus = new cTimer(1);
 	m_img = new cImage;
 
-	m_hp = 1000 * GAME->m_nowStage;
+	m_hp = 1200 * GAME->m_nowStage;
 	m_hpMax = m_hp;
 	m_atk = 5 * GAME->m_nowStage;
 

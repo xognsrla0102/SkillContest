@@ -1,9 +1,20 @@
 #pragma once
 #include "cSingleton.hpp"
 
+class cScore {
+public:
+	string m_initial;
+	int m_score;
+public:
+	cScore() {}
+	cScore(string initial, int score) : m_initial(initial), m_score(score) {}
+};
+
 class cGameManager : public cSingleton<cGameManager>
 {
 public:
+	cScore* m_scoreList[4];
+
 	float OLD_TIME_SCALE;
 	float TIME_SCALE;
 
@@ -31,6 +42,7 @@ public:
 	void StageInit();
 	void Init();
 	void Update();
+	void SortScore();
 };
 
 #define GAME cGameManager::GetInst()

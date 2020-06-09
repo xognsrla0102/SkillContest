@@ -1,16 +1,12 @@
 #pragma once
 #include "cScene.h"
-class cResultScene : public cScene
+class cHelpScene : public cScene
 {
 private:
-	string m_scorePrint;
-	string m_initial;
 	cImage* m_bg;
-	float m_nowYourScore;
-	bool m_isEnterInitial;
 public:
-	cResultScene();
-	virtual ~cResultScene();
+	cHelpScene();
+	virtual ~cHelpScene();
 
 	virtual void Init() override;
 	virtual void Update() override;

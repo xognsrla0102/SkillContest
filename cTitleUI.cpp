@@ -37,6 +37,8 @@ void cTitleUI::Update()
 {
 	Lerp(m_namePos, VEC2(WINSIZEX / 2 - 100, 200), 0.08);
 
+	if (SCENE->m_isSceneChange) return;
+
 	if (KEYDOWN(VK_UP)) {
 		m_buttons[m_nowButton]->m_isOn = false;
 		if (m_nowButton - 1 < 0) m_nowButton = m_buttons.size() - 1;
@@ -57,8 +59,10 @@ void cTitleUI::Update()
 			SCENE->ChangeScene("StageOneScene", "Plane", 3000.f);
 			break;
 		case 1:
+			SCENE->ChangeScene("RankScene", "Fade", 2.f);
 			break;
 		case 2:
+			SCENE->ChangeScene("HelpScene", "Fade", 10.f);
 			break;
 		}
 	}

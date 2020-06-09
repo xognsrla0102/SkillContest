@@ -409,6 +409,12 @@
     <ClCompile Include="cResultScene.cpp">
       <Filter>Core\scene\result</Filter>
     </ClCompile>
+    <ClCompile Include="cRankScene.cpp">
+      <Filter>Core\scene\rank</Filter>
+    </ClCompile>
+    <ClCompile Include="cHelpScene.cpp">
+      <Filter>Core\scene\help</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -566,6 +572,12 @@
     </ClInclude>
     <ClInclude Include="cResultScene.h">
       <Filter>Core\scene\result</Filter>
+    </ClInclude>
+    <ClInclude Include="cRankScene.h">
+      <Filter>Core\scene\rank</Filter>
+    </ClInclude>
+    <ClInclude Include="cHelpScene.h">
+      <Filter>Core\scene\help</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

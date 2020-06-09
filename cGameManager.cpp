@@ -3,13 +3,23 @@
 #include "cPlayer.h"
 #include "cGameManager.h"
 
+bool Comp(cScore* a, cScore* b) {
+	return (a->m_score > b->m_score);
+}
+
 cGameManager::cGameManager()
 {
 	Init();
+	m_scoreList[0] = new cScore("KDJ", 200963);
+	m_scoreList[1] = new cScore("KTH", 177302);
+	m_scoreList[2] = new cScore("SDH", 145062);
+	m_scoreList[3] = new cScore;
 }
 
 cGameManager::~cGameManager()
 {
+	for (auto iter : m_scoreList)
+		SAFE_DELETE(iter);
 }
 
 void cGameManager::StageInit()
@@ -125,5 +135,10 @@ void cGameManager::Update()
 	if (KEYDOWN(VK_F7)) {
 		m_isDebugInfo = !m_isDebugInfo;
 	}
+}
+
+void cGameManager::SortScore()
+{
+	sort(m_scoreList, m_scoreList + 4, Comp);
 }
 

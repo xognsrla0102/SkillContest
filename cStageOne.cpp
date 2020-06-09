@@ -69,11 +69,11 @@ void cStageOne::Update()
 		m_gameTime++;
 	
 		//미드보스 끝나기 10초전
-		if (GAME->m_isMidBoss && (m_createMidBossTime + 50 <= m_gameTime && m_gameTime <= m_createMidBossTime + 60)) {
+		if (
+			(GAME->m_isMidBoss && (m_createMidBossTime + 40 <= m_gameTime && m_gameTime <= m_createMidBossTime + 50)) ||
+			(GAME->m_isBoss && (m_createBossTime + 50 <= m_gameTime && m_gameTime <= m_createBossTime + 60))
+		) {
 			SOUND->Copy("WarningSND");
-			SOUND->Copy("WarningSND");
-		}
-		else if (GAME->m_isBoss && (m_createBossTime + 40 <= m_gameTime && m_gameTime <= m_createBossTime + 50)) {
 			SOUND->Copy("WarningSND");
 			SOUND->Copy("WarningSND");
 		}
@@ -102,8 +102,8 @@ void cStageOne::Update()
 			m_patternTime = 999.f;
 		}
 	
-		//중간보스 싸움시간 60초
-		if (m_gameTime == m_createMidBossTime + 60) {
+		//중간보스 싸움시간 50초
+		if (m_gameTime == m_createMidBossTime + 50) {
 			((cItemManager*)OBJFIND(ITEM))->m_items.push_back(
 				new cItem("ItemHpIMG", GXY(GAMESIZEX / 2, -100), GXY(GAMESIZEX / 2, -100))
 			);
@@ -125,8 +125,8 @@ void cStageOne::Update()
 			m_patternTime = 999.f;
 		}
 	
-		//보스 싸움시간 50초
-		if (m_gameTime == m_createBossTime + 50) {
+		//보스 싸움시간 60초
+		if (m_gameTime == m_createBossTime + 60) {
 			if (GAME->m_isBoss) {
 				((cEnemyManager*)OBJFIND(ENEMY))->m_boss->SetLive(false);
 				SCENE->ChangeScene("ResultScene", "Fade", 3.f);
@@ -142,6 +142,11 @@ void cStageOne::Update()
 
 void cStageOne::Render()
 {
+	if (KEYDOWN(VK_HOME))
+		m_gameTime = m_createBossTime - 2;
+	if (KEYDOWN(VK_END))
+		m_gameTime = m_createMidBossTime - 2;
+
 	m_map->Render();
 }
 

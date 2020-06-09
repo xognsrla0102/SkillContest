@@ -149,13 +149,11 @@ void cPlayer::OnCollision(cObject* other)
 			if (AABB(GetObjCollider(), other->GetObjCollider())) {
 				if (other->GetName() == "EnemyRazer" || other->GetName() == "EnemyStraight" ||
 					other->GetName() == "EnemyRadial" || other->GetName() == "EnemyRotate") {
-					other->SetLive(false);
 
-					if (other->GetName() != "EnemyRazer") {
-						SOUND->Copy("StealSND");
-						SOUND->Copy("StealSND");
-						SOUND->Copy("StealSND");
-					}
+					other->SetLive(false);
+					SOUND->Play("StealSND", false);
+					SOUND->Play("StealSND", false);
+					SOUND->Play("StealSND", false);
 
 					m_stealTanName = other->GetName();
 					if (!m_isSteal) m_isSteal = true;

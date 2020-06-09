@@ -1710,12 +1710,14 @@ LRESULT CALLBACK DXUTStaticWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM 
         {
             switch( wParam )
             {
-                /*case VK_ESCAPE:
+                case VK_ESCAPE:
                 {
-                    if( GetDXUTState().GetHandleEscape() )
-                        SendMessage( hWnd, WM_CLOSE, 0, 0 );
+                    if (SCENE->GetNowSceneKey() == "TitleScene") {
+                        if (GetDXUTState().GetHandleEscape())
+                            SendMessage(hWnd, WM_CLOSE, 0, 0);
+                    }
                     break;
-                }*/
+                }
 
                 case VK_PAUSE:
                 {
